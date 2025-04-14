@@ -5,249 +5,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Recipe Book</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #fdf9e5;
-        }
-
-        nav {
-            padding: 1.6rem 2rem;
-            position: relative;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .logo img {
-            height: 50px;
-            /* Match text height */
-            width: 50px;
-            border-radius: 50%;
-        }
-
-        .middle-image {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .middle-image img {
-            display: block;
-            max-height: 50px;
-            /* Ensures height matches navbar text */
-            width: auto;
-        }
-
-        .nav-menu ul {
-            display: flex;
-            list-style: none;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            gap: 2rem;
-        }
-
-        .nav-menu a {
-            color: #775737;
-            text-decoration: none;
-            font-size: 1.4rem;
-            font-weight: 400;
-        }
-
-        .login-btn {
-            background: #c6dd6b;
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-            text-decoration: none;
-            font-weight: 400;
-        }
-
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-
-            nav {
-                border-bottom: 1px solid #775737;
-            }
-
-            .nav-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                position: relative;
-            }
-
-            .menu-toggle {
-                display: block;
-                color: #c6dd6b;
-                order: 2;
-            }
-
-            .middle-image {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .middle-image img {
-                max-height: 40px;
-                /* Adjust for smaller screens */
-                width: auto;
-            }
-
-            .nav-menu {
-                display: none;
-                position: absolute;
-                background: #fdf9e5;
-                z-index: 1000;
-                width: 120px;
-                top: 100%;
-                right: 0;
-                left: auto;
-                padding: 1rem;
-                transition: all 0.3s ease;
-                text-align: center;
-                border: 1px solid #775737;
-                border-bottom-left-radius: 25%;
-                border-bottom-right-radius: 25%;
-            }
-
-            .nav-menu ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-menu a {
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                font-size: 0.8rem;
-                font-weight: 600;
-            }
-
-            .nav-menu.active {
-                display: block;
-            }
-
-            .login-btn {
-                background: #c6dd6b;
-                padding: 0.5rem 1rem;
-                border-radius: 1.2px;
-                text-decoration: none;
-            }
-
-            .footer-social {
-                display: flex;
-                flex-direction: column;
-                gap: 0.4rem;
-            }
-        }
-
-        footer {
-            /* background: #C46E58; */
-            padding: 2rem 1.5rem;
-            text-align: center;
-            background-image: url("{% static 'images/lessdoodled(2).png'%}");
-            background-repeat: repeat-x;
-            background-size: 20rem;
-            color: #775737;
-        }
-
-        .footer-container {
-            display: flex;
-            gap: 1rem;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-logo img {
-            height: 80px;
-            width: 80px;
-            border-radius: 50%;
-        }
-
-        .footer-links ul {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            text-decoration: none;
-            font-weight: bold;
-            color: #775737;
-        }
-
-        .footer-social i {
-            font-size: 1.5rem;
-            margin: 0 1rem;
-        }
-
-        .footer-container p {
-            font-size: 0.9rem;
-        }
-    </style>
+    <title>Recipes</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static '/images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static '/images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static '/images/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static '/site.webmanifest' %}">
 </head>
 
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="menu-toggle" onclick="toggleMenu('nav-menu')">
-                <i class="fas fa-bars"></i>
-            </div>
-            <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="Logo"></a>
-            <a href="#" class="middle-image"><img src="{% static 'images/cookiedonutkiwi.png' %}"
-                    alt="Middle Image"></a>
-            <div class="nav-menu" id="nav-menu">
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">つくる</a>
+
+            <div class="nav-mid-items">
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li class="{% if active_page == 'home' %}active{% endif %}"><a href="#">Home</a></li>
+                    <!-- <li><a href="#">Home</a></li> -->
+                    <li><a href="#">Cook</a></li>
                     <li><a href="#">Contact</a></li>
-                    <li><a href="#" class="login-btn">Login</a></li>
+                    <li><a href="#">Help</a></li>
                 </ul>
+            </div>
+
+            <div class="sub-user-menu">
+                <button><a href="/login/">Log In</a></button>
+            </div>
+
+        </nav>
+    </header>
+
+    <section class="hero-sec">
+        <div class="hero-img">
+            <img src="{% static '/images/hero-img.jpg' %}" alt="image">
+        </div>
+
+        <div class="hero-text">
+            <h3>Your Daily Recipe Finder</h3>
+
+            <div class="hero-btns">
+                <button id="hero-btn-1"><a href="/login/">Start Cookin</a></button>
+                <button id="hero-btn-2"><a href="#explore-sec">Explore Recipes</a></button>
             </div>
         </div>
-    </nav>
+    </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="{% static 'images/logo.png' %}" alt="Logo">
+    <section class="explore-sec" id="explore-sec">
+        <div class="explore-container">
+            <div class="sec-heading">Trending Recipes</div>
+
+            <div class="recipe-container">
+                <div class="card" id="card-1">
+                    <i class="fa-solid fa-blender"></i>
+                    <h3>Blueberry Smoothie</h3>
+                    <p>Sweet, tangy delight packed with antioxidants, boosts brain health, supports digestion, and dances through your veins with vitamin-rich coolness.</p>
+                    <a href="">view more</a>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-drumstick-bite"></i>
+                    <h3>Chicken Tikka Masala</h3>
+                    <p>Smoky, spicy symphony rich in protein; promotes satiety, supports muscle health, and satisfies soul-deep cravings with fragrant, fiery love.</p>
+                    <a href="">view more</a>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-utensils"></i>
+                    <h3>Malai Kofta</h3>
+                    <p>Creamy, nutty richness; a vegetarian indulgence offering paneer’s protein, cashew's good fats—comfort food with royalty's whisper and a hug.</p>
+                    <a href="">view more</a>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-bread-slice"></i>
+                    <h3>Moong Chila</h3>
+                    <p>Earthy, crispy pancake of protein-packed moong dal; improves digestion, balances blood sugar, and sings health in every savory golden bite.</p>
+                    <a href="">view more</a>
+                </div>
             </div>
-            <div class="footer-links">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                </ul>
-            </div>
-            <div class="footer-social">
-                <i class="fab fa-linkedin"></i>
-                <i class="fab fa-github"></i>
-                <i class="fas fa-envelope"></i>
-            </div>
-            <p>&copy; 2025 Recipe. All Rights Reserved.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <!-- <img src="logo.png" alt="Sukuru Logo" class="logo" /> -->
+            <span class="logo-text-2">つくる</span>
+        </div>
+
+        <div class="footer-middle">
+            <p>© 2025 Tsukuru | Follow us on</p>
+        </div>
+
+        <div class="footer-right">
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
         </div>
     </footer>
 
-    <script>
-        function toggleMenu(menuId) {
-            document.getElementById(menuId).classList.toggle('active');
-        }
-    </script>
 </body>
+<script src="{% static '/js/main.js' %}"></script>
 
 </html>
+
+<!-- つくる (tsukuru) -->
