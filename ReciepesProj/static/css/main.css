@@ -1,0 +1,311 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: aliceblue;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    gap: 1rem;
+    display: flex;
+    margin: 1rem 0rem;
+    padding: 0 2rem;
+    max-width: 1200px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #a12638;
+    text-decoration: none;
+}
+
+.nav-mid-items ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.nav-mid-items ul li {
+    list-style: none;
+}
+
+.nav-mid-items ul li a {
+    font-weight: bold;
+    color: #222;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-mid-items ul li a:hover {
+    color: #a12638;
+}
+
+.nav-mid-items ul li.active a {
+    border-bottom: 3px solid #a12638;
+    padding-bottom: 4px;
+}
+
+.sub-user-menu button {
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #a12638;
+    background-color: #a12638;
+    transition: all 0.2s ease;
+}
+
+.sub-user-menu button a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.sub-user-menu button:hover {
+    border: 2px solid #a12638;
+    background-color: white;
+}
+
+.sub-user-menu button:hover a {
+    color: #a12638;
+}
+
+.hero-sec {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    border-bottom: 1.5px solid #a12638;
+    padding: 2rem;
+}
+
+.hero-img img {
+    height: 430px;
+    width: auto;
+    right: -5%;
+    position: relative;
+    background: transparent;
+}
+
+.hero-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hero-text h3 {
+    font-family: inherit;
+    font-size: 1.8rem;
+}
+
+.hero-btns button {
+    font-family: inherit;
+    font-size: .85rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hero-btns button a {
+    text-decoration: none;
+}
+
+#hero-btn-1 a {
+    color: aliceblue;
+}
+
+#hero-btn-2 a {
+    color: #a12638;
+}
+
+#hero-btn-1 {
+    background-color: #a12638;
+    border: 2px solid #a12638;
+}
+
+#hero-btn-2 {
+    background: transparent;
+    border: 2px solid #a12638;
+}
+
+#hero-btn-2:hover a {
+    color: aliceblue;
+}
+
+#hero-btn-2:hover {
+    background-color: #a12638;
+    border-radius: 6px;
+    border: 2px solid #a12638;
+}
+
+.explore-sec {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+}
+
+.explore-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sec-heading {
+    color: #a12638;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.recipe-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+
+.recipe-container .card {
+    background-color: rgba(91, 89, 89, 0.306);
+    padding: 1.2rem;
+    min-height: 250px;
+    font-family: inherit;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#card-1 {
+    padding: 1.2rem;
+    background-color: #333;
+    min-height: 250px;
+    font-family: inherit;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#card-1 i {
+    color: white;
+    font-size: 1.6rem;
+}
+
+.card i {
+    color: #a12638;
+    font-size: 1.6rem;
+}
+
+
+.card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    max-width: fit-content;
+    padding: .3rem 0rem;
+    line-height: 2.4rem;
+    border-radius: 10px;
+    color: #a12638;
+}
+
+#card-1 h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    max-width: fit-content;
+    padding: .3rem 0rem;
+    line-height: 2.4rem;
+    border-radius: 10px;
+    color: aliceblue;
+}
+
+.card p {
+    font-size: .7rem;
+    font-weight: 200;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+    color: #a12638;
+}
+
+#card-1 p {
+    font-size: .7rem;
+    font-weight: 200;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+    color: aliceblue;
+}
+
+.card a {
+    text-decoration: none;
+    font-size: .8rem;
+    color: #bc2c42;
+}
+
+.footer {
+    background-color: #222;
+    color: white;
+    bottom: 0%;
+    position: relative;
+    min-width: -webkit-fill-available;
+    padding: 0.7rem 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-left,
+.footer-middle,
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-left .logo {
+    height: 32px;
+    width: 32px;
+}
+
+.logo-text-2 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-left: 0.5rem;
+}
+
+.footer-middle {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+.footer-right a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.footer-right a:hover {
+    color: #a12638;
+}
