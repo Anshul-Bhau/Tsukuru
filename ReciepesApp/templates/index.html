@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static '/images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static '/images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static '/images/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static '/site.webmanifest' %}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">つくる</a>
+
+            <div class="nav-mid-items">
+                <ul>
+                    <li class="{% if active_page == 'home' %}active{% endif %}"><a href="#">Home</a></li>
+                    <!-- <li><a href="#">Home</a></li> -->
+                    <li><a href="#">Cook</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+
+            <div class="sub-user-menu">
+                <button><a href="/login/">Log In</a></button>
+            </div>
+
+        </nav>
+    </header>
+
+    <section class="hero-sec">
+        <div class="hero-img">
+            <img src="{% static '/images/hero-img.jpg' %}" alt="image">
+        </div>
+
+        <div class="hero-text">
+            <h3>Your Daily Recipe Finder</h3>
+
+            <div class="hero-btns">
+                <button id="hero-btn-1"><a href="/login/">Start Cookin</a></button>
+                <button id="hero-btn-2"><a href="#explore-sec">Explore Recipes</a></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="explore-sec" id="explore-sec">
+        <div class="explore-container">
+            <div class="sec-heading">Trending Recipes</div>
+
+            <div class="recipe-container">
+                <div class="card" id="card-1">
+                    <i class="fa-solid fa-blender"></i>
+                    <h3>Blueberry Smoothie</h3>
+                    <p>Sweet, tangy delight packed with antioxidants, boosts brain health, supports digestion, and dances through your veins with vitamin-rich coolness.</p>
+                    <a href="">view more</a>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-drumstick-bite"></i>
+                    <h3>Chicken Tikka Masala</h3>
+                    <p>Smoky, spicy symphony rich in protein; promotes satiety, supports muscle health, and satisfies soul-deep cravings with fragrant, fiery love.</p>
+                    <a href="">view more</a>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-utensils"></i>
+                    <h3>Malai Kofta</h3>
+                    <p>Creamy, nutty richness; a vegetarian indulgence offering paneer’s protein, cashew's good fats—comfort food with royalty's whisper and a hug.</p>
+                    <a href="">view more</a>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-bread-slice"></i>
+                    <h3>Moong Chila</h3>
+                    <p>Earthy, crispy pancake of protein-packed moong dal; improves digestion, balances blood sugar, and sings health in every savory golden bite.</p>
+                    <a href="">view more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <!-- <img src="logo.png" alt="Sukuru Logo" class="logo" /> -->
+            <span class="logo-text-2">つくる</span>
+        </div>
+
+        <div class="footer-middle">
+            <p>© 2025 Tsukuru | Follow us on</p>
+        </div>
+
+        <div class="footer-right">
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </footer>
+
+</body>
+<script src="{% static '/js/main.js' %}"></script>
+
+</html>
+
+<!-- つくる (tsukuru) -->

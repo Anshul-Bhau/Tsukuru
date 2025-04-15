@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Signup</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}">
+</head>
+
+<body 
+  data-login-url="{% url 'user_login' %}" 
+  data-dashboard-url="{% url 'dashboard' %}">
+  
+  <div class="container">
+    <div class="tabs">
+      <div class="tab active" id="login-tab">Login</div>
+      <div class="tab" id="signup-tab">Sign Up</div>
+    </div>
+
+    <div class="form-container">
+      <!-- Login Form -->
+      <!-- <form class="form active" id="login-form" method="post"> -->
+        <form id="login-form" method="POST" action="{% url 'user_login' %}">
+        {% csrf_token %}
+        {% if error %}
+          <div class="error-message">{{ error }}</div>
+        {% endif %}
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email</label>
+          <input type="email" name="email" class="form-control" id="login-email" placeholder="Enter your email" required>
+        </div>
+        
+        
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" name="password" class="form-control" id="login-password" placeholder="Enter your password" required>
+          <i class="password-toggle-icon fas fa-eye" id="toggleLoginPassword"></i>
+        </div>
+
+        <div class="remember-forgot">
+          <div class="remember">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember this device</label>
+          </div>
+          <div class="forgot">
+            <a href="#" id="forgot-password">Forgot password?</a>
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+
+        <div class="social-login">
+          <div class="social-label">Or continue with</div>
+          <div class="social-icons">
+            <div class="social-icon">G</div>
+            <div class="social-icon">f</div>
+            <div class="social-icon">in</div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Signup Form -->
+      <form class="form" id="signup-form">
+        <div class="form-group">
+          <label class="form-label" for="signup-name">Full Name</label>
+          <input type="text" class="form-control" id="signup-name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-email">Email</label>
+          <input type="email" class="form-control" id="signup-email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-password">Password</label>
+          <input type="password" class="form-control" id="signup-password" placeholder="Create a password" required>
+          <i class="password-toggle-icon fas fa-eye" id="toggleLoginPassword"></i>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-confirm">Confirm Password</label>
+          <input type="password" class="form-control" id="signup-confirm" placeholder="Confirm your password" required>
+          <i class="password-toggle-icon fas fa-eye" id="toggleLoginPassword"></i>
+        </div>
+
+        <button type="submit" class="btn">Sign Up</button>
+
+        <div class="social-login">
+          <div class="social-label">Or sign up with</div>
+          <div class="social-icons">
+            <div class="social-icon">G</div>
+            <div class="social-icon">f</div>
+            <div class="social-icon">in</div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Forgot Password Form (initially hidden) -->
+      <form class="form" id="forgot-form">
+        <div class="form-group">
+          <label class="form-label" for="forgot-email">Email</label>
+          <input type="email" class="form-control" id="forgot-email" placeholder="Enter your email" required>
+        </div>
+
+        <button type="submit" class="btn">Reset Password</button>
+
+        <div class="social-login">
+          <a href="#" id="back-to-login" style="color: #4361ee; text-decoration: none;">Back to login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+<script src="{% static '/js/login.js' %}"></script>
+
+</html>
