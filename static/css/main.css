@@ -269,43 +269,96 @@ body {
     padding: 0.7rem 1.4rem;
     display: flex;
     flex-wrap: wrap;
+    font-family: inherit;
     align-items: center;
-    justify-content: space-between;
 }
 
-.footer-left,
-.footer-middle,
-.footer-right {
+.footer-container {
     display: flex;
     align-items: center;
+    flex-direction: column;
+    position: relative;
     gap: 1rem;
 }
 
-.footer-left .logo {
-    height: 32px;
-    width: 32px;
+.footer-section-1 {
+    padding: 1.4rem 3rem;
+    background-color: #333;
+    border-radius: 24px;
+    display: flex;
+    margin: 1rem;
+    width: 100%;
+    min-width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
-.logo-text-2 {
-    font-size: 1rem;
-    font-weight: 400;
-    margin-left: 0.5rem;
+.footer-section-1 .footer-logo-txt {
+    display: flex;
+    flex-direction: column;
 }
 
-.footer-middle {
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #ccc;
+.footer-section-1 #logo-text-eng {
+    color: aliceblue;
+    font-weight: bold;
+    font-size: 2rem;
 }
-
-.footer-right a {
-    color: white;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-.footer-right a:hover {
+.footer-section-1 #logo-text-jap {
     color: #a12638;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.footer-cols {
+    display: flex;
+    gap: 6rem;
+}
+
+.footer-section-1 .cols h3 {
+    color: #bc2c42;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.cols ul li {
+    list-style: none;
+    font-size: 0.75rem;
+    position: relative;
+    margin-bottom: 0.25rem;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.footer-section-2 {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    width: 100%;
+    font-size: 0.8rem;
+    justify-content: space-between;
+    border-top: 1.5px solid aliceblue;
+}
+
+.footer-section-2 .fs2-l h3 {
+    color: aliceblue;
+}
+
+.footer-section-2 .fs2-r ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    flex-direction: row;
+}
+
+.fs2-r ul li a {
+    text-decoration: none;
+    color: aliceblue;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.fs2-r ul li a:hover {
+    border-bottom: 2px solid #bc2c42;
 }
