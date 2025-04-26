@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+client_id = '272989197029-gafa47e7hm1tpt5t9cpf86gbvv30mma0.apps.googleusercontent.com'
+client_secret = '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'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -71,8 +74,8 @@ SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '272989197029-gafa47e7hm1tpt5t9cpf86gbvv30mma0.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': client_id,
+            'secret': client_secret,
             'key': ''
         },
         'SCOPE': [
