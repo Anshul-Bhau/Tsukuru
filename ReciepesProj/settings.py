@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+client_id = '272989197029-gafa47e7hm1tpt5t9cpf86gbvv30mma0.apps.googleusercontent.com'
+client_secret = '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'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'ReciepesApp'
     'ReciepesApp',
     'import_export',
 ]
@@ -48,9 +58,41 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+# SOCIALACCOUNT_AUTO_SIGNUP = True
+# SOCIALACCOUNT_ADAPTER = 'ReciepesProj.adapters.MySocialAccountAdapter'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': client_id,
+            'secret': client_secret,
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'prompt': 'none',
+            'access_type': 'online',
+        }
+    },
+}
+
+LOGIN_REDIRECT_URL = 'dashboard'  
+ACCOUNT_LOGOUT_REDIRECT_URL = 'login'
 
 ROOT_URLCONF = 'ReciepesProj.urls'
 
@@ -86,9 +128,9 @@ WSGI_APPLICATION = 'ReciepesProj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'reciepes',
+        'NAME': 'tsukuru',
         'USER': 'root',
-        'PASSWORD': 'GummyBear',
+        'PASSWORD': '20357',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
