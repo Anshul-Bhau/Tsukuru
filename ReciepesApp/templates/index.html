@@ -5,13 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipes</title>
+    <title>Tsukuru</title>
     <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static '/images/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static '/images/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static '/images/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static '/site.webmanifest' %}">
 </head>
 
 <body>
@@ -38,7 +34,7 @@
 
     <section class="hero-sec">
         <div class="hero-img">
-            <img src="{% static '/images/hero-img.jpg' %}" alt="image">
+            <img src="{% static '/images/hero-img.png' %}" alt="image">
         </div>
 
         <div class="hero-text">
@@ -59,28 +55,32 @@
                 <div class="card" id="card-1">
                     <i class="fa-solid fa-blender"></i>
                     <h3>Blueberry Smoothie</h3>
-                    <p>Sweet, tangy delight packed with antioxidants, boosts brain health, supports digestion, and dances through your veins with vitamin-rich coolness.</p>
+                    <p>Sweet, tangy delight packed with antioxidants, boosts brain health, supports digestion, and
+                        dances through your veins with vitamin-rich coolness.</p>
                     <a href="">view more</a>
                 </div>
 
                 <div class="card">
                     <i class="fa-solid fa-drumstick-bite"></i>
                     <h3>Chicken Tikka Masala</h3>
-                    <p>Smoky, spicy symphony rich in protein; promotes satiety, supports muscle health, and satisfies soul-deep cravings with fragrant, fiery love.</p>
+                    <p>Smoky, spicy symphony rich in protein; promotes satiety, supports muscle health, and satisfies
+                        soul-deep cravings with fragrant, fiery love.</p>
                     <a href="">view more</a>
                 </div>
 
                 <div class="card">
                     <i class="fa-solid fa-utensils"></i>
                     <h3>Malai Kofta</h3>
-                    <p>Creamy, nutty richness; a vegetarian indulgence offering paneer’s protein, cashew's good fats—comfort food with royalty's whisper and a hug.</p>
+                    <p>Creamy, nutty richness; a vegetarian indulgence offering paneer’s protein, cashew's good
+                        fats—comfort food with royalty's whisper and a hug.</p>
                     <a href="">view more</a>
                 </div>
 
                 <div class="card">
                     <i class="fa-solid fa-bread-slice"></i>
                     <h3>Moong Chila</h3>
-                    <p>Earthy, crispy pancake of protein-packed moong dal; improves digestion, balances blood sugar, and sings health in every savory golden bite.</p>
+                    <p>Earthy, crispy pancake of protein-packed moong dal; improves digestion, balances blood sugar, and
+                        sings health in every savory golden bite.</p>
                     <a href="">view more</a>
                 </div>
             </div>
@@ -88,24 +88,54 @@
     </section>
 
     <footer class="footer">
-        <div class="footer-left">
-            <!-- <img src="logo.png" alt="Sukuru Logo" class="logo" /> -->
-            <span class="logo-text-2">つくる</span>
-        </div>
+        <div class="footer-container">
+            <div class="footer-section-1">
+                <div class="footer-logo-txt">
+                    <h2><span id="logo-text-eng">Tsukuru</span></h2>
+                    <h2><span id="logo-text-jap">つくる</span></h2>
+                </div>
 
-        <div class="footer-middle">
-            <p>© 2025 Tsukuru | Follow us on</p>
-        </div>
+                <div class="footer-cols">
+                    <div class="cols" id="services-cont">
+                        <h3>Services</h3>
+                        <ul class="services">
+                            <li>Recipe</li>
+                            <li>Ingredient</li>
+                            <li>Macros</li>
+                        </ul>
+                    </div>
 
-        <div class="footer-right">
-            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <div class="cols" id="socials-cont">
+                        <h3>Follow us</h3>
+                        <ul class="socials">
+                            <li>Github</li>
+                            <li>Linkedin</li>
+                            <li>Instagram</li>
+                            <li>Facebook</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer-section-2">
+                <div class="fs2-l">
+                    <h3>@Copyright2025</h3>
+                </div>
+
+                <div class="fs2-r">
+                    <ul>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Settings</a>
+                        <li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
 
 </body>
-<script src="{% static '/js/main.js' %}"></script>
 
 </html>
 

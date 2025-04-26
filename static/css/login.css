@@ -6,9 +6,10 @@
 }
 
 body {
-  background: url("/static/images/login-bg.jpg");
+  background: url("/static/images/login-bg (2).png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-position: center;
+  background-size: contain;
   display: flex;
   position: relative;
   justify-content: center;
