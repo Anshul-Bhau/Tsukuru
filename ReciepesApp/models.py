@@ -54,7 +54,7 @@ class Passwords(models.Model):
 class Recipes(models.Model):
     title = models.CharField(max_length=300, null=False, blank=False, unique=False)
     ingredients = models.JSONField()
-    directions = models.CharField(max_length=400, blank=False)
+    directions = models.TextField()
     cleaned_ingredients = models.JSONField()
     image_name = models.CharField(max_length=250, null=False, unique=False, blank=False)
     image = models.ImageField()

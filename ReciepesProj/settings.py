@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
-    'ReciepesApp'
     'ReciepesApp',
     'import_export',
 ]
@@ -128,9 +127,9 @@ WSGI_APPLICATION = 'ReciepesProj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'tsukuru',
+        'NAME': 'recipes',
         'USER': 'root',
-        'PASSWORD': '20357',
+        'PASSWORD': 'GummyBear',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }

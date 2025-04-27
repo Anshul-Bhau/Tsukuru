@@ -7,9 +7,13 @@ from .views import loginpage ,homepage
 
 
 urlpatterns = [
-    path('home/', homepage)
-
+    path('home/', homepage, name='dashboard'),
+    path('login/', loginpage, name='login'),
+    path('user_login/', user_login, name='user_login'),
+    path('accounts/', include('allauth.urls')),
 ]
+
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
