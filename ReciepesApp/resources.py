@@ -40,7 +40,8 @@ class RecipesResource(resources.ModelResource):
                     title = row['title'],
                     ingredients=parse_ingredients(row.get('ingredients', '[]')),
                     directions=row['directions'],
-                    cleaned_ingredients=parse_ingredients(row.get('cleaned_ingredients', '[]'))
+                    cleaned_ingredients=parse_ingredients(row.get('cleaned_ingredients', '[]')),
+                    image_name=row['image_name']
                 ))
             except Exception as e:
                 result.invalid_rows.append((row, str(e)))

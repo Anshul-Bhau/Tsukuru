@@ -57,7 +57,7 @@ class Recipes(models.Model):
     directions = models.TextField()
     cleaned_ingredients = models.JSONField()
     image_name = models.CharField(max_length=250, null=False, unique=False, blank=False)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='recipes/', )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
