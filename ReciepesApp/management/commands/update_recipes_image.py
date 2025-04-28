@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
         # Open and read the dataset (assuming CSV format)
         import csv
-        with open(dataset_file, newline='', encoding='utf-8') as csvfile:
+        with open(dataset_file, newline='', encoding='utf-8', errors='replace') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 title = row['title']
@@ -22,17 +22,19 @@ class Command(BaseCommand):
 
                 # Check if the image file exists
                 image_path = os.path.join(media_dir, image_name)
+                image_path += ".jpg"
                 if os.path.exists(image_path):
                     # Open the image file and assign it to the Recipe model
-                    with open(image_path, 'rb', encoding="utf-8", errors='replace') as img_file:
-                        recipe = Recipes(
-                            title=title,
-                            image=File(img_file, name=image_name)
-                        )
-                        recipe.save()
-                        self.stdout.write(self.style.SUCCESS(f"Recipe '{title}' imported successfully"))
+                    with open(image_path, 'rb') as img_file:
+                        recipes = Recipes.objects.filter(title=title, image_name=image_name)
+                        if recipes.exists():
+                            for recipe in recipes:
+                                recipe.image.save(image_name, File(img_file), save=True)
+                                self.stdout.write(self.style.SUCCESS(f"Recipe '{title}' imported successfully"))
                 else:
                     self.stdout.write(self.style.WARNING(f"Image for '{title}' not found at {image_path}"))
+
+
 # import chardet
 
 # with open("Food Ingredients and Recipe Dataset with Image Name Mapping.csv", "rb") as f:

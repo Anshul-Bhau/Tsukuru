@@ -7,10 +7,11 @@ from .views import loginpage ,homepage
 
 
 urlpatterns = [
-    path('home/', homepage, name='dashboard'),
+    path('landing/', landingpage, name='dashboard'),
     path('login/', loginpage, name='login'),
     path('user_login/', user_login, name='user_login'),
     path('accounts/', include('allauth.urls')),
+    path('home/', homepage, name='homepage'),
 ]
 
 

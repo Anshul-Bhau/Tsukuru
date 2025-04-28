@@ -1,15 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
+from .models import Recipes
 import json
 
 
 
 # Create your views here.
 
-def homepage(request):
+def landingpage(request):
+    trending_recipes = Recipes.objects.all()[4:15:3]
     context = {
         'active_page': 'home',
+        'trending_recipes': trending_recipes,
     }
     return render(request, 'index.html', context)
 
@@ -58,3 +61,8 @@ def user_login(request):
             return JsonResponse({"error": f"Internal server error: {str(e)}"}, status=500)
         else:
             return render(request, 'login.html', {'error' : f'Internal server error : {str(e)}'})
+
+def homepage(request) :
+    recipe_id = request.GET.get('recipe_id')
+    recipe = get_object_or_404(Recipes, id=recipe_id)
+    return render(request, 'homepage.html', {'recipe': recipe})

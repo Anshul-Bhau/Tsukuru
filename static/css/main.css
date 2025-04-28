@@ -9,27 +9,29 @@ html {
 }
 
 body {
-    background-color: aliceblue;
+    background-color: #caedb8;
     font-family: Arial, sans-serif;
-    /* background-image: url('/static/images/landing-page-bg.jpg'); */
-    /* background-repeat: no-repeat; */
-    /* background-size: contain; */
 }
+
 
 .navbar {
     gap: 1rem;
     display: flex;
-    margin: 1rem 0rem;
-    padding: 0 2rem;
-    max-width: 1200px;
+    /* margin: 1rem 0rem; */
+    padding: 2.5rem 2rem;
+    padding-top: 1.5rem;
+    /* max-width: 1200px; */
     align-items: center;
     justify-content: space-around;
+    border-bottom-left-radius: 50% 19px;
+    border-bottom-right-radius: 50% 27px;
+    background-color: rgba(131, 147, 122, 0.5);
 }
 
 .logo {
     font-size: 2rem;
     font-weight: bold;
-    color: #a12638;
+    color: #963f2e;
     text-decoration: none;
 }
 
@@ -45,18 +47,18 @@ body {
 
 .nav-mid-items ul li a {
     font-weight: bold;
-    color: #222;
+    color: #56694f;
     font-size: 1rem;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .nav-mid-items ul li a:hover {
-    color: #a12638;
+    color: #963f2e;
 }
 
 .nav-mid-items ul li.active a {
-    border-bottom: 3px solid #a12638;
+    border-bottom: 3px solid #963f2e;
     padding-bottom: 4px;
 }
 
@@ -66,7 +68,7 @@ body {
     border-radius: 6px;
     cursor: pointer;
     border: 2px solid #a12638;
-    background-color: #a12638;
+    background-color: #963f2e;
     transition: all 0.2s ease;
 }
 
@@ -78,7 +80,7 @@ body {
 
 .sub-user-menu button:hover {
     border: 2px solid #a12638;
-    background-color: white;
+    background-color: transparent;
 }
 
 .sub-user-menu button:hover a {
@@ -93,14 +95,14 @@ body {
     margin: auto;
     width: 100%;
     max-width: 1200px;
-    border-bottom: 1.5px solid #a12638;
+    border-bottom: 1.5px solid #56694f;
     padding: 2rem;
 }
 
 .hero-img img {
     height: 430px;
     width: auto;
-    right: -5%;
+    /* right: -5%; */
     position: relative;
     background: transparent;
 }
@@ -116,6 +118,7 @@ body {
 .hero-text h3 {
     font-family: inherit;
     font-size: 1.8rem;
+    color: #56694f;
 }
 
 .hero-btns button {
@@ -136,17 +139,17 @@ body {
 }
 
 #hero-btn-2 a {
-    color: #a12638;
+    color: #d1ac3d;
 }
 
 #hero-btn-1 {
-    background-color: #a12638;
-    border: 2px solid #a12638;
+    background-color: #d1ac3d;
+    border: 2px solid #d1ac3d;
 }
 
 #hero-btn-2 {
     background: transparent;
-    border: 2px solid #a12638;
+    border: 2px solid #d1ac3d;
 }
 
 #hero-btn-2:hover a {
@@ -154,9 +157,9 @@ body {
 }
 
 #hero-btn-2:hover {
-    background-color: #a12638;
+    background-color: #d1ac3d;
     border-radius: 6px;
-    border: 2px solid #a12638;
+    border: 2px solid #d1ac3d;
 }
 
 .explore-sec {
@@ -176,7 +179,7 @@ body {
 }
 
 .sec-heading {
-    color: #a12638;
+    color: #963f2e;
     font-size: 3rem;
     margin-bottom: 2rem;
 }
@@ -189,7 +192,7 @@ body {
 
 
 .recipe-container .card {
-    background-color: rgba(91, 89, 89, 0.306);
+    background-color: rgba(91, 89, 89, 0.45);
     padding: 1.2rem;
     min-height: 250px;
     font-family: inherit;
@@ -201,7 +204,7 @@ body {
 
 #card-1 {
     padding: 1.2rem;
-    background-color: #333;
+    background-color: #56694f;
     min-height: 250px;
     font-family: inherit;
     border-radius: 15px;
@@ -211,12 +214,12 @@ body {
 }
 
 #card-1 i {
-    color: white;
+    color: #cd9b59;
     font-size: 1.6rem;
 }
 
 .card i {
-    color: #a12638;
+    color: #ede490;
     font-size: 1.6rem;
 }
 
@@ -225,20 +228,36 @@ body {
     font-size: 1.3rem;
     font-weight: bold;
     max-width: fit-content;
-    padding: .3rem 0rem;
-    line-height: 2.4rem;
+    padding: .5rem 0;
+    /* line-height: 2rem; */
     border-radius: 10px;
-    color: #a12638;
+    color: #56694f;
 }
 
 #card-1 h3 {
     font-size: 1.3rem;
     font-weight: bold;
     max-width: fit-content;
-    padding: .3rem 0rem;
-    line-height: 2.4rem;
+    padding: .5rem 0rem;
+    /* line-height: 2.4rem; */
     border-radius: 10px;
-    color: aliceblue;
+    color: #caedb8;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+#card-1 img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+    border-radius: 10px;
 }
 
 .card p {
@@ -246,7 +265,8 @@ body {
     font-weight: 200;
     line-height: 1rem;
     margin-bottom: 1rem;
-    color: #a12638;
+    color: #ede490;
+    padding: .5rem 0;
 }
 
 #card-1 p {
@@ -254,17 +274,22 @@ body {
     font-weight: 200;
     line-height: 1rem;
     margin-bottom: 1rem;
-    color: aliceblue;
+    padding: .5rem 0;
+    color: #cd9b59;
+}
+
+#card-1 a {
+    color: #cd9b59;
 }
 
 .card a {
     text-decoration: none;
     font-size: .8rem;
-    color: #bc2c42;
+    color: #ede490;
 }
 
 .footer {
-    background-color: #222;
+    background-color: #56694f;
     color: white;
     bottom: 0%;
     position: relative;
@@ -286,7 +311,7 @@ body {
 
 .footer-section-1 {
     padding: 1.4rem 3rem;
-    background-color: #333;
+    background-color: #98AA8D;
     border-radius: 24px;
     display: flex;
     margin: 1rem;
@@ -307,8 +332,9 @@ body {
     font-weight: bold;
     font-size: 2rem;
 }
+
 .footer-section-1 #logo-text-jap {
-    color: #a12638;
+    color: #963f2e;
     font-weight: bold;
     font-size: 1.5rem;
 }
@@ -319,7 +345,7 @@ body {
 }
 
 .footer-section-1 .cols h3 {
-    color: #bc2c42;
+    color: #caedb8;
     font-size: 0.85rem;
     margin-bottom: 10px;
 }
@@ -340,7 +366,7 @@ body {
     width: 100%;
     font-size: 0.8rem;
     justify-content: space-between;
-    border-top: 1.5px solid aliceblue;
+    border-top: 1.5px solid #caedb8;
 }
 
 .footer-section-2 .fs2-l h3 {
@@ -356,12 +382,12 @@ body {
 
 .fs2-r ul li a {
     text-decoration: none;
-    color: aliceblue;
+    color: #caedb8;
     position: relative;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s ease-in-out;
 }
 
 .fs2-r ul li a:hover {
-    border-bottom: 2px solid #bc2c42;
+    border-bottom: 2px solid #caedb8;
 }

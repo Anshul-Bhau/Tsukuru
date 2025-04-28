@@ -16,5 +16,5 @@ class UsersAdmin(admin.ModelAdmin):
 @admin.register(Recipes)
 class RecipesAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = RecipesResource
-    list_display = ('title', 'cleaned_ingredients')
+    list_display = ('title', 'cleaned_ingredients', 'image')
     search_fields = ('title',)
