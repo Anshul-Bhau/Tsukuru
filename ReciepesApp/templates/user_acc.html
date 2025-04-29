@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsukuru</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/user_acc.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="#" class="menu_toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+            </div>
+            <div class="nav-right">
+                <button id="theme_toggle">
+                    <i class="fa-regular fa-sun" id="theme_icon"></i>
+                </button>
+
+
+                <img src="" alt="pfp">
+
+                <h3 id="username">Rudee</h3>
+            </div>
+
+        </nav>
+    </header>
+
+    <div class="side_menu" id="side_menu">
+        <ul class="menu_items">
+            <li><a href="#">User Info</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Favourites</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+
+        <ul class="log_option">
+            <li><a href="#">Log out</a></li>
+        </ul>
+    </div>
+</body>
+<script src="{% static '/js/user_acc.js' %}"></script>
+
+</html>

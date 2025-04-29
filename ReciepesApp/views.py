@@ -66,3 +66,6 @@ def homepage(request) :
     recipe_id = request.GET.get('recipe_id')
     recipe = get_object_or_404(Recipes, id=recipe_id)
     return render(request, 'homepage.html', {'recipe': recipe})
+
+def user_account(request) :
+    return render(request, 'user_acc.html')

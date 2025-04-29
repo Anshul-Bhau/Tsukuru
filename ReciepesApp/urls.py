@@ -12,6 +12,7 @@ urlpatterns = [
     path('user_login/', user_login, name='user_login'),
     path('accounts/', include('allauth.urls')),
     path('home/', homepage, name='homepage'),
+    path('user_account/', user_account, name='user_acc'),
 ]
 
 

@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #caedb8;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1100;
+    padding: 2.3rem;
+    border-bottom: solid 1px #56694f;
+}
+
+.nav-left .menu_toggle {
+    text-decoration: none;
+    color: #963f2e;
+    font-size: 1.4rem;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+#theme_toggle {
+    background-color: transparent;
+    color: #56694f;
+    border: none;
+    font-size: 1.3rem;
+}
+
+.nav-right img {
+    border-radius: 50%;
+    width: 25px;
+    height: auto;
+}
+
+.nav-right h3 {
+    font-family: inherit;
+    font-size: 1.3rem;
+    color: #963f2e;
+}
+
+.side_menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    padding: 2rem 0;
+    top: 110px;
+    left: -250px;
+    width: 220px;
+    height: calc(100% - 110px);
+    background-color: #caedb8;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease;
+    z-index: 999;
+}
+
+.menu_items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.menu_items li {
+    margin: 1rem 0;
+}
+
+.log_option {
+    list-style: none;
+    margin-top: auto;
+    margin-bottom: 1rem;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+
+}
+
+.log_option li{
+    margin-top: 1rem 0;
+}
+
+.side_menu .menu_items li a {
+    text-decoration: none;
+    top: 50%;
+    color: #4a5b44;
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 0; 
+    transition: all 0.3s ease;
+}
+
+.menu_items li a:active {
+    color: #56694f;
+    background-color: #b7de9e;
+    font-weight: 700;
+}
+
+.side_menu .log_option li a {
+    text-decoration: none;
+    color: #963f2e;
+    font-weight: 600;
+}
