@@ -19,31 +19,79 @@
                 </a>
             </div>
             <div class="nav-right">
+                <h3 id="username">Rudee</h3>
+
+                <img id="profile_img" src="{% static 'images/pfp/default-pfp.jpg' %}" alt="pfp">
+
                 <button id="theme_toggle">
-                    <i class="fa-regular fa-sun" id="theme_icon"></i>
+                    <i class="fa-regular fa-lightbulb" id="theme_icon"></i>
                 </button>
 
-
-                <img src="" alt="pfp">
-
-                <h3 id="username">Rudee</h3>
             </div>
 
         </nav>
     </header>
 
-    <div class="side_menu" id="side_menu">
+    <aside class="side_menu" id="sidebar">
+        <div class="sidebar-title" id="side_title">User Profile</div>
+
         <ul class="menu_items">
-            <li><a href="#">User Info</a></li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Favourites</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="#" class="active" data-title="User Profile">User Info <i class="fas fa-user"></i></a></li>
+            <li><a href="#" data-title="Favourites">Favorites <i class="fas fa-heart"></i></a></li>
+            <li><a href="#" data-title="Watchlist">Watchlist <i class="fas fa-star"></i></a></li>
+            <li><a href="#" data-title="Settings">Settings <i class="fas fa-cog"></i></a></li>
         </ul>
 
-        <ul class="log_option">
-            <li><a href="#">Log out</a></li>
-        </ul>
-    </div>
+        <div class="log_option">
+            <a href="#">Log out <i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </aside>
+
+    <main>
+        <div class="user_panel">
+            <section class="profile_pfp">
+                <img src="{% static 'images/pfp/default-pfp.jpg' %}" alt="pfp" id="profile_sec_img">
+                <button id="pfp_choice_btn">Choose Picture</button>
+            </section>
+
+            <section class="user_info">
+                <form class="user_info_form" id="user_form" method="post">
+                    {% csrf_token %}
+                    <div class="form_row">
+                        <div class="form_grp">
+                            <label for="username_field">Username</label>
+                            <input type="text" name="username" value="{{ user.username }}" id="username_field" readonly>
+                        </div>
+
+                        <div class="form_grp">
+                            <label for="email_field">Email Address</label>
+                            <input type="text" name="email_address" value="{{ user.email }}" id="email_field" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form_grp">
+                        <label for="password_field">Password</label>
+                        <input type="text" name="password" value="{{ user.password }}" id="password_field" readonly>
+                    </div>
+
+                    <div class="form_actions">
+                        <button type="submit" id="save_btn" style="display: none;">Save Changes</button>
+                        <button type="button" id="edit_btn">Edit Info</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <section class="pfp_chooser" id="pfp_chooser" style="display: none;">
+            <h4>Choose your avatar</h4>
+            <div class="pfp_grid">
+                {% for i in "12345678" %}
+                <img src="{% static 'images/pfp/pfp'|add:i|add:'.jpg' %}" alt="pfp option" class="pfp_option">
+                {% endfor %}
+            </div>
+        </section>
+        
+    </main>
 </body>
 <script src="{% static '/js/user_acc.js' %}"></script>
 
