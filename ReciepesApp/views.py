@@ -66,6 +66,11 @@ def homepage(request) :
     recipe_id = request.GET.get('recipe_id')
     recipe = get_object_or_404(Recipes, id=recipe_id)
     return render(request, 'homepage.html', {'recipe': recipe})
+    # return render(request, 'homepage.html')
 
 def user_account(request) :
-    return render(request, 'user_acc.html')
+    boards = Recipes.objects.all()[0:6]
+    return render(request, 'user_acc.html', {
+        'pfp_range': range(1, 13),
+        "boards" : boards,
+    })

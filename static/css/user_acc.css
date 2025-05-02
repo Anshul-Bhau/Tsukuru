@@ -33,7 +33,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: row;
-    gap: 1.5rem;
+    gap: 1.0rem;
 }
 
 #theme_toggle {
@@ -155,7 +155,8 @@ main {
     padding-top: 70px;
 }
 
-.profile_pfp, .user_info {
+.profile_pfp,
+.user_info {
     /* background-color: #f0f0f0; */
     border-radius: 20px;
     padding: 1.5rem;
@@ -272,6 +273,14 @@ button:hover {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.pfp_chooser.show {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .pfp_grid {
@@ -296,4 +305,78 @@ button:hover {
     transform: scale(1.1);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     border-color: #56694f;
+}
+
+#favorites {
+    border-radius: 20px;
+    padding: 1.5rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    /* background-color: #b7de9e; */
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    position: relative;
+    left: 3.5%;
+}
+
+.sec_title {
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.sec_title h3 {
+    font-size: 2rem;
+    font-family: inherit;
+    margin-bottom: 0.2rem;
+}
+
+.sec_title p {
+    font-size: 1.1rem;
+    font-family: inherit;
+    color: #777;
+    margin-bottom: .5rem;
+}
+
+.fav_boards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    border-radius: 12px;
+    gap: 1.2rem;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
+}
+
+.fav_boards .board {
+    background-color: #777;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 250px;
+    text-align:start;
+    align-items: flex-start;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.fav_boards .board:hover {
+    transform: translateY(-4px);
+}
+
+.board img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    object-fit: cover;
+}
+
+.board h4 {
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align:start;
 }

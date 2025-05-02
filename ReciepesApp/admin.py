@@ -7,6 +7,7 @@ from import_export.admin import ImportExportModelAdmin
 
 Users = get_user_model()
 
+@admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'role', 'is_staff', 'is_active')
     search_fields = ('username', 'email')
