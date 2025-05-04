@@ -63,4 +63,11 @@ class Recipes(models.Model):
     def __str__(self):
         return self.title
 
+class Boards(models.Model):
+    title = models.CharField(max_length=250, null=False, unique=False, blank=False)
+    user = models.OneToOneField(to=Users, on_delete=models.CASCADE, null=True)
+    recipes = models.ManyToManyField(Recipes, related_name='boards')
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.user.username} - {self.title}'
