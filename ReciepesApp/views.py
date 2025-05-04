@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from .models import Recipes
 import json
+from .models import *
 
 
 
@@ -39,11 +40,9 @@ def user_login(request):
         
 
             user = authenticate(request, username=email, password=password)
-            print(user)
 
             if user is not None:
                 login(request, user)
-                print("good")
                 if request.content_type == "application/json":
                     print("gets here ")
                     return JsonResponse({"user_id": user.id, "role" : user.role, "message": "Login successful"}, status=200)
@@ -51,7 +50,8 @@ def user_login(request):
                     return redirect('dashboard')
             else:
                 print("got stuck")
-                return redirect('loginpage')
+                return render(request, 'login.html', {
+                'error': "Invalid email or password. Please try again."})
         
         else:
             return render(request, 'login.html')
@@ -62,11 +62,43 @@ def user_login(request):
         else:
             return render(request, 'login.html', {'error' : f'Internal server error : {str(e)}'})
 
+def user_signup(request):
+    if request.method == "POST":
+        try:  
+            if request.content_type == 'application/json':
+                data = json.loads(request.body)
+                print("json data", data)
+            else:
+                data = request.POST
+
+            name = data.get('name')
+            email = data.get('email')
+            password = data.get('password')
+            
+            if not name or not email or not password:
+                return JsonResponse({'error': 'All fields are required'}, status=400)
+
+            if Users.objects.filter(email = email).exists():
+                return JsonResponse({'error': 'Email already in use'}, status=400)
+            
+            user = Users.objects.create(username = name, email=email, role='user')
+            user.set_password(password)
+            user.save()
+
+            user = authenticate(request, username=email, password=password)
+            print("user made ", user)
+
+            print("going for js shii")
+            return JsonResponse({"user_id": user.id, "role" : user.role, "message": "Signup successful"}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
 def homepage(request) :
-    recipe_id = request.GET.get('recipe_id')
+    recipe_id = request.get('recipe_id')
     recipe = get_object_or_404(Recipes, id=recipe_id)
     return render(request, 'homepage.html', {'recipe': recipe})
-    # return render(request, 'homepage.html')
 
 def user_account(request) :
     boards = Recipes.objects.all()[0:6]

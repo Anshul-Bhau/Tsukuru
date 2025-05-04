@@ -39,6 +39,8 @@
 
         <div class="hero-text">
             <h3>Your Daily Recipe Finder</h3>
+            <p>user : {{ user }}</p>
+            <p>Is authenticated : {{ user.is_authenticated }}</p>
 
             <div class="hero-btns">
                 <button id="hero-btn-1"><a href="/login/">Start Cookin</a></button>
@@ -77,7 +79,7 @@
                     <p>{{ recipe.directions|truncatewords:30 }}</p>
 
                     {% if user.is_authenticated %}
-                    <a href="{% url 'homepage' %}?recipe_id={{ recipe.id }}">view more</a>
+                    <a href="{% url 'homepage' recipe_id=recipe.id %}">view more</a>
                     {% else %}
                     <a href="{% url 'loginpage' %}?next={% url 'homepage' recipe_id=recipe.id %}">Login to view
                         more</a>
