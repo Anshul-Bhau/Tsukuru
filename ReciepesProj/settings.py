@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from environ import Env
 import os
 
-client_id = '272989197029-gafa47e7hm1tpt5t9cpf86gbvv30mma0.apps.googleusercontent.com'
-client_secret = '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'
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,14 +70,11 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-# SOCIALACCOUNT_AUTO_SIGNUP = True
-# SOCIALACCOUNT_ADAPTER = 'ReciepesProj.adapters.MySocialAccountAdapter'
-
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': client_id,
-            'secret': client_secret,
+            'client_id': env('OAUTH_GOOGLE_CLIENT_ID'),
+            'secret': env('OAUTH_GOOGLE_CLIENT_SECRET'),
             'key': ''
         },
         'SCOPE': [
@@ -84,14 +82,37 @@ SOCIALACCOUNT_PROVIDERS = {
             'email',
         ],
         'AUTH_PARAMS': {
-            'prompt': 'none',
+            'prompt': 'consent',
             'access_type': 'online',
         }
     },
 }
 
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_UNIQUE_EMAIL = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True 
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True 
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+ACCOUNT_LOGIN_METHODS = ['email']  
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Tsukuru'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+EMAIL_HOST_USER = 'shashwat24baheti@gmail.com'  # Replace with your Gmail
+EMAIL_HOST_PASSWORD = 'ybxilzpwmycvwwvm'  # Use App Password (NOT your Gmail password)
+
 LOGIN_REDIRECT_URL = 'dashboard'  
-ACCOUNT_LOGOUT_REDIRECT_URL = 'login'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 ROOT_URLCONF = 'ReciepesProj.urls'
 
@@ -127,9 +148,9 @@ WSGI_APPLICATION = 'ReciepesProj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'recipes',
+        'NAME': env('DB_NAME'),
         'USER': 'root',
-        'PASSWORD': 'GummyBear',
+        'PASSWORD': env('MYSQL_PASSWORD'),
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
