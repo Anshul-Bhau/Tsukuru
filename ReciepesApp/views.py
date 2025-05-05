@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from allauth.account.views import ConfirmEmailView
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from .models import Recipes
 import json
-
-
 
 # Create your views here.
 

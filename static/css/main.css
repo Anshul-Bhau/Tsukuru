@@ -364,6 +364,7 @@ body {
     flex-direction: row;
     padding: 1rem;
     width: 100%;
+    min-width: 1200px;
     font-size: 0.8rem;
     justify-content: space-between;
     border-top: 1.5px solid #caedb8;
