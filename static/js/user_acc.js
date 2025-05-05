@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileImg = document.getElementById("profile_img");
     const profileSectionImg = document.getElementById("profile_sec_img");
     const savedPfp = localStorage.getItem("selectedPfp");
+    const sections = document.querySelectorAll('.panel_section');
 
     if (savedPfp) {
         if (profileImg) profileImg.setAttribute("src", savedPfp);
@@ -25,11 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
             menuLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
+            
             const newTitle = link.getAttribute('data-title');
+            const targetID = link.getAttribute('data-section');
+
             side_text.textContent = newTitle;
+
+            sections.forEach(section => {
+                section.style.display = (section.id == targetID) ? 'block' : 'none';
+            });
         });
     });
 
@@ -54,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chooseBtn.addEventListener("click", () => {
         chooser.style.display = chooser.style.display === "none" ? "block" : "none";
     });
+    chooser.classList.toggle("show");
 
     document.querySelectorAll(".pfp_option").forEach(img => {
         img.addEventListener("click", () => {

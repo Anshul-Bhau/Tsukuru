@@ -6,10 +6,11 @@ from .views import *
 
 urlpatterns = [
     path('landing/', landingpage, name='dashboard'),
-    path('login/', loginpage, name='login'),
+    path('login/', loginpage, name='loginpage'),
     path('user_login/', user_login, name='user_login'),
+    path('signup/', user_signup, name='user_signup'),
     path('accounts/', include('allauth.urls')),
-    path('home/', homepage, name='homepage'),
+    path('home/<int:recipe_id>/', homepage, name='homepage'),
     path('user_account/', user_account, name='user_acc'),
 ]
 
