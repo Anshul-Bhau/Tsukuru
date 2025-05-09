@@ -1,3 +1,12 @@
-/venv
-db.sqlite3
-.env/ReciepesProj
+# Ignore virtual environment
+venv/
+
+# Ignore environment files
+ReciepesProj/.env
+
+# Ignore compiled files
+*.pyc
+__pycache__/
+
+# Ignore VS Code settings
+.vscode/
