@@ -10,3 +10,6 @@ __pycache__/
 
 # Ignore VS Code settings
 .vscode/
+
+# Ignore local SQLite database
+db.sqlite3
