@@ -20,8 +20,8 @@ class RecipesAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('title', 'cleaned_ingredients', 'image')
     search_fields = ('title',)
 
-# @admin.register(Boards)
-# class BoardsAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'user')
-#     search_fields = ('title',)
+@admin.register(Boards)
+class BoardsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'user')
+    search_fields = ('title',)
 

@@ -12,7 +12,7 @@ urlpatterns = [
     path('user_login/', user_login, name='user_login'),
     path('signup/', user_signup, name='user_signup'),
     path('accounts/', include('allauth.urls')),
-    path('home/<int:recipe_id>/', home, name='home'),
+    path('home/', home, name='home'),
     path('home/<int:recipe_id>/', homepage, name='homepage'),
     path('user_account/', user_account, name='user_acc'),
 ]
