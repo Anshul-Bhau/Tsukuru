@@ -1,0 +1,177 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tsukuru</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">つくる</a>
+
+            <div class="nav-mid-items">
+                <ul>
+                    <li><a href="/landing/">Home</a></li>
+                    <li class="{% if active_page == 'cook' %}active{% endif %}"><a href="/home/">Cook</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+
+            <div class="sub-user-menu">
+                <button><a href="/login/">Log In</a></button>
+            </div>
+
+        </nav>
+    </header>
+
+    <section class="search_container">
+        <div class="heading">
+            <h2>Whisper an Ingredient,<br>Let the Flavors Find You</h2>
+        </div>
+        <section class="search">
+        <div class="search_bar">
+            <form action="" method="" class="form" autocomplete="off">
+                <input class="input_box" type="text" name="input">
+                <button class="search_icon" type="submit"><img src="{% static '/images/search-icon.png' %}" alt="magnifying glass"></button>
+            </form>
+        </div>
+        <div class="suggested_ingredients">
+            <button class="sug_ing_btn">Rice</button>
+            <button class="sug_ing_btn">Pasta</button>
+            <button class="sug_ing_btn">Chicken</button>
+            <button class="sug_ing_btn">Yogurt</button>
+            <button class="sug_ing_btn">Eggs</button>
+            <button class="sug_ing_btn">Salt</button>
+            <button class="sug_ing_btn">Coconut</button>
+            <button class="sug_ing_btn">Milk</button>
+        </div>
+        </section>
+    </section>
+    
+    <section class="searched_recipes_container" id="searched_recipes_container">
+        <div class="recipe-container">
+                {% for recipe in searched_recipes %}
+                <div class="card" id="card-{{ forloop.counter }}">
+
+                    <i id="save_icon" class="fa-regular fa-bookmark"></i>
+
+                    <h3>{{ recipe.title }}</h3>
+
+                    {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }} image">
+                    {% else %}
+                    <img src="{% static 'images/default-img.jpg' %}" alt="Default recipe image">
+                    {% endif %}
+
+                    <p>{{ recipe.directions|truncatewords:15 }}</p>
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'homepage' recipe_id=recipe.id %}">view more</a>
+                    {% else %}
+                    <a href="{% url 'loginpage' %}?next={% url 'homepage' recipe_id=recipe.id %}">Login to view
+                        more</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+    </section>
+
+    <section class="suggested_recipes" id="suggest_rec-sec">
+        <div class="suggested-container">
+            <div class="sec-heading">Suggested Recipes</div>
+
+            <div class="recipe-container">
+                {% for recipe in trending_recipes %}
+                <div class="card" id="card-{{ forloop.counter }}">
+                    {% if forloop.counter == 1 %}
+                    <i class="fa-solid fa-utensils"></i>
+                    {% elif forloop.counter == 2 %}
+                    <i class="fa-solid fa-drumstick-bite"></i>
+                    {% elif forloop.counter == 3 %}
+                    <i class="fa-solid fa-pizza-slice"></i>
+                    {% elif forloop.counter == 4 %}
+                    <i class="fa-solid fa-hamburger"></i>
+                    {% else %}
+                    <i class="fa-solid fa-bread-slice"></i>
+                    {% endif %}
+
+                    <h3>{{ recipe.title }}</h3>
+
+                    {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }} image">
+                    {% else %}
+                    <img src="{% static 'images/default-img.jpg' %}" alt="Default recipe image">
+                    {% endif %}
+
+                    <p>{{ recipe.directions|truncatewords:15 }}</p>
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'homepage' recipe_id=recipe.id %}">view more</a>
+                    {% else %}
+                    <a href="{% url 'loginpage' %}?next={% url 'homepage' recipe_id=recipe.id %}">Login to view
+                        more</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section-1">
+                <div class="footer-logo-txt">
+                    <h2><span id="logo-text-eng">Tsukuru</span></h2>
+                    <h2><span id="logo-text-jap">つくる</span></h2>
+                </div>
+
+                <div class="footer-cols">
+                    <div class="cols" id="services-cont">
+                        <h3>Services</h3>
+                        <ul class="services">
+                            <li>Recipe</li>
+                            <li>Ingredient</li>
+                            <li>Macros</li>
+                        </ul>
+                    </div>
+
+                    <div class="cols" id="socials-cont">
+                        <h3>Follow us</h3>
+                        <ul class="socials">
+                            <li>Github</li>
+                            <li>Linkedin</li>
+                            <li>Instagram</li>
+                            <li>Facebook</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer-section-2">
+                <div class="fs2-l">
+                    <h3>@Copyright2025</h3>
+                </div>
+
+                <div class="fs2-r">
+                    <ul>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Settings</a>
+                        <li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="{% static '/js/home.js' %}"></script>
+
+</html>
+

@@ -63,11 +63,24 @@ class Recipes(models.Model):
     def __str__(self):
         return self.title
 
-class Boards(models.Model):
-    title = models.CharField(max_length=250, null=False, unique=False, blank=False)
-    user = models.OneToOneField(to=Users, on_delete=models.CASCADE, null=True)
-    recipes = models.ManyToManyField(Recipes, related_name='boards')
-    created_at = models.DateTimeField(auto_now_add=True)
+# class Boards(models.Model):
+#     title = models.CharField(max_length=250, null=False, unique=False, blank=False)
+#     user = models.OneToOneField(to=Users, on_delete=models.CASCADE)
+#     recipes = models.ManyToManyField(Recipes, related_name='boards')
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f'{self.user.username} - {self.title}'
+#     def __str__(self):
+#         return f'{self.user.username} - {self.title}'
+
+# class saved_recipes(models.Model):
+#     recipe = models.OneToOneField(Recipes, on_delete=models.CASCADE, related_name='saved_recipes')
+#     user = models.OneToOneField(Users, on_delete=models.CASCADE)
+#     board = models.ForeignKey(Boards, on_delete=models.CASCADE, unique=False, null=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     class Meta:
+#         unique_together = ('user', 'recipe', 'board')  # No double saves
+
+#     def __str__(self):
+#         return f'{self.recipe.title} - saved'
+

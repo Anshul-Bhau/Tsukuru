@@ -95,8 +95,16 @@ def user_signup(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-def homepage(request) :
-    recipe_id = request.get('recipe_id')
+def home(request) :
+    searched_recipes = Recipes.objects.all()[15:38:3]
+    trending_recipes = Recipes.objects.all()[4:15:3]
+    context = {
+        'active_page': 'cook',
+        'searched_recipes': searched_recipes,
+        'trending_recipes' : trending_recipes,}
+    return render(request, 'homepage.html', context)
+
+def homepage(request, recipe_id) :
     recipe = get_object_or_404(Recipes, id=recipe_id)
     return render(request, 'homepage.html', {'recipe': recipe})
 
@@ -106,3 +114,4 @@ def user_account(request) :
         'pfp_range': range(1, 13),
         "boards" : boards,
     })
+
