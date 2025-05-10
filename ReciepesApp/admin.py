@@ -22,6 +22,12 @@ class RecipesAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 @admin.register(Boards)
 class BoardsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user')
+    list_display = ('title', 'user', 'display_recipes')
+
     search_fields = ('title',)
+    filter_horizontal = ('recipes',)
+
+    def display_recipes(self, obj):
+        return ", ".join(recipe.title for recipe in obj.recipes.all())
+    display_recipes.short_description = 'Recipes'
 

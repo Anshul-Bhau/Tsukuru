@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
-from .models import Recipes
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Recipes, Boards, saved_recipes
 import json
 from .models import *
 
@@ -114,4 +116,41 @@ def user_account(request) :
         'pfp_range': range(1, 13),
         "boards" : boards,
     })
+
+@login_required
+def saved_boards(request):
+    saved_boards = Boards.objects.filter(user=request.user).values('id', 'title')
+    context = {
+        'boards' : saved_boards
+        }
+    return render(request, 'homepage.html', context)
+
+@login_required
+def save_recipe(request):
+    if request.method == "POST":
+        recipe_id = request.POST.get('recipe_id')
+        board_id = request.POST.get('board_id')
+        new_board_title = request.POST.get('new_board_title').strip()
+
+        recipe = get_object_or_404(Recipes, id=recipe_id)
+
+        if new_board_title:
+            board, created = Boards.objects.get_or_create(
+                title = new_board_title,
+                user = request.user
+            )
+        elif board_id:
+            board= get_object_or_404(Boards, id=board_id, user=request.user)
+        else:
+            messages.error(request, "Please select or create a Board")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        
+        if board.recipes.filter(id=recipe_id).exists:
+            messages.info(request, "Recipe is alredy saved to the board")
+        else:
+            board.recipes.set(recipe)
+            messages.success(request, "Recipe saved successfully!")
+
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    
 

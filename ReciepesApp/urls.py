@@ -15,6 +15,7 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('home/<int:recipe_id>/', homepage, name='homepage'),
     path('user_account/', user_account, name='user_acc'),
+    path('save_recipe/', save_recipe, name='save_recipe')
 ]
 
 

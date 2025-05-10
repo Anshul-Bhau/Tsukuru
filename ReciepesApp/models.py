@@ -65,7 +65,7 @@ class Recipes(models.Model):
 
 class Boards(models.Model):
     title = models.CharField(max_length=250, null=False, unique=False, blank=False)
-    user = models.OneToOneField(to=Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
     recipes = models.ManyToManyField(Recipes, related_name='boards')
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -74,7 +74,7 @@ class Boards(models.Model):
 
 class saved_recipes(models.Model):
     recipe = models.OneToOneField(Recipes, on_delete=models.CASCADE, related_name='saved_recipes')
-    user = models.OneToOneField(Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
     board = models.ForeignKey(Boards, on_delete=models.CASCADE, unique=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
