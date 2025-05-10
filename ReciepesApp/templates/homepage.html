@@ -26,7 +26,9 @@
             </div>
 
             <div class="sub-user-menu">
-                <button><a href="/login/">Log In</a></button>
+                <a href="/user_account/">
+                    <img src="{% static 'images/pfp/default-pfp.jpg' %}" alt="{{user.username}}">
+                </a>
             </div>
 
         </nav>
@@ -126,6 +128,39 @@
         </div>
     </section>
 
+    <div id="saveModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeSaveModal()">&times;</span>
+            <h2 id="save_heading">Save Recipe to Board</h2>
+
+            <form id="saveRecipeForm" method="POST" action="{% url 'save_recipe' %}">
+                {% csrf_token %}
+
+                <!-- Hidden input for reciepe id -->
+                <input type="hidden" name="recipe_id" id="recipeIdinput" , value="">
+
+                <!-- existing boards dropdown -->
+                <label for="existingBoard">Choose an existing Board</label>
+                <select name="board_id" id="existingBoard">
+                    <option value="">-- Select Board --</option>
+                    {% for board in user_boards %}
+                    <option value="{{ board.id }}">{{ board.title }}</option>
+                    {% endfor %}
+                </select>
+
+                <p>OR</p>
+
+                <!-- New Board  -->
+                <label for="newBoardTitle">Create a new board:</label>
+                <input type="text" name="new_board_title" id="newBoardTitle" placeholder="New board name">
+
+                <!-- save button -->
+                <button type="submit" class="save-btn">Save</button>
+
+            </form>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section-1">
@@ -173,38 +208,8 @@
             </div>
         </div>
     </footer>
-    <div id="saveModal" class="modal hidden">
-                    <div class="modal-content">
-                        <span class="close-button" onclick="closeSaveModal()">&times;</span>
-                        <h2>Save Recipe to Board</h2>
 
-                        <form id="saveRecipeForm" method="POST" action="{% url 'save_recipe' %}">
-                            {% csrf_token %}
 
-                            <!-- Hidden input for reciepe id -->
-                            <input type="hidden" name="recipe_id" id="recipeIdinput" , value="">
-
-                            <!-- existing boards dropdown -->
-                            <label for="existingBoard">Choose an existing Board</label>
-                            <select name="board_id" id="existingBoard">
-                                <option value="">-- Select Board --</option>
-                                {% for board in user_boards %}
-                                    <option value="{{ board.id }}">{{ board.title }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <p style="margin-top: 1em;">OR</p>
-
-                            <!-- New Board  -->
-                            <label for="newBoardTitle">Create a new board:</label>
-                            <input type="text" name="new_board_title" id="newBoardTitle" placeholder="New board name">
-
-                            <!-- save button -->
-                            <button type="submit" class="save-btn">Save</button>
-
-                        </form>
-                    </div>
-                </div>
 </body>
 <script src="{% static '/js/home.js' %}"></script>
 

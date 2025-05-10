@@ -18,7 +18,5 @@ urlpatterns = [
     path('save_recipe/', save_recipe, name='save_recipe')
 ]
 
-
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

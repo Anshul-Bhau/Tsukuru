@@ -111,9 +111,8 @@ def homepage(request, recipe_id) :
     return render(request, 'homepage.html', {'recipe': recipe})
 
 def user_account(request) :
-    boards = Recipes.objects.all()[0:6]
+    boards = Boards.objects.filter(user=request.user).values('id', 'title')
     return render(request, 'user_acc.html', {
-        'pfp_range': range(1, 13),
         "boards" : boards,
     })
 
@@ -153,4 +152,16 @@ def save_recipe(request):
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
     
+@login_required
+def board_detail(request, board_id, save_recipe):
+    board = get_object_or_404(Boards, id=board_id, user=request.user)
+    saved = saved_recipes.objects.filter(board=board).select_related('recipe').first()
+    image_url = saved.recipe.image.url if saved else None
+
+    context = {
+        'board' : board,
+        'image_url' : image_url,
+    }
+
+    return render(request , 'user_account.html', context)
 
