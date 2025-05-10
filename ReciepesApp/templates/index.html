@@ -17,9 +17,8 @@
 
             <div class="nav-mid-items">
                 <ul>
-                    <li class="{% if active_page == 'home' %}active{% endif %}"><a href="#">Home</a></li>
-                    <!-- <li><a href="#">Home</a></li> -->
-                    <li><a href="#">Cook</a></li>
+                    <li class="{% if active_page == 'home' %}active{% endif %}"><a href="/landing/">Home</a></li>
+                    <li><a href="/home/">Cook</a></li>
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">Help</a></li>
                 </ul>
@@ -44,9 +43,9 @@
         </div>
 
         <div class="hero-text">
-            <h3>Your Daily Recipe Finder</h3>
-            <p>user : {{ user }}</p>
-            <p>Is authenticated : {{ user.is_authenticated }}</p>
+            <h3>Crafting Cravings, One Click Away</h3>
+            <!-- <p>user : {{ user }}</p>
+            <p>Is authenticated : {{ user.is_authenticated }}</p> -->
 
             <div class="hero-btns">
                 <button id="hero-btn-1"><a href="/login/">Start Cookin</a></button>
@@ -82,7 +81,7 @@
                     <img src="{% static 'images/default-img.jpg' %}" alt="Default recipe image">
                     {% endif %}
 
-                    <p>{{ recipe.directions|truncatewords:30 }}</p>
+                    <p>{{ recipe.directions|truncatewords:15 }}</p>
 
                     {% if user.is_authenticated %}
                     <a href="{% url 'homepage' recipe_id=recipe.id %}">view more</a>

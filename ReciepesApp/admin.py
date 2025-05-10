@@ -19,3 +19,15 @@ class RecipesAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = RecipesResource
     list_display = ('title', 'cleaned_ingredients', 'image')
     search_fields = ('title',)
+
+@admin.register(Boards)
+class BoardsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'user', 'display_recipes')
+
+    search_fields = ('title',)
+    filter_horizontal = ('recipes',)
+
+    def display_recipes(self, obj):
+        return ", ".join(recipe.title for recipe in obj.recipes.all())
+    display_recipes.short_description = 'Recipes'
+

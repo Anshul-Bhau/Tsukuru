@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from allauth.account.views import ConfirmEmailView
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
-from .models import Recipes
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Recipes, Boards, saved_recipes
 import json
 from .models import *
 
@@ -94,14 +96,71 @@ def user_signup(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-def homepage(request) :
-    recipe_id = request.get('recipe_id')
+def home(request) :
+    searched_recipes = Recipes.objects.all()[15:38:3]
+    trending_recipes = Recipes.objects.all()[4:15:3]
+    context = {
+        'active_page': 'cook',
+        'searched_recipes': searched_recipes,
+        'trending_recipes' : trending_recipes,}
+    return render(request, 'homepage.html', context)
+
+def homepage(request, recipe_id) :
     recipe = get_object_or_404(Recipes, id=recipe_id)
     return render(request, 'homepage.html', {'recipe': recipe})
 
 def user_account(request) :
-    boards = Recipes.objects.all()[0:6]
+    boards = Boards.objects.filter(user=request.user).values('id', 'title')
     return render(request, 'user_acc.html', {
-        'pfp_range': range(1, 13),
         "boards" : boards,
     })
+
+@login_required
+def saved_boards(request):
+    saved_boards = Boards.objects.filter(user=request.user).values('id', 'title')
+    context = {
+        'boards' : saved_boards
+        }
+    return render(request, 'homepage.html', context)
+
+@login_required
+def save_recipe(request):
+    if request.method == "POST":
+        recipe_id = request.POST.get('recipe_id')
+        board_id = request.POST.get('board_id')
+        new_board_title = request.POST.get('new_board_title').strip()
+
+        recipe = get_object_or_404(Recipes, id=recipe_id)
+
+        if new_board_title:
+            board, created = Boards.objects.get_or_create(
+                title = new_board_title,
+                user = request.user
+            )
+        elif board_id:
+            board= get_object_or_404(Boards, id=board_id, user=request.user)
+        else:
+            messages.error(request, "Please select or create a Board")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        
+        if board.recipes.filter(id=recipe_id).exists:
+            messages.info(request, "Recipe is alredy saved to the board")
+        else:
+            board.recipes.set(recipe)
+            messages.success(request, "Recipe saved successfully!")
+
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    
+@login_required
+def board_detail(request, board_id, save_recipe):
+    board = get_object_or_404(Boards, id=board_id, user=request.user)
+    saved = saved_recipes.objects.filter(board=board).select_related('recipe').first()
+    image_url = saved.recipe.image.url if saved else None
+
+    context = {
+        'board' : board,
+        'image_url' : image_url,
+    }
+
+    return render(request , 'user_account.html', context)
+

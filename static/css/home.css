@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: aliceblue;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    gap: 1rem;
+    display: flex;
+    padding: 2.5rem 2rem;
+    padding-top: 1.5rem;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom-left-radius: 50% 19px;
+    border-bottom-right-radius: 50% 27px;
+    background-color: #b53145;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.nav-mid-items ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.nav-mid-items ul li {
+    list-style: none;
+}
+
+.nav-mid-items ul li a {
+    font-weight: bold;
+    color: #222;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-mid-items ul li a:hover {
+    color: rgb(205, 198, 198);
+}
+
+.nav-mid-items ul li.active a {
+    border-bottom: 3px solid rgb(180, 169, 169);
+    color: rgb(205, 198, 198);
+    padding-bottom: 4px;
+}
+
+.nav-mid-items ul li.active a:hover {
+    border-bottom: 3px solid rgb(205, 198, 198);
+    padding-bottom: 4px;
+}
+
+.sub-user-menu button {
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #a12638;
+    background-color: #a12638;
+    transition: all 0.2s ease;
+}
+
+.sub-user-menu button a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.sub-user-menu button:hover {
+    border: 2px solid whitesmoke;
+    background-color: transparent;
+}
+
+.sub-user-menu button:hover a {
+    color: whitesmoke;
+}
+
+.footer {
+    background-color: #56694f;
+    color: white;
+    bottom: 0%;
+    position: relative;
+    min-width: -webkit-fill-available;
+    padding: 0.7rem 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: inherit;
+    align-items: center;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    gap: 1rem;
+}
+
+.footer-section-1 {
+    padding: 1.4rem 3rem;
+    background-color: #98AA8D;
+    border-radius: 24px;
+    display: flex;
+    margin: 1rem;
+    width: 100%;
+    min-width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer-section-1 .footer-logo-txt {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-section-1 #logo-text-eng {
+    color: aliceblue;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.footer-section-1 #logo-text-jap {
+    color: #963f2e;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.footer-cols {
+    display: flex;
+    gap: 6rem;
+}
+
+.footer-section-1 .cols h3 {
+    color: #caedb8;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.cols ul li {
+    list-style: none;
+    font-size: 0.75rem;
+    position: relative;
+    margin-bottom: 0.25rem;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.footer-section-2 {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    width: 100%;
+    font-size: 0.8rem;
+    justify-content: space-between;
+    border-top: 1.5px solid #caedb8;
+}
+
+.footer-section-2 .fs2-l h3 {
+    color: aliceblue;
+}
+
+.footer-section-2 .fs2-r ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    flex-direction: row;
+}
+
+.fs2-r ul li a {
+    text-decoration: none;
+    color: #caedb8;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.fs2-r ul li a:hover {
+    border-bottom: 2px solid #caedb8;
+}
+
+.search_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 20px;
+    border-radius: 32px;
+    position: relative;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.heading h2 {
+    font-size: 2.4em;
+    color: rgba(91, 89, 89, 0.45);
+    font-weight: 600;
+    font-family: cursive;
+    text-align: center;
+    margin: 1.4rem 0;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-radius: 32px;
+    min-width: 1200px;
+    /* margin: auto; */
+    background-color: #c77884;
+}
+
+.search_bar {
+    width: 100%;
+    max-width: 700px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    border: 2px solid #b53145;
+    border-radius: 24px;
+}
+
+.input_box {
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 24px 20px;
+    font-size: 20px;
+    width: 400px;
+    color: aliceblue;
+}
+
+.search_icon img {
+    width: 25px;
+}
+
+.search_icon {
+    border: 0;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.suggested_ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    position: relative;
+    gap: 1rem;
+}
+
+.sug_ing_btn {
+    background-color: #b53145;
+    color: aliceblue;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: none;
+}
+
+.sug_ing_btn:hover {
+    background-color: #b53145;
+    color: aliceblue;
+    padding: 10px 12px;
+    border: 14px;
+    transform: translateY(-3px);
+    transition: all .2s ease-out;
+}
+
+.searched_recipes_container,
+.suggested_recipes {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* padding: 16px 20px; */
+    margin: auto;
+    max-width: 1200px;
+    margin-bottom: 2rem;
+}
+
+.suggested_conatiner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.sec-heading {
+    color: #963f2e;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.recipe-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.recipe-container .card {
+    background-color: rgba(91, 89, 89, 0.45);
+    padding: 1.2rem;
+    min-height: 250px;
+    font-family: inherit;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+
+#card-1 {
+    padding: 1.2rem;
+    background-color: #56694f;
+    min-height: 250px;
+    font-family: inherit;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#card-1 i {
+    color: #cd9b59;
+    font-size: 1.6rem;
+}
+
+.card i {
+    color: #ede490;
+    font-size: 1.6rem;
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    max-width: fit-content;
+    padding: .5rem 0;
+    /* line-height: 2rem; */
+    border-radius: 10px;
+    color: #56694f;
+}
+
+#card-1 h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    max-width: fit-content;
+    padding: .5rem 0rem;
+    /* line-height: 2.4rem; */
+    border-radius: 10px;
+    color: #caedb8;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+#card-1 img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+.card p {
+    font-size: .7rem;
+    font-weight: 200;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+    color: #ede490;
+    padding: .5rem 0;
+}
+
+#card-1 p {
+    font-size: .7rem;
+    font-weight: 200;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+    padding: .5rem 0;
+    color: #cd9b59;
+}
+
+#card-1 a {
+    color: #cd9b59;
+}
+
+.card a {
+    text-decoration: none;
+    font-size: .8rem;
+    color: #ede490;
+}
+
+.modal {
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.save-btn {
+    margin-top: 1.5em;
+    padding: 0.5em 1em;
+    background-color: #a12638;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #8d2131;
+}
+
+#save_heading {
+    font-size: 1.4rem;
+    font-family: inherit;
+    color: #56694f;
+}
+
+#saveRecipeForm {
+    padding: 14px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#saveRecipeForm label {
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: #cd9b59;
+}
+
+#saveRecipeForm select, #saveRecipeForm input {
+    padding: 4px 8px;
+    color: rgb(122, 118, 118);
+}
+
+#saveRecipeForm select option {
+    background-color: rgb(122, 118, 118);
+}
+
+#saveRecipeForm p {
+    color: #56694f;
+    margin: .7rem 0;
+}
+
+.navbar img {
+    border-radius: 50%;
+    width: 25px;
+    height: auto;
+}

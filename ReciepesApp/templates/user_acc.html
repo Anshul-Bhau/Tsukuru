@@ -30,7 +30,7 @@
 
                 <img id="profile_img" src="{% static 'images/pfp/default-pfp.jpg' %}" alt="pfp">
 
-                <h3 id="username">Rudee</h3>
+                <h3 id="username">{{ user.username }}</h3>
 
             </div>
 
@@ -108,8 +108,14 @@
                 <div class="fav_boards">
                     {% for board in boards %}
                     <div class="board" id="board_{{ forloop.counter }}">
-                        <img src="{{ board.image.url }}" alt="{{ recipe.title }}">
-                        <h4 class="board_name">Vegan recipes</h4>
+                        {% if board.image_url %}
+                            <img src="{{ image_url }}" alt="{{ board.title }}">
+                            <!-- <p>board image</p> -->
+                        {% else %}
+                            <img src="{%  static 'images/default-img.jpg' %}" alt="Default board image">
+                            <!-- <p>default image</p> -->
+                        {%  endif %}
+                        <h4 class="board_name">{{ board.title }}</h4>
                     </div>
                     {% endfor %}
                 </div>
