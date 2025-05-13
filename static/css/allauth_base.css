@@ -87,6 +87,7 @@ body {
 
 .form.active {
   display: block;
+  margin-top: 18px;
 }
 
 @keyframes fadeIn {
@@ -124,6 +125,13 @@ body {
 .form-control:focus {
   border-color: var(--primary-color);
   outline: none;
+}
+
+p {
+  text-align: center;
+  margin-bottom: 28px;
+  font-family: inherit;
+  font-size: 1.2rem;
 }
 
 /* Password toggle */
