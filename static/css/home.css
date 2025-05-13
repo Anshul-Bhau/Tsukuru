@@ -493,10 +493,6 @@ body {
     color: rgb(122, 118, 118);
 }
 
-#saveRecipeForm select option {
-    background-color: rgb(122, 118, 118);
-}
-
 #saveRecipeForm p {
     color: #56694f;
     margin: .7rem 0;
