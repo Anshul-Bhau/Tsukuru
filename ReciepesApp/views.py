@@ -100,29 +100,28 @@ def user_signup(request):
 def home(request) :
     searched_recipes = Recipes.objects.all()[15:38:3]
     trending_recipes = Recipes.objects.all()[4:15:3]
+    saved_boards = Boards.objects.filter(user=request.user)
     context = {
         'active_page': 'cook',
         'searched_recipes': searched_recipes,
-        'trending_recipes' : trending_recipes,}
+        'trending_recipes' : trending_recipes,
+        'boards' : saved_boards}
     return render(request, 'homepage.html', context)
 
 def homepage(request, recipe_id) :
     recipe = get_object_or_404(Recipes, id=recipe_id)
-    return render(request, 'homepage.html', {'recipe': recipe})
+    saved_boards = Boards.objects.filter(user=request.user)
+    context = {
+        'boards' : saved_boards,
+        'recipe': recipe
+        }
+    return render(request, 'homepage.html', context)
 
 def user_account(request) :
-    boards = Boards.objects.filter(user=request.user).values('id', 'title')
+    boards = Boards.objects.filter(user=request.user)
     return render(request, 'user_acc.html', {
         "boards" : boards,
     })
-
-@login_required
-def saved_boards(request):
-    saved_boards = Boards.objects.filter(user=request.user).values('id', 'title')
-    context = {
-        'boards' : saved_boards
-        }
-    return render(request, 'homepage.html', context)
 
 @login_required
 def save_recipe(request):
@@ -152,16 +151,16 @@ def save_recipe(request):
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
     
-@login_required
-def board_detail(request, board_id, save_recipe):
-    board = get_object_or_404(Boards, id=board_id, user=request.user)
-    saved = saved_recipes.objects.filter(board=board).select_related('recipe').first()
-    image_url = saved.recipe.image.url if saved else None
+# @login_required
+# def board_detail(request, board_id, save_recipe):
+#     board = get_object_or_404(Boards, id=board_id, user=request.user)
+#     saved = saved_recipes.objects.filter(board=board).select_related('recipe').first()
+#     image_url = saved.recipe.image.url if saved else None
 
-    context = {
-        'board' : board,
-        'image_url' : image_url,
-    }
+#     context = {
+#         'board' : board,
+#         'image_url' : image_url,
+#     }
 
-    return render(request , 'user_account.html', context)
+#     return render(request , 'user_account.html', context)
 

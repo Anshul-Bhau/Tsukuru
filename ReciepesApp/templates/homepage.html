@@ -141,9 +141,10 @@
 
                 <!-- existing boards dropdown -->
                 <label for="existingBoard">Choose an existing Board</label>
+                <p>Total boards = {{ boards|length }}</p>
                 <select name="board_id" id="existingBoard">
                     <option value="">-- Select Board --</option>
-                    {% for board in user_boards %}
+                    {% for board in boards %}
                     <option value="{{ board.id }}">{{ board.title }}</option>
                     {% endfor %}
                 </select>

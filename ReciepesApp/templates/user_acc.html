@@ -38,7 +38,7 @@
         <ul class="menu_items">
             <li><a href="#" class="active" data-title="User Profile" data-section="user_profile">User Info <i class="fas fa-user"></i></a></li>
             <li><a href="#" data-title="Favourites" data-section="favorites">Favorites <i class="fas fa-heart"></i></a></li>
-            <li><a href="#" data-title="Watchlist" data-section="watchlist">Watchlist <i class="fas fa-star"></i></a></li>
+            <!-- <li><a href="#" data-title="Watchlist" data-section="watchlist">Watchlist <i class="fas fa-star"></i></a></li> -->
             <li><a href="#" data-title="Settings" data-section="settings">Settings <i class="fas fa-cog"></i></a></li>
         </ul>
 
@@ -103,8 +103,8 @@
                 <div class="fav_boards">
                     {% for board in boards %}
                     <div class="board" id="board_{{ forloop.counter }}">
-                        {% if board.image_url %}
-                            <img src="{{ image_url }}" alt="{{ board.title }}">
+                        {% if board.first_recipe_image %}
+                            <img src="{{ board.first_recipe_image }}" alt="{{ board.title }}">
                             <!-- <p>board image</p> -->
                         {% else %}
                             <img src="{%  static 'images/default-img.jpg' %}" alt="Default board image">

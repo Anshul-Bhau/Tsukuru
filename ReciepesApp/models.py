@@ -69,6 +69,11 @@ class Boards(models.Model):
     recipes = models.ManyToManyField(Recipes, related_name='boards')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def first_recipe_image(self):
+        first_recipe = self.recipes.first()
+        return first_recipe.image.url if first_recipe else None
+    
     def __str__(self):
         return f'{self.user.username} - {self.title}'
 

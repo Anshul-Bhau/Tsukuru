@@ -18,9 +18,11 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
+    height: 110px;
     z-index: 1100;
-    padding: 1rem 2.3rem;
+    padding: 1.5rem;
+    border-bottom-left-radius: 50% 19px;
+    border-bottom-right-radius: 50% 27px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -58,16 +60,17 @@ body {
 
 .side_menu {
     position: fixed;
-    top: 100px;
+    top: 110px;
     left: -220px;
     width: 220px;
-    height: calc(100% - 100px);
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    height: calc(100% - 110px);
+    box-shadow: 4px 8px 10px 0px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     z-index: 999;
     transition: left 0.3s ease;
+    background-color: transparent;
     /* background-color: #c77884; */
 }
 
