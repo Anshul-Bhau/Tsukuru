@@ -1,0 +1,10 @@
+{% extends "allauth_base.html" %}
+{% block title %}Confirm Your Email{% endblock %}
+
+{% block content %}
+<form method="POST" class="form active">
+    {% csrf_token %}
+    <p style="text-align:center;">Please confirm your email address by clicking the button below.</p>
+    <button type="submit" class="btn">Confirm</button>
+</form>
+{% endblock %}

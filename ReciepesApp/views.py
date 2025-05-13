@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from allauth.account.views import ConfirmEmailView
 from django.http import HttpResponse, JsonResponse
+from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -164,3 +164,22 @@ def board_detail(request, board_id, save_recipe):
 
     return render(request , 'user_account.html', context)
 
+# def auth_page(request):
+#     tab = request.GET.get('tab', 'login')  # default to login
+#     context = {
+#         'tab': tab
+#     }
+#     return render(request, 'account/login_signup.html', context)
+
+
+def auth_page(request):
+    tab = request.GET.get('tab', 'login')
+    login_form = LoginForm(request.POST or None, prefix='login')
+    signup_form = SignupForm(request.POST or None, prefix='signup')
+    
+    context = {
+        'tab': tab,
+        'login_form': login_form,
+        'signup_form': signup_form,
+    }
+    return render(request, 'account/login_signup.html', context)

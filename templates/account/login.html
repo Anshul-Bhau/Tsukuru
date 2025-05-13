@@ -1,0 +1,45 @@
+<!-- {% extends "allauth_base.html" %}
+{% load form_tags %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<form method="POST" class="form active">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-group">
+        <label class="form-label" for="id_login">Email</label>
+        {{ form.login|add_class:"form-control" }}
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="id_password">Password</label>
+        {{ form.password|add_class:"form-control" }}
+        <i class="password-toggle-icon fas fa-eye"></i>
+    </div>
+    <div class="remember-forgot">
+        <div class="remember">
+            <input type="checkbox" name="remember" id="remember">
+            <label for="remember">Remember this device</label>
+        </div>
+        <div class="forgot">
+            <a href="{% url 'account_reset_password' %}">Forgot password?</a>
+        </div>
+    </div>
+    <button type="submit" class="btn">Login</button>
+
+    {% if socialaccount_providers %}
+    <div class="social-login">
+        <div class="social-label">Or continue with</div>
+        <div class="social-icons">
+            <a href="{% provider_login_url 'google' %}" class="social-icon" title="Login with Google">
+                <i class="fab fa-google"></i>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</form>
+{% endblock %} -->
+
+{% include "login_signup.html" %}

@@ -1,0 +1,136 @@
+{% extends "allauth_base.html" %}
+{% load static %}
+{% load socialaccount %}
+{% load form_tags %} {# for add_class filter #}
+
+{% block title %}Login & Signup{% endblock %}
+
+{% block content %}
+{% get_providers as socialaccount_providers %}
+<div class="tabs">
+  <div class="tab active" id="login-tab">Login</div>
+  <div class="tab" id="signup-tab">Sign Up</div>
+</div>
+
+<!-- Login Form -->
+<form method="POST" action="{% url 'account_login' %}" id="login-form" class="form active">
+  {% csrf_token %}
+  {{ login_form.non_field_errors }}
+  <div class="form-group">
+    <label class="form-label" for="{{ login_form.login.id_for_label }}">Email</label>
+    {{ login_form.login|add_class:"form-control" }}
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="{{ login_form.password.id_for_label }}">Password</label>
+    {{ login_form.password|add_class:"form-control" }}
+    <i class="password-toggle-icon fas fa-eye"
+      onclick="togglePassword('{{ login_form.password.id_for_label }}', this)"></i>
+  </div>
+
+  <div class="remember-forgot">
+    <div class="remember">
+      <input type="checkbox" name="remember" id="remember">
+      <label for="remember">Remember me</label>
+    </div>
+    <div class="forgot">
+      <a href="{% url 'account_reset_password' %}">Forgot password?</a>
+    </div>
+  </div>
+
+  <button type="submit" class="btn">Login</button>
+
+  {% if socialaccount_providers %}
+  <div class="social-login">
+    <div class="social-label">Or continue with</div>
+    <div class="social-icons">
+      <a href="{% provider_login_url 'google' %}" class="social-icon">
+        <i class="fab fa-google"></i>
+      </a>
+    </div>
+  </div>
+  {% endif %}
+</form>
+
+<!-- Signup Form -->
+<form method="POST" action="{% url 'account_signup' %}" id="signup-form" class="form">
+  {% csrf_token %}
+  {{ signup_form.non_field_errors }}
+  <div class="form-group">
+    <label class="form-label" for="{{ signup_form.username.id_for_label }}">Username</label>
+    {{ signup_form.username|add_class:"form-control" }}
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="{{ signup_form.email.id_for_label }}">Email</label>
+    {{ signup_form.email|add_class:"form-control" }}
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="{{ signup_form.password1.id_for_label }}">Password</label>
+    {{ signup_form.password1|add_class:"form-control" }}
+    <i class="password-toggle-icon fas fa-eye"
+      onclick="togglePassword('{{ signup_form.password1.id_for_label }}', this)"></i>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="{{ signup_form.password2.id_for_label }}">Confirm Password</label>
+    {{ signup_form.password2|add_class:"form-control" }}
+    <i class="password-toggle-icon fas fa-eye"
+      onclick="togglePassword('{{ signup_form.password2.id_for_label }}', this)"></i>
+  </div>
+
+  <button type="submit" class="btn">Sign Up</button>
+
+  {% if socialaccount_providers %}
+  <div class="social-login">
+    <div class="social-label">Or sign up with</div>
+    <div class="social-icons">
+      <a href="{% provider_login_url 'google' %}" class="social-icon">
+        <i class="fab fa-google"></i>
+      </a>
+    </div>
+  </div>
+  {% endif %}
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginTab = document.getElementById("login-tab");
+    const signupTab = document.getElementById("signup-tab");
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get("tab");
+
+    if (tab === "signup") {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+      signupForm.classList.add("active");
+      loginForm.classList.remove("active");
+    } else {
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+      loginForm.classList.add("active");
+      signupForm.classList.remove("active");
+    }
+
+    loginTab.addEventListener("click", function () {
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+      loginForm.classList.add("active");
+      signupForm.classList.remove("active");
+    });
+
+    signupTab.addEventListener("click", function () {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+      signupForm.classList.add("active");
+      loginForm.classList.remove("active");
+    });
+  });
+</script>
+{% endblock %}

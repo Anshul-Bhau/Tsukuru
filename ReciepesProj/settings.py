@@ -88,6 +88,10 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
+ACCOUNT_FORMS = {
+    'login': 'ReciepesApp.forms.CustomLoginForm',
+}
+
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
 ACCOUNT_UNIQUE_EMAIL = True
@@ -119,7 +123,7 @@ ROOT_URLCONF = 'ReciepesProj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

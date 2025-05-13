@@ -1,0 +1,15 @@
+{% extends "allauth_base.html" %}
+{% block title %}Verify Your Email{% endblock %}
+
+{% block content %}
+<div class="form active">
+  <p style="text-align: center;">
+    We've sent you a verification link to your email. <br>
+    Please check your inbox and follow the instructions to verify your account.
+  </p>
+
+  <div class="social-login" style="margin-top: 30px;">
+    <a href="{% url 'account_login' %}" class="btn">Back to Login</a>
+  </div>
+</div>
+{% endblock %}
