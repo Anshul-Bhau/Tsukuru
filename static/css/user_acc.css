@@ -348,6 +348,7 @@ button:hover {
 .fav_boards {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 1.5rem 0;
     border-radius: 12px;
@@ -356,7 +357,7 @@ button:hover {
 }
 
 .fav_boards .board {
-    background-color: #777;
+    background-color: rgba(119, 117, 117, 0.45);
     border-radius: 12px;
     padding: 1rem;
     width: 250px;
@@ -379,8 +380,135 @@ button:hover {
 }
 
 .board h4 {
-    color: #fff;
+    color: #b53145;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: bold;
+    text-transform: capitalize;
     text-align: start;
+}
+
+.recipe_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.recipe_container .card {
+    background-color: rgba(91, 89, 89, 0.45);
+    padding: 1.2rem;
+    min-height: 250px;
+    font-family: inherit;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+
+#card-1 {
+    padding: 1.2rem;
+    background-color: #56694f;
+    min-height: 250px;
+    font-family: inherit;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#card-1 i {
+    color: #cd9b59;
+    font-size: 1.6rem;
+}
+
+.card i {
+    color: #ede490;
+    font-size: 1.6rem;
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    max-width: fit-content;
+    padding: .5rem 0;
+    /* line-height: 2rem; */
+    border-radius: 10px;
+    color: #56694f;
+}
+
+#card-1 h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    max-width: fit-content;
+    padding: .5rem 0rem;
+    /* line-height: 2.4rem; */
+    border-radius: 10px;
+    color: #caedb8;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+#card-1 img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+.card p {
+    font-size: .7rem;
+    font-weight: 200;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+    color: #ede490;
+    padding: .5rem 0;
+}
+
+#card-1 p {
+    font-size: .7rem;
+    font-weight: 200;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+    padding: .5rem 0;
+    color: #cd9b59;
+}
+
+#card-1 a {
+    color: #cd9b59;
+}
+
+.card a {
+    text-decoration: none;
+    font-size: .8rem;
+    color: #ede490;
+}
+
+.recipe_boards {
+    display: none;
+    flex-direction: column;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    align-items: flex-start;
+    border-radius: 25px;
+    gap: 1rem;
+    background: rgba(119, 117, 117, 0.45);
+}
+
+.recipe_boards h3 {
+    font-family: inherit;
+    font-size: 1.5rem;
+    color: #b53145;
+}
+
+.recipe_boards #empty_board_text {
+    color: aliceblue;
+    font-size: .8rem;
+    font-family: cursive;
 }

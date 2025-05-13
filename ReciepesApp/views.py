@@ -117,7 +117,7 @@ def homepage(request, recipe_id) :
     return render(request, 'homepage.html', context)
 
 def user_account(request) :
-    boards = Boards.objects.filter(user=request.user)
+    boards = Boards.objects.filter(user=request.user).prefetch_related('recipes')
     return render(request, 'user_acc.html', {
         "boards" : boards,
     })

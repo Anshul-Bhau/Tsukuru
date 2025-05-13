@@ -81,3 +81,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+const fav_boards = document.querySelector('.fav_boards');
+const boards = document.querySelectorAll('.board');
+const board_rec = document.querySelectorAll('.recipe_boards');
+
+boards.forEach(board => {
+    board.addEventListener("click", () => {
+        const board_id = board.getAttribute('data-board-id');
+        
+        fav_boards.style.display = 'none';
+        board_rec.forEach(section => section.style.display = 'none');
+
+
+        const target = document.querySelector(`.recipe_boards[data-board-id='${board_id}']`);
+
+        if (target) {
+            target.style.display = "flex";
+        }
+        console.log("board id" , board_id);
+        console.log("target id" , target);
+
+    });
+});
