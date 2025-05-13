@@ -137,6 +137,7 @@ p {
 /* Password toggle */
 .password-toggle-icon {
   position: absolute;
+  margin-top: 16px;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);

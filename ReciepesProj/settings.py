@@ -88,9 +88,6 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-ACCOUNT_FORMS = {
-    'login': 'ReciepesApp.forms.CustomLoginForm',
-}
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
