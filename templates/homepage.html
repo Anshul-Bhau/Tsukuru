@@ -40,7 +40,8 @@
         </div>
         <section class="search">
             <div class="search_bar">
-                <form action="" method="" class="form" autocomplete="off">
+                <form action="" method="POST" class="form" autocomplete="off">
+                    {% csrf_token %}
                     <input class="input_box" type="text" name="input">
                     <button class="search_icon" type="submit"><img src="{% static '/images/search-icon.png' %}"
                             alt="magnifying glass"></button>

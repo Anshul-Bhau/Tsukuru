@@ -281,6 +281,7 @@ button:hover {
     transition: all 0.3s ease;
     opacity: 0;
     pointer-events: none;
+    display: none;
 }
 
 .pfp_chooser.show {

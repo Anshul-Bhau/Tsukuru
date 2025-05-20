@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chooseBtn = document.getElementById("pfp_choice_btn");
 
     chooseBtn.addEventListener("click", () => {
-        chooser.style.display = chooser.style.display === "none" ? "block" : "none";
+        chooser.style.display = chooser.style.display == "none" ? "block" : "none";
     });
     chooser.classList.toggle("show");
 

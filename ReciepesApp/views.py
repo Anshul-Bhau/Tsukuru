@@ -7,6 +7,7 @@ from django.contrib import messages
 from .models import Recipes, Boards, saved_recipes
 import json
 from .models import *
+from django.db.models import Q
 
 # Create your views here.
 
@@ -96,16 +97,33 @@ def user_signup(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+@login_required
 def home(request) :
     searched_recipes = Recipes.objects.all()[15:38:3]
     trending_recipes = Recipes.objects.all()[4:15:3]
     saved_boards = Boards.objects.filter(user=request.user)
+    recipes = searched_recipes
+    
+    if request.method == "POST":
+        input = request.POST.get('input', '').strip()
+        if input:
+            print(input)
+            keywords = [kw.lower() for kw in input.split() if kw]
+
+            q = Q()
+            for kw in keywords:
+                q &= (Q(title__icontains=kw) | Q(cleaned_ingredients__contains=[kw]))
+            recipes = Recipes.objects.filter(q).distinct()
+
     context = {
         'active_page': 'cook',
-        'searched_recipes': searched_recipes,
+        'searched_recipes': recipes,
         'trending_recipes' : trending_recipes,
-        'boards' : saved_boards}
+        'boards' : saved_boards,
+        }
+
     return render(request, 'homepage.html', context)
+
 
 def homepage(request, recipe_id) :
     recipe = get_object_or_404(Recipes, id=recipe_id)
@@ -149,7 +167,13 @@ def save_recipe(request):
             messages.success(request, "Recipe saved successfully!")
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
-    
+
+
+        
+
+
+
+
 # @login_required
 # def board_detail(request, board_id, save_recipe):
 #     board = get_object_or_404(Boards, id=board_id, user=request.user)
@@ -182,3 +206,5 @@ def auth_page(request):
         'signup_form': signup_form,
     }
     return render(request, 'account/login_signup.html', context)
+
+
