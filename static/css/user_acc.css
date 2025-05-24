@@ -139,6 +139,10 @@ body {
 }
 
 .log_option {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
     list-style: none;
     margin-top: auto;
     margin-bottom: 2rem;
@@ -149,7 +153,7 @@ body {
 
 
 .log_option a {
-    gap: .5rem;
+    gap: .8rem;
     text-decoration: none;
     color: #963f2e;
     font-weight: 600;
@@ -350,7 +354,7 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 1.5rem 0;
     border-radius: 12px;
     gap: 1.2rem;
@@ -388,9 +392,38 @@ button:hover {
     text-align: start;
 }
 
+.board_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.board_header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.close_board_view {
+    font-size: 1rem;
+    color: #555;
+    background: #eee;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    /* position: absolute; */
+    transition: background 0.2s ease;
+}
+
+.close_board_view:hover {
+    background: #ccc;
+}
+
+
 .recipe_container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
 
@@ -420,11 +453,24 @@ button:hover {
 #card-1 i {
     color: #cd9b59;
     font-size: 1.6rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
+
+#card-1 i:hover {
+    color: #b58341;
+}
+
 
 .card i {
     color: #ede490;
     font-size: 1.6rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.card i.saved:hover {
+    color: #dacf75;
 }
 
 .card h3 {

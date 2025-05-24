@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
     <title>Tsukuru</title>
     <link rel="stylesheet" type="text/css" href="{% static '/css/user_acc.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -42,14 +44,15 @@
                         class="fas fa-user"></i></a></li>
             <li><a href="#" data-title="Favourites" data-section="favorites">Favorites <i class="fas fa-heart"></i></a>
             </li>
-            <!-- <li><a href="#" data-title="Watchlist" data-section="watchlist">Watchlist <i class="fas fa-star"></i></a></li> -->
+
             <li><a href="#" data-title="Settings" data-section="settings">Settings <i class="fas fa-cog"></i></a></li>
         </ul>
 
         <div class="log_option">
+            <a href="{% url 'home' %}">Home <i class="fa-solid fa-house"></i></a>
             <a href="{% url 'account_logout' %}">Log out <i class="fas fa-sign-out-alt"></i></a>
         </div>
-    </aside> 
+    </aside>
 
     <main>
         <div class="user_panel">
@@ -62,8 +65,8 @@
                 <section class="pfp_chooser" id="pfp_chooser">
                     <h4>Choose your avatar</h4>
                     <div class="pfp_grid">
-                        {% for i in pfp_range %}
-                        <img src="{% static 'images/pfp' %}/pfp{{ i }}.jpg" class="pfp_option" alt="pfp">
+                        {% for i in range %}
+                        <img src="{% static 'images/pfp/pfp' %}{{ i }}.jpg" class="pfp_option" alt="pfp">
                         {% endfor %}
                     </div>
                 </section>
@@ -122,15 +125,17 @@
                 {% for board in boards %}
                 <div class="recipe_boards" data-board-id="{{ board.id }}">
 
-                    <h3>{{ board.title }}</h3>
+                    <div class="board_header">
+                        <h3>{{ board.title }}</h3>
+                        <span class="close_board_view">&times;</span>
+                    </div>
 
                     {% if board.recipes.count %}
-                    <p>recipes exist</p>
                     <div class="recipe_container">
                         {% for recipe in board.recipes.all %}
                         <div class="card" id="card-{{ forloop.counter }}">
 
-                            <i class="fa-regular fa-bookmark save_icon" data-recipe-id="{{ recipe.id }}"></i>
+                            <i class="fa-solid fa-bookmark save_icon saved" data-recipe-id="{{ recipe.id }}"></i>
 
                             <h3>{{ recipe.title }}</h3>
 
@@ -171,6 +176,7 @@
         </div>
     </main>
 </body>
+
 <script src="{% static '/js/user_acc.js' %}"></script>
 
 </html>

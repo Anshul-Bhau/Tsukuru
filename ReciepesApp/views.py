@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
 from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -167,13 +168,7 @@ def save_recipe(request):
             messages.success(request, "Recipe saved successfully!")
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
-
-
-        
-
-
-
-
+    
 # @login_required
 # def board_detail(request, board_id, save_recipe):
 #     board = get_object_or_404(Boards, id=board_id, user=request.user)
@@ -207,4 +202,26 @@ def auth_page(request):
     }
     return render(request, 'account/login_signup.html', context)
 
+@require_POST
+@login_required
+def unsave_recipe(request, recipe_id, board_id):
+    try:
+        recipe = Recipes.objects.get(id=recipe_id)
+        board = Boards.objects.get(id=board_id, user=request.user)
+        
+        try:
+            saved = saved_recipes.objects.get(user=request.user, recipe=recipe, board=board)
+            saved.delete()
+            return JsonResponse({"message": "Recipe unsaved successfully."})
+        except saved_recipes.DoesNotExist:
+            return JsonResponse({"error": "This recipe is not saved to this board."}, status=404)
+    
+    except Recipes.DoesNotExist:
+        return JsonResponse({"error": "Recipe not found."}, status=404)
+    
+    except Boards.DoesNotExist:
+        return JsonResponse({"error": "Board not found or you don’t have permission."}, status=403)
 
+    except Exception as e:
+        print("Unexpected error in unsave_recipe:", e)
+        return JsonResponse({"error": "Something went wrong."}, status=500)

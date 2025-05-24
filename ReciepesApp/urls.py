@@ -15,7 +15,7 @@ urlpatterns = [
     path('home/<int:recipe_id>/', homepage, name='homepage'),
     path('user_account/', user_account, name='user_acc'),
     path('save_recipe/', save_recipe, name='save_recipe'),
-    
+    path('unsave-recipe/<int:recipe_id>/<int:board_id>/', unsave_recipe, name='unsave_recipe'),
     path('accounts/login/', lambda request: HttpResponseRedirect('/auth/?tab=login')),
     path('accounts/signup/', lambda request: HttpResponseRedirect('/auth/?tab=signup')),
     path('auth/', auth_page, name='auth_combined'),

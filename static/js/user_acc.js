@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             menuLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
-            
+
             const newTitle = link.getAttribute('data-title');
             const targetID = link.getAttribute('data-section');
 
@@ -89,7 +89,7 @@ const board_rec = document.querySelectorAll('.recipe_boards');
 boards.forEach(board => {
     board.addEventListener("click", () => {
         const board_id = board.getAttribute('data-board-id');
-        
+
         fav_boards.style.display = 'none';
         board_rec.forEach(section => section.style.display = 'none');
 
@@ -99,8 +99,66 @@ boards.forEach(board => {
         if (target) {
             target.style.display = "flex";
         }
-        console.log("board id" , board_id);
-        console.log("target id" , target);
+        console.log("board id", board_id);
+        console.log("target id", target);
 
     });
 });
+
+document.querySelectorAll(".close_board_view").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".recipe_boards").forEach(sec => {
+            sec.style.display = "none";
+        });
+
+        fav_boards.style.display = "flex";
+    });
+});
+
+document.querySelectorAll(".save_icon.saved").forEach(icon => {
+    icon.addEventListener('click', () => {
+        const recipeId = icon.getAttribute('data-recipe-id');
+        const boardContainer = icon.closest('.recipe_boards');
+        const boardId = boardContainer ? boardContainer.getAttribute('data-board-id') : null;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+
+        if (!boardId) {
+            console.error('Board ID not found');
+            return;
+        }
+
+        if (confirm("Do you want to unsave this recipe?")) {
+            fetch(`/unsave-recipe/${recipeId}/${boardId}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Content-Type": "application/json"
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    icon.closest('.card').remove();
+                })
+                .catch(error => console.error("Error:", error));
+                alert("Oops! Could not unsave the recipe. Try again.");
+        }
+    });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie != "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) == name + "=") {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+
+        }
+    }
+    return cookieValue;
+}
