@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
 
 body {
     background-color: #fff;
-    font-family: Arial, sans-serif;
+    font-family: 'Amatic SC', sans-serif;
 }
 
 .navbar {
@@ -36,26 +38,28 @@ body {
     display: flex;
     align-items: center;
     flex-direction: row;
-    gap: 1.0rem;
+    gap: 1.4rem;
 }
 
 #theme_toggle {
     background-color: transparent;
     color: rgb(205, 198, 198);
     border: none;
+    padding: 0;
     font-size: 1.3rem;
 }
 
 .nav-right img {
     border-radius: 50%;
-    width: 25px;
+    width: 28px;
     height: auto;
 }
 
 .nav-right h3 {
     font-family: inherit;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
     color: aliceblue;
+    padding-right: 1rem;
 }
 
 .side_menu {
@@ -71,7 +75,6 @@ body {
     z-index: 999;
     transition: left 0.3s ease;
     background-color: transparent;
-    /* background-color: #c77884; */
 }
 
 .side_menu.open {
@@ -82,8 +85,8 @@ body {
     padding: 1rem;
     margin-top: 2rem;
     font-family: inherit;
-    font-weight: bolder;
-    font-size: 1.4rem;
+    font-weight: 700;
+    font-size: 2rem;
     color: #56694f;
     text-align: center;
     transition: all 0.3s ease;
@@ -109,10 +112,11 @@ body {
 .menu_items li a {
     display: block;
     align-items: center;
+    font-family: cursive;
     padding: 1rem;
     text-decoration: none;
     color: #777;
-    font-size: 1.1rem;
+    font-size: 1rem;
     position: relative;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -166,7 +170,6 @@ main {
 
 .profile_pfp,
 .user_info {
-    /* background-color: #f0f0f0; */
     border-radius: 20px;
     padding: 1.5rem;
     max-width: 600px;
@@ -188,7 +191,7 @@ main {
 #pfp_choice_btn {
     background-color: #56694f;
     color: #fff;
-    font-size: .8rem;
+    font-size: 1.2rem;
     border: none;
     border-radius: 12px;
     padding: 8px 10px;
@@ -217,6 +220,8 @@ main {
 
 .form_grp label {
     font-weight: bold;
+    line-height: 1.4rem;
+    font-family: monospace;
     color: #555;
     font-size: 14px;
     margin-bottom: 6px;
@@ -250,7 +255,7 @@ main {
 }
 
 button {
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 10px 16px;
     border: none;
     border-radius: 8px;
@@ -338,14 +343,18 @@ button:hover {
 
 .sec_title h3 {
     color: #56694f;
-    font-size: 2rem;
+    font-size: 2.3rem;
     font-family: inherit;
+    font-weight: 700;
+    font-style: normal;
     margin-bottom: 0.2rem;
 }
 
 .sec_title p {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-family: inherit;
+    font-weight: 400;
+    font-style: normal;
     color: #777;
     margin-bottom: .5rem;
 }
@@ -358,7 +367,6 @@ button:hover {
     padding: 1.5rem 0;
     border-radius: 12px;
     gap: 1.2rem;
-    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
 }
 
 .fav_boards .board {
@@ -386,8 +394,9 @@ button:hover {
 
 .board h4 {
     color: #b53145;
-    font-size: 0.85rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
     text-transform: capitalize;
     text-align: start;
 }
@@ -406,13 +415,12 @@ button:hover {
 }
 
 .close_board_view {
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: #555;
     background: #eee;
     border-radius: 50%;
-    padding: 0.2rem 0.5rem;
+    padding: 0rem 11px;
     cursor: pointer;
-    /* position: absolute; */
     transition: background 0.2s ease;
 }
 
@@ -474,21 +482,20 @@ button:hover {
 }
 
 .card h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: normal;
     max-width: fit-content;
     padding: .5rem 0;
-    /* line-height: 2rem; */
     border-radius: 10px;
     color: #56694f;
 }
 
 #card-1 h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
     max-width: fit-content;
     padding: .5rem 0rem;
-    /* line-height: 2.4rem; */
     border-radius: 10px;
     color: #caedb8;
 }
@@ -510,8 +517,9 @@ button:hover {
 }
 
 .card p {
-    font-size: .7rem;
-    font-weight: 200;
+    font-size: .8rem;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1rem;
     margin-bottom: 1rem;
     color: #ede490;
@@ -519,8 +527,9 @@ button:hover {
 }
 
 #card-1 p {
-    font-size: .7rem;
-    font-weight: 200;
+    font-size: .8rem;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1rem;
     margin-bottom: 1rem;
     padding: .5rem 0;
@@ -529,11 +538,14 @@ button:hover {
 
 #card-1 a {
     color: #cd9b59;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 .card a {
     text-decoration: none;
-    font-size: .8rem;
+    font-size: 1rem;
+    font-weight: 700;
     color: #ede490;
 }
 

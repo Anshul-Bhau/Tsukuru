@@ -22,3 +22,18 @@ function closeSaveModal() {
 }
 
 const search_sec = document.getElementById('searched_recipes_container');
+const search_input = document.getElementById("search_input");
+
+document.getElementById('search_input').addEventListener("keydown", function(event){
+    if (event.key == "Enter") {
+        localStorage.setItem('last_search', search_input.value.trim() || search_input.placeholder);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const lastSearch = localStorage.getItem("last_search");
+    if (lastSearch) {
+    document.getElementById("result_text").textContent = `Showing results for "${lastSearch}"`;
+    localStorage.removeItem("last_search");
+    }
+});

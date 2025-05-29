@@ -40,9 +40,9 @@
         </div>
         <section class="search">
             <div class="search_bar">
-                <form action="" method="POST" class="form" autocomplete="off">
+                <form action="" method="POST" class="form" autocomplete="off" id="search_form">
                     {% csrf_token %}
-                    <input class="input_box" type="text" name="input">
+                    <input class="input_box" type="text" name="input" id="search_input">
                     <button class="search_icon" type="submit"><img src="{% static '/images/search-icon.png' %}"
                             alt="magnifying glass"></button>
                 </form>
@@ -60,7 +60,11 @@
         </section>
     </section>
 
+
     <section class="searched_recipes_container" id="searched_recipes_container">
+        <div class="sec-heading" id="result_text">
+            
+        </div>
         <div class="recipe-container">
             {% for recipe in searched_recipes %}
             <div class="card" id="card-{{ forloop.counter }}">

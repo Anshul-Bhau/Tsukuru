@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +12,7 @@ html {
 
 body {
     background-color: aliceblue;
-    font-family: Arial, sans-serif;
+    font-family: 'Amatic SC', sans-serif;
 }
 
 .navbar {
@@ -44,6 +46,7 @@ body {
 
 .nav-mid-items ul li a {
     font-weight: bold;
+    font-family: monospace;
     color: #222;
     font-size: 1rem;
     text-decoration: none;
@@ -99,7 +102,6 @@ body {
     padding: 0.7rem 1.4rem;
     display: flex;
     flex-wrap: wrap;
-    font-family: inherit;
     align-items: center;
 }
 
@@ -127,17 +129,21 @@ body {
 .footer-section-1 .footer-logo-txt {
     display: flex;
     flex-direction: column;
+
 }
 
 .footer-section-1 #logo-text-eng {
     color: aliceblue;
-    font-weight: bold;
-    font-size: 2rem;
+    font-family: inherit;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.4rem;
 }
 
 .footer-section-1 #logo-text-jap {
     color: #963f2e;
     font-weight: bold;
+    font-family: monospace;
     font-size: 1.5rem;
 }
 
@@ -148,13 +154,14 @@ body {
 
 .footer-section-1 .cols h3 {
     color: #caedb8;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
 .cols ul li {
     list-style: none;
     font-size: 0.75rem;
+    font-family: monospace;
     position: relative;
     margin-bottom: 0.25rem;
     color: aliceblue;
@@ -191,6 +198,7 @@ body {
 }
 
 .fs2-r ul li a:hover {
+    color: #cff3bd;
     border-bottom: 2px solid #caedb8;
 }
 
@@ -207,10 +215,10 @@ body {
 }
 
 .heading h2 {
-    font-size: 2.4em;
-    color: rgba(91, 89, 89, 0.45);
-    font-weight: 600;
-    font-family: cursive;
+    font-size: 4em;
+    color: rgba(73, 71, 71, 0.45);
+    font-weight: 700;
+    font-family: inherit;
     text-align: center;
     margin: 1.4rem 0;
 }
@@ -223,7 +231,6 @@ body {
     padding: 20px 24px;
     border-radius: 32px;
     min-width: 1200px;
-    /* margin: auto; */
     background-color: #c77884;
 }
 
@@ -251,7 +258,7 @@ body {
     padding: 24px 20px;
     font-size: 20px;
     width: 400px;
-    color: aliceblue;
+    color: rgba(255, 255, 255, .8);
 }
 
 .search_icon img {
@@ -277,7 +284,7 @@ body {
 
 .sug_ing_btn {
     background-color: #b53145;
-    color: aliceblue;
+    color: rgba(255, 255, 255, .8);
     padding: 8px 10px;
     border-radius: 12px;
     border: none;
@@ -297,7 +304,6 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* padding: 16px 20px; */
     margin: auto;
     max-width: 1200px;
     margin-bottom: 2rem;
@@ -313,6 +319,9 @@ body {
 .sec-heading {
     color: #963f2e;
     font-size: 3rem;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 700;
     margin-bottom: 2rem;
 }
 
@@ -326,7 +335,6 @@ body {
     background-color: rgba(91, 89, 89, 0.45);
     padding: 1.2rem;
     min-height: 250px;
-    font-family: inherit;
     border-radius: 15px;
     display: flex;
     justify-content: space-around;
@@ -356,21 +364,21 @@ body {
 }
 
 .card h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: normal;
     max-width: fit-content;
     padding: .5rem 0;
-    /* line-height: 2rem; */
     border-radius: 10px;
     color: #56694f;
 }
 
 #card-1 h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: normal;
     max-width: fit-content;
     padding: .5rem 0rem;
-    /* line-height: 2.4rem; */
     border-radius: 10px;
     color: #caedb8;
 }
@@ -392,8 +400,9 @@ body {
 }
 
 .card p {
-    font-size: .7rem;
-    font-weight: 200;
+    font-size: 0.8rem;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1rem;
     margin-bottom: 1rem;
     color: #ede490;
@@ -401,8 +410,9 @@ body {
 }
 
 #card-1 p {
-    font-size: .7rem;
-    font-weight: 200;
+    font-size: 0.8rem;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1rem;
     margin-bottom: 1rem;
     padding: .5rem 0;
@@ -411,11 +421,14 @@ body {
 
 #card-1 a {
     color: #cd9b59;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 .card a {
     text-decoration: none;
-    font-size: .8rem;
+    font-size: 1rem;
+    font-weight: 700;
     color: #ede490;
 }
 
