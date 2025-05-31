@@ -169,40 +169,6 @@
         </div>
     </div>
 
-    {% if show_detail %}
-    <section class="fullrecipe_cont" id="full_rec_cont">
-        <div id="recipe_name">{{ recipe.title }}</div>
-
-        <div class="rec_container">
-            <div class="ingredients">
-                <ul class="ingredients_list">
-                    {% for item in ingredients %}
-                    <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="image">
-                {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }} image">
-                {% else %}
-                <img src="{% static 'images/default-img.jpg' %}" alt="Default recipe image">
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="instructions">
-            <h3>Instructions :</h3>
-            <p>{{ recipe.directions|linebreaksbr }}</p>
-        </div>
-
-        <div class="back_butn">
-            <button id="back_btn">← Back to All Recipes</button>
-        </div>
-
-    </section>
-    {% endif %}
-
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section-1">

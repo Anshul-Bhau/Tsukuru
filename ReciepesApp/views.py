@@ -124,7 +124,7 @@ def home(request):
     }
     return render(request, 'homepage.html', context)
 
-# this is your single recipe detail page
+# this is for single recipe detail in recipe page
 @login_required
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipes, id=recipe_id)
@@ -135,7 +135,7 @@ def recipe_detail(request, recipe_id):
         'ingredients': recipe.ingredients,
         'show_detail': True,
     }
-    return render(request, 'homepage.html', context)
+    return render(request, 'recipe.html', context)
 
 def user_account(request) :
     boards = Boards.objects.filter(user=request.user).prefetch_related('recipes')
