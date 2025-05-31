@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unkempt:wght@400;700&display=swap');
 
 * {
     margin: 0;
@@ -501,7 +502,8 @@ body {
     color: #cd9b59;
 }
 
-#saveRecipeForm select, #saveRecipeForm input {
+#saveRecipeForm select,
+#saveRecipeForm input {
     padding: 4px 8px;
     color: rgb(122, 118, 118);
 }
@@ -515,4 +517,106 @@ body {
     border-radius: 50%;
     width: 25px;
     height: auto;
+}
+
+.fullrecipe_cont {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: auto;
+    padding: 2rem;
+    max-width: 1200px;
+}
+
+#recipe_name {
+    font-size: 3rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #b53145;
+    padding-bottom: 10px;
+}
+
+.rec_container {
+    display: flex;
+    width: -webkit-fill-available;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1.5rem 0rem;
+    border-top: 2px solid #333;
+}
+
+.ingredients .ingredients_list li {
+    list-style: none;
+    font-size: 1.2rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    color: #627d59;
+    padding-left: 0;
+    gap: 1rem;
+    margin-bottom: 15px;
+}
+
+.ingredients_list li::before {
+    content: "➜ ";
+    color: #627d59;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.rec_container .image {
+    align-self: flex-start;
+    margin-left: auto;
+}
+
+.rec_container .image img {
+    width: auto;
+    height: 250px;
+    border-radius: 24px;
+    display: block;
+}
+
+.instructions {
+    padding: 2rem 0rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #333;
+    border-top: 2px solid #333;
+}
+
+.instructions h3 {
+    font-size: 2.5rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #b53145;
+    margin-bottom: 10px;
+}
+
+.instructions p {
+    font-size: 1rem;
+    font-family: cursive;
+    color: #627d59;
+    line-height: 30px;
+}
+
+#back_btn {
+    background-color: #b53145;
+    color: aliceblue;
+    border: 1px solid aliceblue;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 400;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in;
+}
+
+#back_btn:hover {
+    opacity: 0.9;
+    transform: translateY(-3px);
 }

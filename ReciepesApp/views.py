@@ -98,8 +98,9 @@ def user_signup(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+# this is homepage
 @login_required
-def home(request) :
+def home(request):
     searched_recipes = Recipes.objects.all()[15:38:3]
     trending_recipes = Recipes.objects.all()[4:15:3]
     saved_boards = Boards.objects.filter(user=request.user)
@@ -108,9 +109,7 @@ def home(request) :
     if request.method == "POST":
         input = request.POST.get('input', '').strip()
         if input:
-            print(input)
             keywords = [kw.lower() for kw in input.split() if kw]
-
             q = Q()
             for kw in keywords:
                 q &= (Q(title__icontains=kw) | Q(cleaned_ingredients__contains=[kw]))
@@ -119,20 +118,23 @@ def home(request) :
     context = {
         'active_page': 'cook',
         'searched_recipes': recipes,
-        'trending_recipes' : trending_recipes,
-        'boards' : saved_boards,
-        }
-
+        'trending_recipes': trending_recipes,
+        'boards': saved_boards,
+        'show_detail': False,
+    }
     return render(request, 'homepage.html', context)
 
-
-def homepage(request, recipe_id) :
+# this is your single recipe detail page
+@login_required
+def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipes, id=recipe_id)
     saved_boards = Boards.objects.filter(user=request.user)
     context = {
-        'boards' : saved_boards,
-        'recipe': recipe
-        }
+        'boards': saved_boards,
+        'recipe': recipe,
+        'ingredients': recipe.ingredients,
+        'show_detail': True,
+    }
     return render(request, 'homepage.html', context)
 
 def user_account(request) :
@@ -168,27 +170,6 @@ def save_recipe(request):
             messages.success(request, "Recipe saved successfully!")
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
-    
-# @login_required
-# def board_detail(request, board_id, save_recipe):
-#     board = get_object_or_404(Boards, id=board_id, user=request.user)
-#     saved = saved_recipes.objects.filter(board=board).select_related('recipe').first()
-#     image_url = saved.recipe.image.url if saved else None
-
-#     context = {
-#         'board' : board,
-#         'image_url' : image_url,
-#     }
-
-#     return render(request , 'user_account.html', context)
-
-# def auth_page(request):
-#     tab = request.GET.get('tab', 'login')  # default to login
-#     context = {
-#         'tab': tab
-#     }
-#     return render(request, 'account/login_signup.html', context)
-
 
 def auth_page(request):
     tab = request.GET.get('tab', 'login')

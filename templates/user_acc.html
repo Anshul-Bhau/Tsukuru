@@ -148,7 +148,7 @@
                             <p>{{ recipe.directions|truncatewords:15 }}</p>
 
                             {% if user.is_authenticated %}
-                            <a href="{% url 'homepage' recipe_id=recipe.id %}">view more</a>
+                            <a href="{% url 'recipe_detail' recipe_id=recipe.id %}">view more</a>
                             {% else %}
                             <a href="{% url 'loginpage' %}?next={% url 'homepage' recipe_id=recipe.id %}">Login to view
                                 more</a>
