@@ -171,7 +171,7 @@ main {
 .profile_pfp,
 .user_info {
     border-radius: 20px;
-    padding: 1.5rem;
+    padding: 3rem 1.5rem;
     max-width: 600px;
     margin: 2rem auto;
     display: flex;
@@ -182,7 +182,8 @@ main {
 
 .profile_pfp img {
     border-radius: 50%;
-    box-shadow: 0 14px 7px rgba(0, 0, 0, 0.05);
+    box-shadow: 5px 10px 7px rgba(0, 0, 0, 0.05);
+    border: 0.5px solid rgba(0, 0, 0, 0.05);
     width: 180px;
     height: 180px;
     object-fit: cover;
@@ -288,19 +289,20 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     text-align: center;
     transition: all 0.3s ease;
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
     display: none;
 }
 
 .pfp_chooser.show {
     opacity: 1;
+    display: block;
     pointer-events: auto;
 }
 
 .pfp_grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     justify-content: center;
     gap: 1rem;
     margin-top: 1rem;
@@ -317,7 +319,7 @@ button:hover {
 }
 
 .pfp_option:hover {
-    transform: scale(1.1);
+    transform: scale(1.04);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     border-color: #56694f;
 }

@@ -1,30 +1,65 @@
-const menu = document.getElementById("sidebar");
-const toggle = document.querySelector(".menu_toggle");
-
-toggle.addEventListener('click', function (e) {
-    e.preventDefault();
-    menu.classList.toggle('open');
-});
-
-document.addEventListener('click', function (e) {
-    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-        menu.classList.remove('open');
-    }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
+    const menu_icon = document.getElementById("menu_btn");
+    const side_panel = document.getElementById("sidebar");
     const menuLinks = document.querySelectorAll('.menu_items li a');
     const side_text = document.getElementById('side_title');
     const profileImg = document.getElementById("profile_img");
     const profileSectionImg = document.getElementById("profile_sec_img");
+    const chooser = document.getElementById("pfp_chooser");
+    const chooseBtn = document.getElementById("pfp_choice_btn");
+    const defaultPfp = "/static/images/pfp/default-pfp.jpg";
     const savedPfp = localStorage.getItem("selectedPfp");
-    const sections = document.querySelectorAll('.panel_section');
 
-    if (savedPfp) {
-        if (profileImg) profileImg.setAttribute("src", savedPfp);
-        if (profileSectionImg) profileSectionImg.setAttribute("src", savedPfp);
+    
+    function imageExists(url, callback) {
+        const img = new Image();
+        img.onload = () => callback(true);
+        img.onerror = () => callback(false);
+        img.src = url;
     }
 
+    
+    if (savedPfp) {
+        imageExists(savedPfp, exists => {
+            const pfpToUse = exists ? savedPfp : defaultPfp;
+            if (profileImg) profileImg.setAttribute("src", pfpToUse);
+            if (profileSectionImg) profileSectionImg.setAttribute("src", pfpToUse);
+            if (!exists) localStorage.removeItem("selectedPfp");
+        });
+    } else {
+        if (profileImg) profileImg.setAttribute("src", defaultPfp);
+        if (profileSectionImg) profileSectionImg.setAttribute("src", defaultPfp);
+    }
+
+    
+    chooseBtn.addEventListener("click", () => {
+        chooser.classList.toggle("show");
+    });
+
+    
+    document.querySelectorAll(".pfp_option").forEach(img => {
+        img.addEventListener("click", () => {
+            const newSrc = img.getAttribute("src");
+
+            if (profileImg) profileImg.setAttribute("src", newSrc);
+            if (profileSectionImg) profileSectionImg.setAttribute("src", newSrc);
+
+            localStorage.setItem("selectedPfp", newSrc);
+
+            const hiddenInput = document.getElementById("selected_pfp");
+            if (hiddenInput) hiddenInput.value = newSrc;
+
+            console.log("Avatar clicked:", img.src);
+
+            chooser.classList.remove("show");
+        });
+    });
+
+    menu_icon.addEventListener('click', () => {
+        side_panel.style.left = 0;
+    })
+
+    const sections = document.querySelectorAll('.panel_section');
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -35,13 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetID = link.getAttribute('data-section');
 
             side_text.textContent = newTitle;
-
             sections.forEach(section => {
                 section.style.display = (section.id == targetID) ? 'block' : 'none';
             });
         });
     });
 
+    
     const edit = document.getElementById('edit_btn');
     const save = document.getElementById('save_btn');
 
@@ -56,109 +91,4 @@ document.addEventListener('DOMContentLoaded', () => {
     save.addEventListener('click', function () {
         document.getElementById('user_form').submit();
     });
-
-    const chooser = document.getElementById("pfp_chooser");
-    const chooseBtn = document.getElementById("pfp_choice_btn");
-
-    chooseBtn.addEventListener("click", () => {
-        chooser.style.display = chooser.style.display == "none" ? "block" : "none";
-    });
-    chooser.classList.toggle("show");
-
-    document.querySelectorAll(".pfp_option").forEach(img => {
-        img.addEventListener("click", () => {
-            const newSrc = img.getAttribute("src");
-
-            if (profileImg) profileImg.setAttribute("src", newSrc);
-            if (profileSectionImg) profileSectionImg.setAttribute("src", newSrc);
-
-            localStorage.setItem("selectedPfp", newSrc);
-
-            const hiddenInput = document.getElementById("selected_pfp");
-            if (hiddenInput) hiddenInput.value = newSrc;
-
-            chooser.style.display = "none";
-        });
-    });
 });
-
-const fav_boards = document.querySelector('.fav_boards');
-const boards = document.querySelectorAll('.board');
-const board_rec = document.querySelectorAll('.recipe_boards');
-
-boards.forEach(board => {
-    board.addEventListener("click", () => {
-        const board_id = board.getAttribute('data-board-id');
-
-        fav_boards.style.display = 'none';
-        board_rec.forEach(section => section.style.display = 'none');
-
-
-        const target = document.querySelector(`.recipe_boards[data-board-id='${board_id}']`);
-
-        if (target) {
-            target.style.display = "flex";
-        }
-        console.log("board id", board_id);
-        console.log("target id", target);
-
-    });
-});
-
-document.querySelectorAll(".close_board_view").forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelectorAll(".recipe_boards").forEach(sec => {
-            sec.style.display = "none";
-        });
-
-        fav_boards.style.display = "flex";
-    });
-});
-
-document.querySelectorAll(".save_icon.saved").forEach(icon => {
-    icon.addEventListener('click', () => {
-        const recipeId = icon.getAttribute('data-recipe-id');
-        const boardContainer = icon.closest('.recipe_boards');
-        const boardId = boardContainer ? boardContainer.getAttribute('data-board-id') : null;
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-
-        if (!boardId) {
-            console.error('Board ID not found');
-            return;
-        }
-
-        if (confirm("Do you want to unsave this recipe?")) {
-            fetch(`/unsave-recipe/${recipeId}/${boardId}/`, {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": csrfToken,
-                    "Content-Type": "application/json"
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message);
-                    icon.closest('.card').remove();
-                })
-                .catch(error => console.error("Error:", error));
-                alert("Oops! Could not unsave the recipe. Try again.");
-        }
-    });
-});
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie != "") {
-        const cookies = document.cookie.split(";");
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) == name + "=") {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-
-        }
-    }
-    return cookieValue;
-}

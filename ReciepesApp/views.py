@@ -141,6 +141,7 @@ def user_account(request) :
     boards = Boards.objects.filter(user=request.user).prefetch_related('recipes')
     return render(request, 'user_acc.html', {
         "boards" : boards,
+        "range" : range(1,25)
     })
 
 @login_required

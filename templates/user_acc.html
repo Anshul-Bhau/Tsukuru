@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar">
             <div class="nav-left">
-                <a href="#" class="menu_toggle">
+                <a href="#" class="menu_toggle" id="menu_btn">
                     <i class="fa-solid fa-bars"></i>
                 </a>
             </div>
@@ -67,6 +67,11 @@
                     <div class="pfp_grid">
                         {% for i in range %}
                         <img src="{% static 'images/pfp/pfp' %}{{ i }}.jpg" class="pfp_option" alt="pfp">
+                        <!-- <img src="{% static 'images/pfp/pfp2.jpg' %}" class="pfp_option" alt="pfp">
+                        <img src="{% static 'images/pfp/pfp3.jpg' %}" class="pfp_option" alt="pfp">
+                        <img src="{% static 'images/pfp/pfp4.jpg' %}" class="pfp_option" alt="pfp">
+                        <img src="{% static 'images/pfp/pfp5.jpg' %}" class="pfp_option" alt="pfp">
+                        <img src="{% static 'images/pfp/pfp6.jpg' %}" class="pfp_option" alt="pfp"> -->
                         {% endfor %}
                     </div>
                 </section>
@@ -162,8 +167,7 @@
                     </div>
                 </div>
                 {% endfor %}
-        </div>
-        </section>
+            </section>
 
         <section class="panel_section" id="watchlist" style="display: none;">
 
