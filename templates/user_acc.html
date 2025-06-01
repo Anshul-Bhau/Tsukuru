@@ -67,11 +67,6 @@
                     <div class="pfp_grid">
                         {% for i in range %}
                         <img src="{% static 'images/pfp/pfp' %}{{ i }}.jpg" class="pfp_option" alt="pfp">
-                        <!-- <img src="{% static 'images/pfp/pfp2.jpg' %}" class="pfp_option" alt="pfp">
-                        <img src="{% static 'images/pfp/pfp3.jpg' %}" class="pfp_option" alt="pfp">
-                        <img src="{% static 'images/pfp/pfp4.jpg' %}" class="pfp_option" alt="pfp">
-                        <img src="{% static 'images/pfp/pfp5.jpg' %}" class="pfp_option" alt="pfp">
-                        <img src="{% static 'images/pfp/pfp6.jpg' %}" class="pfp_option" alt="pfp"> -->
                         {% endfor %}
                     </div>
                 </section>
@@ -140,7 +135,7 @@
                         {% for recipe in board.recipes.all %}
                         <div class="card" id="card-{{ forloop.counter }}">
 
-                            <i class="fa-solid fa-bookmark save_icon saved" data-recipe-id="{{ recipe.id }}"></i>
+                            <i class="fa-solid fa-bookmark save_icon saved" data-recipe-id="{{ recipe.id }}" data-board-id="{{ board.id }}"></i>
 
                             <h3>{{ recipe.title }}</h3>
 

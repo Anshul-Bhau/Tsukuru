@@ -9,8 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chooseBtn = document.getElementById("pfp_choice_btn");
     const defaultPfp = "/static/images/pfp/default-pfp.jpg";
     const savedPfp = localStorage.getItem("selectedPfp");
+    const boards = document.querySelectorAll(".board");
+    const fav_boards = document.querySelector(".fav_boards");
+    const recipe_boards = document.querySelectorAll(".recipe_boards");
+    const close_board_btn = document.querySelectorAll(".close_board_view");
 
-    
+
     function imageExists(url, callback) {
         const img = new Image();
         img.onload = () => callback(true);
@@ -18,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         img.src = url;
     }
 
-    
+
     if (savedPfp) {
         imageExists(savedPfp, exists => {
             const pfpToUse = exists ? savedPfp : defaultPfp;
@@ -31,12 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (profileSectionImg) profileSectionImg.setAttribute("src", defaultPfp);
     }
 
-    
+
     chooseBtn.addEventListener("click", () => {
         chooser.classList.toggle("show");
     });
 
-    
+
     document.querySelectorAll(".pfp_option").forEach(img => {
         img.addEventListener("click", () => {
             const newSrc = img.getAttribute("src");
@@ -55,9 +59,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    menu_icon.addEventListener('click', () => {
-        side_panel.style.left = 0;
-    })
+    let panel_open = false;
+
+    menu_icon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        panel_open = !panel_open;
+        side_panel.style.left = panel_open ? '0' : '-220px';
+    });
+
+    document.addEventListener('click', (e) => {
+        if (panel_open && !side_panel.contains(e.target) && e.target !== menu_icon) {
+            side_panel.style.left = '-220px';
+            panel_open = false;
+        }
+    });
+
+    side_panel.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
 
     const sections = document.querySelectorAll('.panel_section');
     menuLinks.forEach(link => {
@@ -76,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    
+
     const edit = document.getElementById('edit_btn');
     const save = document.getElementById('save_btn');
 
@@ -90,5 +109,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
     save.addEventListener('click', function () {
         document.getElementById('user_form').submit();
+    });
+
+    boards.forEach(board => {
+        board.addEventListener("click", () => {
+            const boardID = board.getAttribute("data-board-id");
+
+            recipe_boards.forEach(recipe_board => {
+                recipe_board.style.display = "none";
+            });
+
+            const target_board = document.querySelector(`.recipe_boards[data-board-id="${boardID}"]`);
+            if (target_board) {
+                target_board.style.display = "block";
+                fav_boards.style.display = "none";
+            }
+        })
+    });
+
+    close_board_btn.forEach(close_btn => {
+        close_btn.addEventListener("click", () => {
+            const board_div = close_btn.closest(".recipe_boards");
+            if (board_div) {
+                board_div.style.display = "none";
+                fav_boards.style.display = "flex";
+            }
+        })
+    });
+    document.querySelectorAll('.save_icon.saved').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const recipeId = this.dataset.recipeId;
+            const boardId = this.dataset.boardId;
+
+            fetch(`/unsave_recipe/${recipeId}/${boardId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.message) {
+                        console.log(data.message);
+                        this.classList.remove('saved');
+                        this.closest('.card').remove();
+                    } else {
+                        console.error(data.error || "Unknown error");
+                    }
+                })
+                .catch(err => {
+                    console.error("Fetch error:", err);
+                });
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
     });
 });

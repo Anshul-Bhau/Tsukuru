@@ -80,7 +80,7 @@ class Boards(models.Model):
         return f'{self.user.username} - {self.title}'
 
 class saved_recipes(models.Model):
-    recipe = models.OneToOneField(Recipes, on_delete=models.CASCADE, related_name='saved_recipes')
+    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE, related_name='saved_recipes')
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
     board = models.ForeignKey(Boards, on_delete=models.CASCADE, unique=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)

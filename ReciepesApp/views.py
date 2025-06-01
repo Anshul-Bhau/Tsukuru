@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Recipes, Boards, saved_recipes
+from django.urls import reverse
 import json
 from .models import *
 from django.db.models import Q
@@ -164,10 +165,11 @@ def save_recipe(request):
             messages.error(request, "Please select or create a Board")
             return redirect(request.META.get('HTTP_REFERER', '/'))
         
-        if board.recipes.filter(id=recipe_id).exists:
+        if board.recipes.filter(id=recipe_id).exists():
             messages.info(request, "Recipe is alredy saved to the board")
         else:
-            board.recipes.set(recipe)
+            board.recipes.add(recipe)
+            saved_recipes.objects.create(recipe = recipe, user=request.user, board=board)
             messages.success(request, "Recipe saved successfully!")
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -189,21 +191,31 @@ def auth_page(request):
 def unsave_recipe(request, recipe_id, board_id):
     try:
         recipe = Recipes.objects.get(id=recipe_id)
-        board = Boards.objects.get(id=board_id, user=request.user)
-        
-        try:
-            saved = saved_recipes.objects.get(user=request.user, recipe=recipe, board=board)
-            saved.delete()
-            return JsonResponse({"message": "Recipe unsaved successfully."})
-        except saved_recipes.DoesNotExist:
-            return JsonResponse({"error": "This recipe is not saved to this board."}, status=404)
-    
+        print("Found recipe:", recipe)
     except Recipes.DoesNotExist:
-        return JsonResponse({"error": "Recipe not found."}, status=404)
-    
+        print("Recipe does not exist")
+        return JsonResponse({"error": f"Recipe {recipe_id} not found."}, status=404)
+
+    try:
+        board = Boards.objects.get(id=board_id, user=request.user)
+        print("Found board:", board)
     except Boards.DoesNotExist:
+        print("Board not found or no permission")
         return JsonResponse({"error": "Board not found or you don’t have permission."}, status=403)
 
+    print("Checking for saved recipe with:")
+    print(f"user={request.user}, recipe={recipe.id}, board={board.id}")
+    print(saved_recipes.objects.filter(user=request.user, recipe=recipe, board=board))
+
+    try:
+        saved = saved_recipes.objects.get(user=request.user, recipe=recipe, board=board)
+        print(saved)
+        saved.delete()
+        print("unsaved")
+        return JsonResponse({"message": "Recipe unsaved successfully."})
+    except saved_recipes.DoesNotExist:
+        print("Saved recipe does not exist")
+        return JsonResponse({"error": "This recipe is not saved to this board."}, status=404)
     except Exception as e:
         print("Unexpected error in unsave_recipe:", e)
         return JsonResponse({"error": "Something went wrong."}, status=500)
