@@ -1,17 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
+from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from allauth.account.forms import LoginForm, SignupForm
-from allauth.account.views import LoginView, SignupView
-from allauth.account.utils import complete_signup, perform_login
-from allauth.account import app_settings
-from django.urls import reverse
+from django.shortcuts import redirect
 from .models import Recipes, Boards, saved_recipes
+from django.core.paginator import Paginator
 import json
 from .models import *
-
+from django.db.models import Q
 
 # Create your views here.
 
@@ -101,30 +100,67 @@ def user_signup(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-def home(request) :
-    searched_recipes = Recipes.objects.all()[15:38:3]
+@login_required
+def home(request):
+    recipes = Recipes.objects.all()[15:38:3]  # default fallback
     trending_recipes = Recipes.objects.all()[4:15:3]
     saved_boards = Boards.objects.filter(user=request.user)
+
+    input_query = ''
+    page_no = request.GET.get('page', 1)
+
+    if request.method == "POST":
+        input_query = request.POST.get('input', '').strip()
+        request.session['last_search'] = input_query
+        page_no = 1  
+
+    elif 'input' in request.GET:
+        input_query = request.GET.get('input', '').strip()
+        request.session['last_search'] = input_query  
+
+    elif 'last_search' in request.session:
+        input_query = request.session.get('last_search', '')
+
+    # Now use it to search, if not empty
+    if input_query:
+        keywords = [kw.lower() for kw in input_query.split() if kw]
+        q = Q()
+        for kw in keywords:
+            q &= (Q(title__icontains=kw) | Q(cleaned_ingredients__contains=[kw]))
+        recipes = Recipes.objects.filter(q).distinct()
+
+    paginator = Paginator(recipes, 12)
+    page_obj = paginator.get_page(page_no)
+
     context = {
         'active_page': 'cook',
-        'searched_recipes': searched_recipes,
-        'trending_recipes' : trending_recipes,
-        'boards' : saved_boards}
+        # 'searched_recipes': recipes,
+        'trending_recipes': trending_recipes,
+        'boards': saved_boards,
+        'show_detail': False,
+        'page_obj' : page_obj,
+        'input_query' : input_query,
+    }
     return render(request, 'homepage.html', context)
 
-def homepage(request, recipe_id) :
+# this is for single recipe detail in recipe page
+@login_required
+def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipes, id=recipe_id)
     saved_boards = Boards.objects.filter(user=request.user)
     context = {
-        'boards' : saved_boards,
-        'recipe': recipe
-        }
-    return render(request, 'homepage.html', context)
+        'boards': saved_boards,
+        'recipe': recipe,
+        'ingredients': recipe.ingredients,
+        'show_detail': True,
+    }
+    return render(request, 'recipe.html', context)
 
 def user_account(request) :
     boards = Boards.objects.filter(user=request.user).prefetch_related('recipes')
     return render(request, 'user_acc.html', {
         "boards" : boards,
+        "range" : range(1,25)
     })
 
 @login_required
@@ -133,6 +169,9 @@ def save_recipe(request):
         recipe_id = request.POST.get('recipe_id')
         board_id = request.POST.get('board_id')
         new_board_title = request.POST.get('new_board_title').strip()
+        input_term =request.POST.get('input', '')
+
+        request.session['last_search'] = request.POST.get('input', '')
 
         recipe = get_object_or_404(Recipes, id=recipe_id)
 
@@ -147,10 +186,11 @@ def save_recipe(request):
             messages.error(request, "Please select or create a Board")
             return redirect(request.META.get('HTTP_REFERER', '/'))
         
-        if board.recipes.filter(id=recipe_id).exists:
+        if board.recipes.filter(id=recipe_id).exists():
             messages.info(request, "Recipe is alredy saved to the board")
         else:
-            board.recipes.set(recipe)
+            board.recipes.add(recipe)
+            saved_recipes.objects.create(recipe = recipe, user=request.user, board=board)
             messages.success(request, "Recipe saved successfully!")
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -167,3 +207,44 @@ def save_recipe(request):
 #     }
 
 #     return render(request , 'user_account.html', context)
+
+@require_POST
+@login_required
+def unsave_recipe(request, recipe_id, board_id):
+    try:
+        recipe = Recipes.objects.get(id=recipe_id)
+        print("Found recipe:", recipe)
+    except Recipes.DoesNotExist:
+        print("Recipe does not exist")
+        return JsonResponse({"error": f"Recipe {recipe_id} not found."}, status=404)
+
+    try:
+        board = Boards.objects.get(id=board_id, user=request.user)
+        print("Found board:", board)
+    except Boards.DoesNotExist:
+        print("Board not found or no permission")
+        return JsonResponse({"error": "Board not found or you don’t have permission."}, status=403)
+
+    print("Checking for saved recipe with:")
+    print(f"user={request.user}, recipe={recipe.id}, board={board.id}")
+    print(saved_recipes.objects.filter(user=request.user, recipe=recipe, board=board))
+    print(Boards.objects.filter(recipes=recipe))
+
+    try:
+        saved = saved_recipes.objects.get(user=request.user, recipe=recipe, board=board)
+        print(saved)
+        saved.delete()
+        board.recipes.remove(recipe)
+        print(Boards.objects.filter(recipes=recipe))
+        print("unsaved")
+        return JsonResponse({"message": "Recipe unsaved successfully."})
+    except saved_recipes.DoesNotExist:
+        print("Saved recipe does not exist")
+        return JsonResponse({"error": "This recipe is not saved to this board."}, status=404)
+    except Exception as e:
+        print("Unexpected error in unsave_recipe:", e)
+        return JsonResponse({"error": "Something went wrong."}, status=500)
+
+@login_required
+def root_redirect(request):
+    return redirect('home')

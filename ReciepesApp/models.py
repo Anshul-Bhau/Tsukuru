@@ -69,16 +69,18 @@ class Boards(models.Model):
     recipes = models.ManyToManyField(Recipes, related_name='boards')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    @property
+    
     def first_recipe_image(self):
         first_recipe = self.recipes.first()
         return first_recipe.image.url if first_recipe else None
-    
+        # self.first_image_url = first_recipe.image.url if first_recipe and first_recipe.image else None
+        # self.save()
+
     def __str__(self):
         return f'{self.user.username} - {self.title}'
 
 class saved_recipes(models.Model):
-    recipe = models.OneToOneField(Recipes, on_delete=models.CASCADE, related_name='saved_recipes')
+    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE, related_name='saved_recipes')
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
     board = models.ForeignKey(Boards, on_delete=models.CASCADE, unique=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)

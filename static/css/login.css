@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -6,31 +8,29 @@
 }
 
 body {
-  background: url("/static/images/login-bg (2).png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
   display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   padding: 20px;
+  min-height: 100vh;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9e9e9;
+  font-family: 'Amatica SC', sans-serif;
 }
 
 .container {
   width: 100%;
   max-width: 420px;
   left: 50%;
-  background: rgba(71, 69, 69, 0.4); /* Translucent dark background */
+  background: rgba(71, 69, 69, 0.4);
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px); /* Glass effect */
-  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
   overflow: hidden;
   position: relative;
   left: -25%;
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Optional: subtle border */
+  border: 1px solid rgba(255, 255, 255, 0.1); 
 }
 
 .tabs {
@@ -42,7 +42,9 @@ body {
   text-align: center;
   padding: 20px 0;
   cursor: pointer;
-  font-weight: 600;
+  font-family: inherit;
+  font-weight: 700;
+  font-style: normal;
   color: #666;
   position: relative;
   transition: all 0.3s ease;

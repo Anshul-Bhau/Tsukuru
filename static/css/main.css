@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +12,7 @@ html {
 
 body {
     background-color: aliceblue;
-    font-family: Arial, sans-serif;
+    font-family: 'Amatic SC', sans-serif;
 }
 
 .navbar {
@@ -44,6 +46,7 @@ body {
 
 .nav-mid-items ul li a {
     font-weight: bold;
+    font-family: monospace;
     color: #222;
     font-size: 1rem;
     text-decoration: none;
@@ -79,6 +82,8 @@ body {
     text-decoration: none;
     color: whitesmoke;
     font-weight: bold;
+    font-family: monospace;
+    font-size: 0.8rem;
 }
 
 .sub-user-menu button:hover {
@@ -103,7 +108,7 @@ body {
 }
 
 .hero-img img {
-    height: 430px;
+    height: 410px;
     width: auto;
     position: relative;
     background: transparent;
@@ -119,7 +124,9 @@ body {
 
 .hero-text h3 {
     font-family: inherit;
-    font-size: 1.8rem;
+    font-size: 3.4rem;
+    font-weight: 700;
+    font-style: normal;
     color: #a12638;
 }
 
@@ -134,6 +141,7 @@ body {
 
 .hero-btns button a {
     text-decoration: none;
+    font-family: monospace;
 }
 
 #hero-btn-1 a {
@@ -212,6 +220,9 @@ body {
 .sec-heading {
     color: #963f2e;
     font-size: 3rem;
+    font-family: inherit;
+    font-weight: 700;
+    font-style: normal;
     margin-bottom: 2rem;
 }
 
@@ -256,21 +267,21 @@ body {
 
 
 .card h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: inherit;
     max-width: fit-content;
     padding: .5rem 0;
-    /* line-height: 2rem; */
     border-radius: 10px;
     color: #56694f;
 }
 
 #card-1 h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: inherit;
     max-width: fit-content;
     padding: .5rem 0rem;
-    /* line-height: 2.4rem; */
     border-radius: 10px;
     color: #caedb8;
 }
@@ -292,8 +303,9 @@ body {
 }
 
 .card p {
-    font-size: .7rem;
-    font-weight: 200;
+    font-size: .8rem;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1rem;
     margin-bottom: 1rem;
     color: #ede490;
@@ -301,8 +313,9 @@ body {
 }
 
 #card-1 p {
-    font-size: .7rem;
-    font-weight: 200;
+    font-size: .8rem;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1rem;
     margin-bottom: 1rem;
     padding: .5rem 0;
@@ -311,11 +324,16 @@ body {
 
 #card-1 a {
     color: #cd9b59;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
 }
 
 .card a {
     text-decoration: none;
-    font-size: .8rem;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
     color: #ede490;
 }
 
@@ -360,14 +378,17 @@ body {
 
 .footer-section-1 #logo-text-eng {
     color: aliceblue;
-    font-weight: bold;
-    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.4rem;
+    font-family: 'Amatic SC', sans-serif;
 }
 
 .footer-section-1 #logo-text-jap {
     color: #963f2e;
     font-weight: bold;
     font-size: 1.5rem;
+    font-family: monospace;
 }
 
 .footer-cols {
@@ -377,13 +398,14 @@ body {
 
 .footer-section-1 .cols h3 {
     color: #caedb8;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
 .cols ul li {
     list-style: none;
     font-size: 0.75rem;
+    font-family: monospace;
     position: relative;
     margin-bottom: 0.25rem;
     color: aliceblue;

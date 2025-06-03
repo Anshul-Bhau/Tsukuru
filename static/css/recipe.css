@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unkempt:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: aliceblue;
+    font-family: 'Amatic SC', sans-serif;
+}
+
+.navbar {
+    gap: 1rem;
+    display: flex;
+    padding: 2.5rem 2rem;
+    padding-top: 1.5rem;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom-left-radius: 50% 19px;
+    border-bottom-right-radius: 50% 27px;
+    background-color: #b53145;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.nav-mid-items ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.nav-mid-items ul li {
+    list-style: none;
+}
+
+.nav-mid-items ul li a {
+    font-weight: bold;
+    font-family: monospace;
+    color: #222;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-mid-items ul li a:hover {
+    color: rgb(205, 198, 198);
+}
+
+.nav-mid-items ul li.active a {
+    border-bottom: 3px solid rgb(180, 169, 169);
+    color: rgb(205, 198, 198);
+    padding-bottom: 4px;
+}
+
+.nav-mid-items ul li.active a:hover {
+    border-bottom: 3px solid rgb(205, 198, 198);
+    padding-bottom: 4px;
+}
+
+.sub-user-menu button {
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #a12638;
+    background-color: #a12638;
+    transition: all 0.2s ease;
+}
+
+.sub-user-menu button a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.sub-user-menu button:hover {
+    border: 2px solid whitesmoke;
+    background-color: transparent;
+}
+
+.sub-user-menu button:hover a {
+    color: whitesmoke;
+}
+
+.footer {
+    background-color: #56694f;
+    color: white;
+    bottom: 0%;
+    position: relative;
+    min-width: -webkit-fill-available;
+    padding: 0.7rem 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    gap: 1rem;
+}
+
+.footer-section-1 {
+    padding: 1.4rem 3rem;
+    background-color: #98AA8D;
+    border-radius: 24px;
+    display: flex;
+    margin: 1rem;
+    width: 100%;
+    min-width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer-section-1 .footer-logo-txt {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.footer-section-1 #logo-text-eng {
+    color: aliceblue;
+    font-family: inherit;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.4rem;
+}
+
+.footer-section-1 #logo-text-jap {
+    color: #963f2e;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.5rem;
+}
+
+.footer-cols {
+    display: flex;
+    gap: 6rem;
+}
+
+.footer-section-1 .cols h3 {
+    color: #caedb8;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.cols ul li {
+    list-style: none;
+    font-size: 0.75rem;
+    font-family: monospace;
+    position: relative;
+    margin-bottom: 0.25rem;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.footer-section-2 {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    width: 100%;
+    font-size: 0.8rem;
+    justify-content: space-between;
+    border-top: 1.5px solid #caedb8;
+}
+
+.footer-section-2 .fs2-l h3 {
+    color: aliceblue;
+}
+
+.footer-section-2 .fs2-r ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    flex-direction: row;
+}
+
+.fs2-r ul li a {
+    text-decoration: none;
+    color: #caedb8;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.fs2-r ul li a:hover {
+    color: #cff3bd;
+    border-bottom: 2px solid #caedb8;
+}
+
+.navbar img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40;
+    object-fit: cover;
+}
+
+.fullrecipe_cont {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: auto;
+    padding: 2rem;
+    max-width: 1200px;
+}
+
+#recipe_name {
+    font-size: 3rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #b53145;
+    padding-bottom: 10px;
+}
+
+.rec_container {
+    display: flex;
+    width: -webkit-fill-available;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1.5rem 0rem;
+    border-top: 2px solid #333;
+}
+
+.ingredients .ingredients_list li {
+    list-style: none;
+    font-size: 1.2rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    color: #627d59;
+    padding-left: 0;
+    gap: 1rem;
+    margin-bottom: 15px;
+}
+
+.ingredients_list li::before {
+    content: "➜ ";
+    color: #627d59;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.rec_container .image {
+    align-self: flex-start;
+    margin-left: auto;
+}
+
+.rec_container .image img {
+    width: auto;
+    height: 250px;
+    border-radius: 24px;
+    display: block;
+}
+
+.instructions {
+    padding: 2rem 0rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #333;
+    border-top: 2px solid #333;
+}
+
+.instructions h3 {
+    font-size: 2.5rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #b53145;
+    margin-bottom: 10px;
+}
+
+.instructions p {
+    font-size: 1rem;
+    font-family: cursive;
+    color: #627d59;
+    line-height: 30px;
+}
+
+#back_btn {
+    background-color: #b53145;
+    color: aliceblue;
+    border: 1px solid aliceblue;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 400;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in;
+}
+
+#back_btn:hover {
+    opacity: 0.9;
+    transform: translateY(-3px);
+}

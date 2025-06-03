@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
     <title>Tsukuru</title>
     <link rel="stylesheet" type="text/css" href="{% static '/css/user_acc.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -15,14 +17,14 @@
     <header>
         <nav class="navbar">
             <div class="nav-left">
-                <a href="#" class="menu_toggle">
+                <a href="#" class="menu_toggle" id="menu_btn">
                     <i class="fa-solid fa-bars"></i>
                 </a>
             </div>
             <div class="nav-right">
 
                 <button id="theme_toggle">
-                    <i class="fa-regular fa-lightbulb" id="theme_icon"></i>
+                    <i class="fa-regular fa-sun" id="theme_icon"></i>
                 </button>
 
                 <img id="profile_img" src="{% static 'images/pfp/default-pfp.jpg' %}" alt="pfp">
@@ -42,14 +44,15 @@
                         class="fas fa-user"></i></a></li>
             <li><a href="#" data-title="Favourites" data-section="favorites">Favorites <i class="fas fa-heart"></i></a>
             </li>
-            <!-- <li><a href="#" data-title="Watchlist" data-section="watchlist">Watchlist <i class="fas fa-star"></i></a></li> -->
+
             <li><a href="#" data-title="Settings" data-section="settings">Settings <i class="fas fa-cog"></i></a></li>
         </ul>
 
         <div class="log_option">
+            <a href="{% url 'home' %}">Home <i class="fa-solid fa-house"></i></a>
             <a href="{% url 'account_logout' %}">Log out <i class="fas fa-sign-out-alt"></i></a>
         </div>
-    </aside> 
+    </aside>
 
     <main>
         <div class="user_panel">
@@ -59,10 +62,10 @@
                     <button id="pfp_choice_btn">Choose Picture</button>
                 </section>
 
-                <section class="pfp_chooser" id="pfp_chooser" style="display: none;">
+                <section class="pfp_chooser" id="pfp_chooser">
                     <h4>Choose your avatar</h4>
                     <div class="pfp_grid">
-                        {% for i in pfp_range %}
+                        {% for i in range %}
                         <img src="{% static 'images/pfp/pfp' %}{{ i }}.jpg" class="pfp_option" alt="pfp">
                         {% endfor %}
                     </div>
@@ -87,7 +90,7 @@
 
                         <div class="form_grp">
                             <label for="password_field">Password</label>
-                            <input type="text" name="password" value="{{ user.password }}" id="password_field" readonly>
+                            <input type="text" name="password" value="********" id="password_field" readonly>
                         </div>
 
                         <div class="form_actions">
@@ -122,15 +125,17 @@
                 {% for board in boards %}
                 <div class="recipe_boards" data-board-id="{{ board.id }}">
 
-                    <h3>{{ board.title }}</h3>
+                    <div class="board_header">
+                        <h3>{{ board.title }}</h3>
+                        <span class="close_board_view">&times;</span>
+                    </div>
 
                     {% if board.recipes.count %}
-                    <p>recipes exist</p>
                     <div class="recipe_container">
                         {% for recipe in board.recipes.all %}
                         <div class="card" id="card-{{ forloop.counter }}">
 
-                            <i class="fa-regular fa-bookmark save_icon" data-recipe-id="{{ recipe.id }}"></i>
+                            <i class="fa-solid fa-bookmark save_icon saved" data-recipe-id="{{ recipe.id }}" data-board-id="{{ board.id }}"></i>
 
                             <h3>{{ recipe.title }}</h3>
 
@@ -143,7 +148,7 @@
                             <p>{{ recipe.directions|truncatewords:15 }}</p>
 
                             {% if user.is_authenticated %}
-                            <a href="{% url 'homepage' recipe_id=recipe.id %}">view more</a>
+                            <a href="{% url 'recipe_detail' recipe_id=recipe.id %}">view more</a>
                             {% else %}
                             <a href="{% url 'loginpage' %}?next={% url 'homepage' recipe_id=recipe.id %}">Login to view
                                 more</a>
@@ -157,8 +162,7 @@
                     </div>
                 </div>
                 {% endfor %}
-        </div>
-        </section>
+            </section>
 
         <section class="panel_section" id="watchlist" style="display: none;">
 
@@ -171,6 +175,7 @@
         </div>
     </main>
 </body>
+
 <script src="{% static '/js/user_acc.js' %}"></script>
 
 </html>
