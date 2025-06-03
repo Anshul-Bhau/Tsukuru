@@ -1,14 +1,42 @@
-{% extends "account/base_confirm_code.html" %}
-{% load i18n %}
-{% load allauth account %}
-{% block head_title %}
-    {% translate "Email Verification" %}
-{% endblock head_title %}
-{% block title %}
-    {% translate "Enter Email Verification Code" %}
+{% extends "allauth_base.html" %}
+{% load form_tags %}
+
+{% block title %}Confirm Email{% endblock %}
+
+{% block content %}
+<form method="POST" class="form active">
+  {% csrf_token %}
+
+  {% if form %}
+    <p style="text-align: center; margin-bottom: 20px;">
+      Please enter the verification code sent to your email.
+    </p>
+
+    {{ form.non_field_errors }}
+
+    <div class="form-group">
+      <label for="{{ form.code.id_for_label }}" class="form-label">Verification Code</label>
+      {{ form.code|add_class:"form-control" }}
+    </div>
+
+    <button type="submit" class="btn">Verify Email</button>
+
+    <div class="social-login" style="margin-top: 20px;">
+      <p style="text-align: center; font-size: 14px;">
+        Didn't receive the code?
+        <a href="{% url 'account_email' %}" style="color: var(--primary-color); text-decoration: none;">Resend</a>
+      </p>
+    </div>
+
+  {% else %}
+    <p style="text-align: center; margin-bottom: 20px;">
+      Confirming your email address...
+    </p>
+    <button type="submit" class="btn">Confirm</button>
+  {% endif %}
+
+  <div class="social-login" style="margin-top: 30px;">
+    <a href="{% url 'account_login' %}" style="color: var(--primary-color); text-decoration: none;">Back to Login</a>
+  </div>
+</form>
 {% endblock %}
-{% block recipient %}<a href="mailto:{{ email }}">{{ email }}</a>{% endblock %}
-{% block action_url %}
-    {% url 'account_email_verification_sent' %}
-{% endblock %}
-{% block extra_tags %}email,verification{% endblock %}

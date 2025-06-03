@@ -1,34 +1,60 @@
-<!-- {% extends "allauth_base.html" %}
+{% extends "allauth_base.html" %}
 {% load form_tags %}
 {% load static %}
 {% load socialaccount %}
 
 {% block title %}Sign Up{% endblock %}
 
+
 {% block content %}
-<form method="POST" class="form active">
+
+<form method="POST" action="{% url 'account_signup' %}" class="form active">
     {% csrf_token %}
     {{ form.non_field_errors }}
+
     <div class="form-group">
-        <label class="form-label" for="id_username">Username</label>
+        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
         {{ form.username|add_class:"form-control" }}
+        {% if form.username.errors %}
+        <p style="color: red;">{{ form.username.errors.0 }}</p>
+        {% endif %}
     </div>
+
     <div class="form-group">
-        <label class="form-label" for="id_email">Email</label>
+        <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
         {{ form.email|add_class:"form-control" }}
+        {% if form.email.errors %}
+        <p style="color: red;">{{ form.email.errors.0 }}</p>
+        {% endif %}
     </div>
+
     <div class="form-group">
-        <label class="form-label" for="id_password1">Password</label>
+        <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
         {{ form.password1|add_class:"form-control" }}
-        <i class="password-toggle-icon fas fa-eye"></i>
+        <i class="password-toggle-icon fas fa-eye"
+            onclick="togglePassword('{{ form.password1.id_for_label }}', this)"></i>
+        {% if form.password1.errors %}
+        <p style="color: red;">{{ form.password1.errors.0 }}</p>
+        {% endif %}
     </div>
+
     <div class="form-group">
-        <label class="form-label" for="id_password2">Confirm Password</label>
+        <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
         {{ form.password2|add_class:"form-control" }}
-        <i class="password-toggle-icon fas fa-eye"></i>
+        <i class="password-toggle-icon fas fa-eye"
+            onclick="togglePassword('{{ form.password2.id_for_label }}', this)"></i>
+        {% if form.password2.errors %}
+        <p style="color: red;">{{ form.password2.errors.0 }}</p>
+        {% endif %}
     </div>
+
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+    {% endif %}
+
     <button type="submit" class="btn">Sign Up</button>
 
+    {% get_providers as socialaccount_providers %}
     {% if socialaccount_providers %}
     <div class="social-login">
         <div class="social-label">Or sign up with</div>
@@ -39,7 +65,19 @@
         </div>
     </div>
     {% endif %}
-</form>
-{% endblock %} -->
+    <div class="login-signup-switch" style="margin-top: 10px; text-align: center; color: #a12638;">Already have an account ? <a href="/accounts/login">Login</a></div>
 
-{% include "login_signup.html" %}
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function togglePassword(id, icon) {
+        const field = document.getElementById(id);
+        if (!field) return;
+        field.type = field.type === "password" ? "text" : "password";
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+    }
+</script>
+{% endblock %}

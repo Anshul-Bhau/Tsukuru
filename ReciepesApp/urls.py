@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-# from allauth.account.views import LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetFromKeyView, PasswordResetFromKeyDoneView
 from .views import *
 
 urlpatterns = [
@@ -14,10 +13,7 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('home/<int:recipe_id>/', homepage, name='homepage'),
     path('user_account/', user_account, name='user_acc'),
-    path('save_recipe/', save_recipe, name='save_recipe'),
-    path('accounts/login/', lambda request: HttpResponseRedirect('/auth/?tab=login')),
-    path('accounts/signup/', lambda request: HttpResponseRedirect('/auth/?tab=signup')),
-    path('auth/', auth_page, name='auth_combined'),
+    path('save_recipe/', save_recipe, name='save_recipe'),  
     path('accounts/', include('allauth.urls')),
 ]
 

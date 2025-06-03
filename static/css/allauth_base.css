@@ -29,12 +29,14 @@ body {
 .container {
   width: 100%;
   max-width: 420px;
-  left: 50%;
+  left: -25%;
   background: var(--container-bg);
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   overflow: hidden;
+  position: relative;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -108,7 +110,7 @@ body {
 
 .form-label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   font-weight: 500;
   color: var(--text-color);
 }
@@ -250,6 +252,12 @@ input.password-visible {
   background: #e9e9e9;
   color: var(--primary-hover);
   transform: translateY(-3px);
+}
+
+.login-signup-switch {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--primary-color);
 }
 
 /* Responsive */

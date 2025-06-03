@@ -98,10 +98,24 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-ACCOUNT_LOGIN_METHODS = ['email']  
+ACCOUNT_LOGIN_METHODS = ['email']
+
+# Enable email verification by code
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"                 # Ensures email must be verified
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS = 3      # Optional: default is 3
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_TIMEOUT = 300         # Optional: default is 900 seconds (15 min)
+ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True        # Optional: allow resending code
+ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE = False       # Optional: allow changing email during verification
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True 
 
+# Enable password reset by code
+ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED = True
+ACCOUNT_PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS = 3          # Optional: default is 3
+ACCOUNT_PASSWORD_RESET_BY_CODE_TIMEOUT = 180             # Optional: default is 180 seconds
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -109,8 +123,8 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Tsukuru'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
-EMAIL_HOST_USER = 'shashwat24baheti@gmail.com'  # Replace with your Gmail
-EMAIL_HOST_PASSWORD = 'ybxilzpwmycvwwvm'  # Use App Password (NOT your Gmail password)
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')  # Replace with your Gmail
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # Use App Password (NOT your Gmail password)
 
 LOGIN_REDIRECT_URL = 'dashboard'  
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
@@ -128,6 +142,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'ReciepesApp.context_processors.allauth_verification_method',
             ],
         },
     },

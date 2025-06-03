@@ -1,4 +1,4 @@
-<!-- {% extends "allauth_base.html" %}
+{% extends "allauth_base.html" %}
 {% load form_tags %}
 {% load static %}
 {% load socialaccount %}
@@ -6,40 +6,61 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<form method="POST" class="form active">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div class="form-group">
-        <label class="form-label" for="id_login">Email</label>
-        {{ form.login|add_class:"form-control" }}
-    </div>
-    <div class="form-group">
-        <label class="form-label" for="id_password">Password</label>
-        {{ form.password|add_class:"form-control" }}
-        <i class="password-toggle-icon fas fa-eye"></i>
-    </div>
-    <div class="remember-forgot">
-        <div class="remember">
-            <input type="checkbox" name="remember" id="remember">
-            <label for="remember">Remember this device</label>
-        </div>
-        <div class="forgot">
-            <a href="{% url 'account_reset_password' %}">Forgot password?</a>
-        </div>
-    </div>
-    <button type="submit" class="btn">Login</button>
+<form method="POST" action="{% url 'account_login' %}" class="form active">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
 
-    {% if socialaccount_providers %}
-    <div class="social-login">
-        <div class="social-label">Or continue with</div>
-        <div class="social-icons">
-            <a href="{% provider_login_url 'google' %}" class="social-icon" title="Login with Google">
-                <i class="fab fa-google"></i>
-            </a>
-        </div>
+  <div class="form-group">
+    <label for="{{ form.login.id_for_label }}" class="form-label">Email</label>
+    {{ form.login|add_class:"form-control" }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+    {{ form.password|add_class:"form-control" }}
+    <i class="password-toggle-icon fas fa-eye" onclick="togglePassword('{{ form.password.id_for_label }}', this)"></i>
+  </div>
+
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+  {% endif %}
+
+  <div class="remember-forgot">
+    <div class="remember">
+      <input type="checkbox" name="remember" id="remember">
+      <label for="remember">Remember me</label>
     </div>
-    {% endif %}
+    <div class="forgot">
+      <a href="{% url 'account_reset_password' %}">Forgot password?</a>
+    </div>
+  </div>
+
+  <button type="submit" class="btn">Login</button>
+
+  {% get_providers as socialaccount_providers %}
+  {% if socialaccount_providers %}
+  <div class="social-login">
+    <div class="social-label">Or continue with</div>
+    <div class="social-icons">
+      <a href="{% provider_login_url 'google' %}" class="social-icon">
+        <i class="fab fa-google"></i>
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  <div class="login-signup-switch" style="margin-top: 10px; text-align: center; color: #a12638;">Don't have an account ? <a href="/accounts/signup">Sign Up</a></div>
+
 </form>
-{% endblock %} -->
+{% endblock %}
 
-{% include "login_signup.html" %}
+{% block extra_js %}
+<script>
+  function togglePassword(id, icon) {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.type = field.type === "password" ? "text" : "password";
+    icon.classList.toggle("fa-eye");
+    icon.classList.toggle("fa-eye-slash");
+  }
+</script>
+{% endblock %}
