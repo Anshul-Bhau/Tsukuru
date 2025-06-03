@@ -227,11 +227,14 @@ def unsave_recipe(request, recipe_id, board_id):
     print("Checking for saved recipe with:")
     print(f"user={request.user}, recipe={recipe.id}, board={board.id}")
     print(saved_recipes.objects.filter(user=request.user, recipe=recipe, board=board))
+    print(Boards.objects.filter(recipes=recipe))
 
     try:
         saved = saved_recipes.objects.get(user=request.user, recipe=recipe, board=board)
         print(saved)
         saved.delete()
+        board.recipes.remove(recipe)
+        print(Boards.objects.filter(recipes=recipe))
         print("unsaved")
         return JsonResponse({"message": "Recipe unsaved successfully."})
     except saved_recipes.DoesNotExist:
