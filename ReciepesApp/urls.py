@@ -12,6 +12,7 @@ urlpatterns = [
     path('user_login/', user_login, name='user_login'),
     path('signup/', user_signup, name='user_signup'),
     path('home/', home, name='home'),
+    path('', root_redirect, name='root'),
     path('user_account/', user_account, name='user_acc'),
     path('save_recipe/', save_recipe, name='save_recipe'),
     path('unsave_recipe/<int:recipe_id>/<int:board_id>/', unsave_recipe, name='unsave_recipe'),

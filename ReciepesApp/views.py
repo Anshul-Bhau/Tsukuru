@@ -5,11 +5,13 @@ from allauth.account.forms import LoginForm, SignupForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.shortcuts import redirect
 from .models import Recipes, Boards, saved_recipes
 from django.urls import reverse
 import json
 from .models import *
 from django.db.models import Q
+from urllib.parse import urlencode
 
 # Create your views here.
 
@@ -99,22 +101,27 @@ def user_signup(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-# this is homepage
 @login_required
 def home(request):
-    searched_recipes = Recipes.objects.all()[15:38:3]
+    recipes = Recipes.objects.all()[15:38:3]  # default fallback
     trending_recipes = Recipes.objects.all()[4:15:3]
     saved_boards = Boards.objects.filter(user=request.user)
-    recipes = searched_recipes
-    
+
+    input_query = ''  # Always define your variable up front
+
     if request.method == "POST":
-        input = request.POST.get('input', '').strip()
-        if input:
-            keywords = [kw.lower() for kw in input.split() if kw]
-            q = Q()
-            for kw in keywords:
-                q &= (Q(title__icontains=kw) | Q(cleaned_ingredients__contains=[kw]))
-            recipes = Recipes.objects.filter(q).distinct()
+        input_query = request.POST.get('input', '').strip()
+        request.session['last_search'] = input_query  # store it
+    elif 'last_search' in request.session:
+        input_query = request.session.pop('last_search')  # retrieve it
+
+    # Now use it to search, if not empty
+    if input_query:
+        keywords = [kw.lower() for kw in input_query.split() if kw]
+        q = Q()
+        for kw in keywords:
+            q &= (Q(title__icontains=kw) | Q(cleaned_ingredients__contains=[kw]))
+        recipes = Recipes.objects.filter(q).distinct()
 
     context = {
         'active_page': 'cook',
@@ -151,6 +158,9 @@ def save_recipe(request):
         recipe_id = request.POST.get('recipe_id')
         board_id = request.POST.get('board_id')
         new_board_title = request.POST.get('new_board_title').strip()
+        input_term =request.POST.get('input', '')
+
+        request.session['last_search'] = request.POST.get('input', '')
 
         recipe = get_object_or_404(Recipes, id=recipe_id)
 
@@ -219,3 +229,7 @@ def unsave_recipe(request, recipe_id, board_id):
     except Exception as e:
         print("Unexpected error in unsave_recipe:", e)
         return JsonResponse({"error": "Something went wrong."}, status=500)
+
+@login_required
+def root_redirect(request):
+    return redirect('home')

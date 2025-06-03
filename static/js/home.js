@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById('saveModal');
     const recipeIdInput = document.getElementById('recipeIdinput');
     const close_btn = document.querySelector('.close-button');
+    const sugg_btn = document.querySelectorAll(".sug_ing_btn");
 
     save_icons.forEach(icon => {
         icon.addEventListener('click', () => {
@@ -31,6 +32,31 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    sugg_btn.forEach(btn => {
+        btn.addEventListener("click", function (event) {
+            const search_input = document.getElementById("search_input");
+            const search_form = document.getElementById("search_form");
+
+            const ingredient = event.currentTarget.textContent?.trim()
+
+            if (search_input && ingredient) {
+                search_input.value = ingredient;
+
+                setTimeout(() => {
+                    search_form.submit();
+                }, 100);
+
+                if (event.button == 0) {
+                    localStorage.setItem("last_search", search_input.value.trim() || search_input.placeholder);
+                    console.log()
+                }
+
+            } else {
+                console.warn("Ingredient or input box not found.");
+            }
+        })
+    })
 
     const last_search = localStorage.getItem("last_search");
     if (last_search) {
@@ -65,5 +91,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } else {
         if (nav_img) nav_img.setAttribute("src", default_pfp);
+    }
+
+    document.querySelectorAll(".saveRecipeForm").forEach(form => {
+        form.addEventListener("submit", function (e) {
+            const search_input = document.getElementById("search_input");
+            const scroll_pos = window.scrollY;
+
+            if (search_input) {
+                sessionStorage.setItem("searchQuery", search_input.value);
+            }
+            sessionStorage.setItem("scrollPos", scroll_pos);
+        });
+    });
+
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const savedQuery = sessionStorage.getItem("searchQuery");
+    const savedScroll = sessionStorage.getItem("scrollPos");
+
+    if (savedQuery) {
+        const input = document.getElementById("search_input");
+        if (input) input.value = savedQuery;
+        sessionStorage.removeItem("searchQuery");
+    }
+
+    if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+        sessionStorage.removeItem("scrollPos");
     }
 });

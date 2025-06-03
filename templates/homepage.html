@@ -42,7 +42,7 @@
             <div class="search_bar">
                 <form action="" method="POST" class="form" autocomplete="off" id="search_form">
                     {% csrf_token %}
-                    <input class="input_box" type="text" name="input" id="search_input">
+                    <input class="input_box" type="text" name="input" id="search_input" value="{{ request.session.last_search|default:'' }}">
                     <button class="search_icon" type="submit"><img src="{% static '/images/search-icon.png' %}"
                             alt="magnifying glass"></button>
                 </form>

@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Unkempt:wght@400;700&display=swap');
 
 * {
     margin: 0;
@@ -31,6 +30,7 @@ body {
 .logo {
     font-size: 2rem;
     font-weight: bold;
+    font-family: "Amatic SC", sans-serif;
     color: whitesmoke;
     text-decoration: none;
 }
@@ -286,6 +286,7 @@ body {
 .sug_ing_btn {
     background-color: #b53145;
     color: rgba(255, 255, 255, .8);
+    cursor: pointer;
     padding: 8px 10px;
     border-radius: 12px;
     border: none;
@@ -297,7 +298,15 @@ body {
     padding: 10px 12px;
     border: 14px;
     transform: translateY(-3px);
-    transition: all .2s ease-out;
+    transition: all .3s ease-out;
+}
+
+.sug_ing_btn:active {
+    transform: scale(0.98);
+    background-color: #e9e9e9;
+    color: #8d2131;
+    border: 2px solid #8d2131;
+    border-radius: 14px;
 }
 
 .searched_recipes_container,
