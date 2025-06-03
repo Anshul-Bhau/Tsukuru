@@ -27,7 +27,8 @@
 
             <div class="sub-user-menu">
                 <a href="/user_account/">
-                    <img src="{% static 'images/pfp/default-pfp.jpg' %}" alt="{{user.username}}" class="nav_avatar" id="nav_pfp">
+                    <img src="{% static 'images/pfp/default-pfp.jpg' %}" alt="{{user.username}}" class="nav_avatar"
+                        id="nav_pfp">
                 </a>
             </div>
 
@@ -42,7 +43,8 @@
             <div class="search_bar">
                 <form action="" method="POST" class="form" autocomplete="off" id="search_form">
                     {% csrf_token %}
-                    <input class="input_box" type="text" name="input" id="search_input" value="{{ request.session.last_search|default:'' }}">
+                    <input class="input_box" type="text" name="input" id="search_input"
+                        value="{{ request.session.last_search|default:'' }}">
                     <button class="search_icon" type="submit"><img src="{% static '/images/search-icon.png' %}"
                             alt="magnifying glass"></button>
                 </form>
@@ -66,7 +68,7 @@
 
         </div>
         <div class="recipe-container">
-            {% for recipe in searched_recipes %}
+            {% for recipe in page_obj %}
             <div class="card" id="card-{{ forloop.counter }}">
 
                 <i class="fa-regular fa-bookmark save_icon" data-recipe-id="{{ recipe.id }}"></i>
@@ -92,6 +94,23 @@
             {% endfor %}
         </div>
     </section>
+    
+    <div class="pag_wrapper">
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a
+                href="?page={{ page_obj.previous_page_number }}{% if input_query %}&input={{ input_query }}{% endif %}">«
+                Previous</a>
+            {% endif %}
+
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if input_query %}&input={{ input_query }}{% endif %}">Next
+                »</a>
+            {% endif %}
+        </div>
+    </div>
 
     <section class="suggested_recipes" id="suggest_rec_sec">
         <div class="suggested-container">

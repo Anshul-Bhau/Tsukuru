@@ -7,11 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import redirect
 from .models import Recipes, Boards, saved_recipes
-from django.urls import reverse
+from django.core.paginator import Paginator
 import json
 from .models import *
 from django.db.models import Q
-from urllib.parse import urlencode
 
 # Create your views here.
 
@@ -107,13 +106,20 @@ def home(request):
     trending_recipes = Recipes.objects.all()[4:15:3]
     saved_boards = Boards.objects.filter(user=request.user)
 
-    input_query = ''  # Always define your variable up front
+    input_query = ''
+    page_no = request.GET.get('page', 1)
 
     if request.method == "POST":
         input_query = request.POST.get('input', '').strip()
-        request.session['last_search'] = input_query  # store it
+        request.session['last_search'] = input_query
+        page_no = 1  
+
+    elif 'input' in request.GET:
+        input_query = request.GET.get('input', '').strip()
+        request.session['last_search'] = input_query  
+
     elif 'last_search' in request.session:
-        input_query = request.session.pop('last_search')  # retrieve it
+        input_query = request.session.get('last_search', '')
 
     # Now use it to search, if not empty
     if input_query:
@@ -123,12 +129,17 @@ def home(request):
             q &= (Q(title__icontains=kw) | Q(cleaned_ingredients__contains=[kw]))
         recipes = Recipes.objects.filter(q).distinct()
 
+    paginator = Paginator(recipes, 12)
+    page_obj = paginator.get_page(page_no)
+
     context = {
         'active_page': 'cook',
-        'searched_recipes': recipes,
+        # 'searched_recipes': recipes,
         'trending_recipes': trending_recipes,
         'boards': saved_boards,
         'show_detail': False,
+        'page_obj' : page_obj,
+        'input_query' : input_query,
     }
     return render(request, 'homepage.html', context)
 
