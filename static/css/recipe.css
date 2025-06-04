@@ -11,6 +11,25 @@ html {
     scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(43, 42, 42, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(230, 188, 188, 0.7);
+}
+
 body {
     background-color: aliceblue;
     font-family: 'Amatic SC', sans-serif;
