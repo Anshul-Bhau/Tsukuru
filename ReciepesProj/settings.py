@@ -116,7 +116,7 @@ ACCOUNT_PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS = 3          # Optional: default is 
 ACCOUNT_PASSWORD_RESET_BY_CODE_TIMEOUT = 180             # Optional: default is 180 seconds
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

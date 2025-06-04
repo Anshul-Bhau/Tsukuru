@@ -248,3 +248,8 @@ def unsave_recipe(request, recipe_id, board_id):
 @login_required
 def root_redirect(request):
     return redirect('home')
+
+def contact_page(request):
+    return render(request, 'contact.html', {
+        'active_page': 'contact'
+    })

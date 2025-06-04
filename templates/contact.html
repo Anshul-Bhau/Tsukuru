@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/contact.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Tsukuru</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">つくる</a>
+
+            <div class="nav-mid-items">
+                <ul>
+                    <li><a href="/landing/">Home</a></li>
+                    <li><a href="/home/">Cook</a></li>
+                    <li class="{% if active_page == 'contact' %}active{% endif %}"><a href="{% url 'contact_page' %}">Contact</a></li>
+                    <li><a href="https://github.com/Anshul-Bhau/Tsukuru/blob/master/README.md" target="_blank">Help</a></li>
+                </ul>
+            </div>
+            <div class="sub-user-menu">
+                <a href="/user_account/">
+                    <img src="{% static 'images/pfp/default-pfp.jpg' %}" alt="{{user.username}}" class="nav_avatar"
+                        id="nav_pfp">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="contact_cont">
+        <div class="sec_heading">
+            Our Contact
+        </div>
+        <div class="contact">
+            <div class="col">
+                <div class="card">
+                    <img src="{% static '/images/prof_rudra.jpeg' %}" alt="image1">
+                    <h3>Rudra Singh Bhau</h3>
+                    <p>Frontend Developer</p>
+                </div>
+                <div class="info">
+                    <p><i class="fa-solid fa-location-dot"></i> Jaipur, India</p>
+                    <p><i class="fa-brands fa-github"></i><a href="https://github.com/rudee-Sb" target="_blank" class="page">github.com/rudee-Sb</a></p>
+                    <p><i class="fa-solid fa-envelope"></i> rudrabhau844@email.com</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static '/images/prof_anshul.jpg' %}" alt="image2">
+                    <h3>Anshul Bhau</h3>
+                    <p>Backend Developer</p>
+                </div>
+                <div class="info">
+                    <p><i class="fa-solid fa-location-dot"></i> Jaipur, India</p>
+                    <p><i class="fa-brands fa-github"></i><a href="https://github.com/Anshul-Bhau" target="_blank" class="page">github.com/Anshul-Bhau</a></p>
+                    <p><i class="fa-solid fa-envelope"></i> anshulbhau1@email.com</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static '/images/prof_shashwat.jpg' %}" alt="image3">
+                    <h3>Shashwat Baheti</h3>
+                    <p>Frontend Developer</p>
+                </div>
+                <div class="info">
+                    <p><i class="fa-solid fa-location-dot"></i> Jaipur, India</p>
+                    <p><i class="fa-brands fa-github"></i><a href="https://github.com/shashwat0224" target="_blank" class="page">github.com/shashwat0224</a></p>
+                    <p><i class="fa-solid fa-envelope"></i> shashwat24baheti@email.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section-1">
+                <div class="footer-logo-txt">
+                    <h2><span id="logo-text-eng">Tsukuru</span></h2>
+                    <h2><span id="logo-text-jap">つくる</span></h2>
+                </div>
+
+                <div class="footer-cols">
+                    <div class="cols" id="services-cont">
+                        <h3>Services</h3>
+                        <ul class="services">
+                            <li>Recipe</li>
+                            <li>Ingredient</li>
+                            <li>Macros</li>
+                        </ul>
+                    </div>
+
+                    <div class="cols" id="socials-cont">
+                        <h3>Follow us</h3>
+                        <ul class="socials">
+                            <li>Github</li>
+                            <li>Linkedin</li>
+                            <li>Instagram</li>
+                            <li>Facebook</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer-section-2">
+                <div class="fs2-l">
+                    <h3>@Copyright2025</h3>
+                </div>
+
+                <div class="fs2-r">
+                    <ul>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Settings</a>
+                        <li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script src="{% static '/js/contact.js' %}"></script>
+</html>

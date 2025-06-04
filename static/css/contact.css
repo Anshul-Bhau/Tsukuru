@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: aliceblue;
+    font-family: 'Amatic SC', sans-serif;
+}
+
+.navbar {
+    gap: 1rem;
+    display: flex;
+    padding: 2.5rem 2rem;
+    padding-top: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom-left-radius: 50% 19px;
+    border-bottom-right-radius: 50% 27px;
+    background-color: #b53145;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: "Amatic SC", sans-serif;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.nav-mid-items ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.nav-mid-items ul li {
+    list-style: none;
+}
+
+.nav-mid-items ul li a {
+    font-weight: bold;
+    font-family: monospace;
+    color: #222;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-mid-items ul li a:hover {
+    color: rgb(205, 198, 198);
+}
+
+.nav-mid-items ul li.active a {
+    border-bottom: 3px solid rgb(180, 169, 169);
+    color: rgb(205, 198, 198);
+    padding-bottom: 4px;
+}
+
+.nav-mid-items ul li.active a:hover {
+    border-bottom: 3px solid rgb(205, 198, 198);
+    padding-bottom: 4px;
+}
+
+
+.sub-user-menu button {
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #a12638;
+    background-color: #a12638;
+    transition: all 0.2s ease;
+}
+
+.sub-user-menu button a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.sub-user-menu button:hover {
+    border: 2px solid whitesmoke;
+    background-color: transparent;
+}
+
+.sub-user-menu button:hover a {
+    color: whitesmoke;
+}
+
+.footer {
+    background-color: #56694f;
+    color: white;
+    bottom: 0%;
+    position: relative;
+    min-width: -webkit-fill-available;
+    padding: 0.7rem 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    gap: 1rem;
+}
+
+.footer-section-1 {
+    padding: 1.4rem 3rem;
+    background-color: #98AA8D;
+    border-radius: 24px;
+    display: flex;
+    margin: 1rem;
+    width: 100%;
+    min-width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer-section-1 .footer-logo-txt {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.footer-section-1 #logo-text-eng {
+    color: aliceblue;
+    font-family: inherit;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.4rem;
+}
+
+.footer-section-1 #logo-text-jap {
+    color: #963f2e;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.5rem;
+}
+
+.footer-cols {
+    display: flex;
+    gap: 6rem;
+}
+
+.footer-section-1 .cols h3 {
+    color: #caedb8;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.cols ul li {
+    list-style: none;
+    font-size: 0.75rem;
+    font-family: monospace;
+    position: relative;
+    margin-bottom: 0.25rem;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.footer-section-2 {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    width: 100%;
+    font-size: 0.8rem;
+    justify-content: space-between;
+    border-top: 1.5px solid #caedb8;
+}
+
+.footer-section-2 .fs2-l h3 {
+    color: aliceblue;
+}
+
+.footer-section-2 .fs2-r ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    flex-direction: row;
+}
+
+.fs2-r ul li a {
+    text-decoration: none;
+    color: #caedb8;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.fs2-r ul li a:hover {
+    color: #cff3bd;
+    border-bottom: 2px solid #caedb8;
+}
+
+.navbar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.contact_cont {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 1rem 0;
+    padding: 2rem;
+}
+
+.sec_heading {
+    font-size: 3rem;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #b53145;
+}
+
+.contact {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    border-radius: 15px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgb(181, 184, 185);
+    overflow: hidden;
+    position: relative;
+}
+
+.col::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-20deg);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.col:hover::before {
+    animation: shimmer 1s ease-in-out forwards;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.card{
+    text-align: center;
+    background-color: rgba(147, 150, 151, 0.6);
+    border-radius: 15px;
+}
+
+.card img {
+    width: 250px;
+    height: auto;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    object-fit: contain;
+}
+
+.card h3 {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+
+.card p {
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-family: inherit;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    padding: 5px;
+    gap: 8px;
+    background-color: rgba(147, 150, 151, 0.6);
+    border-radius: 15px;
+    margin-top: 10px;
+
+}
+
+.info p, i {
+    font-size: 14px;
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #222;
+    cursor: pointer;
+}
+
+.info i {
+    margin-right: 5px;
+}
+
+.info a {
+    text-decoration: none;
+    color: #222;
+}
+
+.info p:hover, a:hover {
+    color: #555;
+}
