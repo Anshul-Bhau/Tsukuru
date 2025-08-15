@@ -70,7 +70,9 @@ Let’s collaborate with clarity and code with care.
 ## Contact
 
 For queries, collaborations, or licensing:
-**rudrabhau844@gmail.com**
+Frontend Dev - **rudrabhau844@gmail.com**
+Backend Dev - **anshulbhau83@gmail.com**
+Project Manager - **shashwat0224@gmail.com**
 
 ---
 
