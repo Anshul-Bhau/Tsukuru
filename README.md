@@ -72,7 +72,7 @@ Let’s collaborate with clarity and code with care.
 For queries, collaborations, or licensing:
 Frontend Dev - **rudrabhau844@gmail.com**
 Backend Dev - **anshulbhau83@gmail.com**
-App Developer - **shashwat0224@gmail.com**
+App Developer - **shashwat24baheti@gmail.com**
 
 ---
 
