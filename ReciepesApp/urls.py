@@ -18,6 +18,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('recipe/<int:recipe_id>', recipe_detail, name='recipe_detail'),
     path('contact/', contact_page, name='contact_page'),
+    path("submit/", submit_recipe, name="submit_recipe"),
 ]
 
 if settings.DEBUG:

@@ -2,50 +2,60 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Recipe</title>
+    <link rel="stylesheet" href="{% static 'css/submit_rec.css' %}">
 </head>
+
 <body>
-    <h2>Submit Your Recipe</h2>
+    <main>
+        <h2 class="heading">Submit Your Recipe</h2>
 
-    <form action="{% url 'submit_recipe' %}" method="POST" enctype="multipart/form-data">
-        {% crsf_token %}
-        
-        <label for="title">Recipe Title :</label><br />
-        <input type="text" id="title" name="title" required /><br /><br />
+        <form action="{% url 'submit_recipe' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
 
-        <label for="directions">Directions :</label><br />
-        <textarea id="directions" name="directions" rows="5" cols="40" required></textarea><br /><br />
+            <div class="input_cont">
+                <label for="title" class="sub_heading">Recipe Title :</label>
+                <input class="i_field" type="text" id="title" name="title" required />
+            </div>
 
-        <label for="image">Upload Image :</label><br />
-        <input type="file" id="image" name="image" accept="image/*" required>
+            <div class="sub_input_cont">
+                <div class="input_cont">
+                    <label for="directions" class="sub_heading">Directions :</label>
+                    <textarea class="textarea" id="directions" name="directions" rows="5" cols="40" required></textarea>
+                </div>
 
-        <label for="ingredient_count">Number of Ingredients :</label><br />
-        <input 
-            type="number"
-            id="ingredient_count"
-            name="ingredient_count"
-            min="1"
-            required
-        /><br /><br />
-        
-        <div id="ingredients_container"></div>
+                <div class="input_cont">
+                    <label for="image" class="sub_heading">Upload Image :</label>
+                    <input class="img_inp" type="file" id="image" name="image" accept="image/*" required>
+                </div>
+            </div>
 
-        <button type="submit">Submit Recipe</button>
-    </form>
+            <div class="input_cont">
+                <label for="ingredient_count" class="sub_heading">Number of Ingredients :</label>
+                <input class="i_field" type="number" id="ingredient_count" name="ingredient_count" min="1" required />
+            </div>
+
+            <div id="ingredients_container"></div>
+
+            <button type="submit" class="submit_btn">Submit Recipe</button>
+        </form>
+    </main>
     <script>
-        document.getElementById('ingredient_count').addEventListener('change', function() {
+        document.getElementById('ingredient_count').addEventListener('change', function () {
             const count = parseInt(this.value);
             const container = document.getElementById('ingredients_container');
             container.innerHTML = '';
 
-            for (let i = 1; i <= count; i++){
+            for (let i = 1; i <= count; i++) {
                 container.innerHTML +=
-                `
-                <label for="ingredient_${i}">Ingredient ${i}:</label><br />
+                    `
+                <label class="ing_heading" for="ingredient_${i}">Ingredient ${i}:</label><br />
                 <input 
+                    class="i_field"
                     type="text"
                     id="ingredient_${i}"
                     name="ingredients"
@@ -56,4 +66,5 @@
         });
     </script>
 </body>
+
 </html>

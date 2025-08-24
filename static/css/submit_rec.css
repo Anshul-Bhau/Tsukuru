@@ -32,116 +32,116 @@ body {
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin: auto;
-  padding: 2rem;
-  max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: auto;
+    padding: 2rem;
+    max-width: 1200px;
 }
 
 .heading {
-  font-size: clamp(1.5rem, 3vw, 3.5rem);
-  font-family: 'Amatic SC', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  color: #b53145;
-  padding-bottom: 10px;
+    font-size: clamp(1.5rem, 3vw, 3.5rem);
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #b53145;
+    padding-bottom: 10px;
 }
 
 .sub_heading {
-  font-size: clamp(1rem, 2vw, 2.1rem);
-  font-family: 'Amatic SC', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  color: #627d59;
-  padding-bottom: 10px;
+    font-size: clamp(1rem, 2vw, 2.1rem);
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #627d59;
+    padding-bottom: 10px;
 }
 
 .input_cont {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    align-items: flex-start;
 }
 
 .sub_input_cont {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  gap: clamp(1.5rem, 1vw, 5rem);
-  width: 100%;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: clamp(1.5rem, 1vw, 5rem);
+    width: 100%;
+    justify-content: space-between;
 }
 
 .i_field {
-  height: 20px;
-  width: 240px;
-  min-width: 180px;
-  border-radius: 2px;
-  border: 1.4px solid #ccc;
-  color: #918d8d;
+    height: 20px;
+    width: 240px;
+    min-width: 180px;
+    border-radius: 2px;
+    border: 1.4px solid #ccc;
+    color: #918d8d;
 }
 
 .i_field:focus {
-  outline: 1px solid #ccc; 
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); 
+    outline: 1px solid #ccc;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 textarea {
-  width: 100%;      
-  max-width: 100%;  
-  min-width: 180px; 
-  border-radius: 2px;
-  border: 1.4px solid #ccc;
-  height: auto;    
-  box-sizing: border-box; 
-  resize: vertical; 
-  color: #918d8d;
+    width: 100%;
+    max-width: 100%;
+    min-width: 180px;
+    border-radius: 2px;
+    border: 1.4px solid #ccc;
+    height: auto;
+    box-sizing: border-box;
+    resize: vertical;
+    color: #918d8d;
 }
 
 textarea:focus {
-  outline: 1px solid #ccc; 
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); 
+    outline: 1px solid #ccc;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 480px) {
-  .sub_input_cont {
-    flex-direction: column;
-    gap: 0rem;
-    align-items: flex-start;
-  }
+    .sub_input_cont {
+        flex-direction: column;
+        gap: 0rem;
+        align-items: flex-start;
+    }
 }
 
 .img_inp {
-  color: #444;
-  font-size: 0.8rem;
-  font-family: helvetica, Sans-Serif ;
+    color: #444;
+    font-size: 0.8rem;
+    font-family: helvetica, Sans-Serif;
 }
 
 .submit_btn {
-  background: transparent;
-  border: 1.4px solid #b53145;
-  border-radius: 12px;
-  padding: 5px 8px;
-  color: #b53145;
-  font-size: clamp(0.8rem, 13px, 1rem);
-  margin-top: 2rem;
-  cursor: pointer;
+    background: transparent;
+    border: 1.4px solid #b53145;
+    border-radius: 12px;
+    padding: 5px 8px;
+    color: #b53145;
+    font-size: clamp(0.8rem, 13px, 1rem);
+    margin-top: 2rem;
+    cursor: pointer;
 }
 
 .submit_btn:hover {
-  background: #b53145;
-  border: 1.4px solid #b53145;
-  color: aliceblue;
+    background: #b53145;
+    border: 1.4px solid #b53145;
+    color: aliceblue;
 }
 
 .ing_heading {
-  font-size: clamp(0.8rem, 1.6vw, 1.8rem);
-  font-family: 'Amatic SC', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  color: #627d59;
-  padding-bottom: 10px;
+    font-size: clamp(0.8rem, 1.6vw, 1.8rem);
+    font-family: 'Amatic SC', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #627d59;
+    padding-bottom: 10px;
 }

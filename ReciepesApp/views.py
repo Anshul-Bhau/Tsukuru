@@ -253,3 +253,6 @@ def contact_page(request):
     return render(request, 'contact.html', {
         'active_page': 'contact'
     })
+
+def submit_recipe(request):
+    return render(request, "submit_recipe.html")
