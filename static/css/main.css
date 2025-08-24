@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     margin: 0;
@@ -31,7 +33,7 @@ html {
 
 body {
     background-color: aliceblue;
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
 }
 
 .navbar {
@@ -65,7 +67,7 @@ body {
 
 .nav-mid-items ul li a {
     font-weight: bold;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     color: #222;
     font-size: 1rem;
     text-decoration: none;
@@ -101,7 +103,7 @@ body {
     text-decoration: none;
     color: whitesmoke;
     font-weight: bold;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     font-size: 0.8rem;
 }
 
@@ -146,7 +148,7 @@ body {
     font-size: 3.4rem;
     font-weight: 700;
     font-style: normal;
-    color: #a12638;
+    color: #b53145;
 }
 
 .hero-btns button {
@@ -160,7 +162,7 @@ body {
 
 .hero-btns button a {
     text-decoration: none;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
 }
 
 #hero-btn-1 a {
@@ -237,9 +239,9 @@ body {
 }
 
 .sec-heading {
-    color: #963f2e;
+    color: #b53145;
     font-size: 3rem;
-    font-family: inherit;
+    font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
     margin-bottom: 2rem;
@@ -322,20 +324,20 @@ body {
 }
 
 .card p {
-    font-size: .8rem;
+    font-size: 1rem;
     font-weight: 400;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    line-height: 1rem;
+    font-family: "Raleway", sans-serif;
+    line-height: 1.5rem;
     margin-bottom: 1rem;
     color: #ede490;
     padding: .5rem 0;
 }
 
 #card-1 p {
-    font-size: .8rem;
+    font-size: 1rem;
     font-weight: 400;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    line-height: 1rem;
+    font-family: "Raleway", sans-serif;
+    line-height: 1.5rem;
     margin-bottom: 1rem;
     padding: .5rem 0;
     color: #cd9b59;
@@ -400,14 +402,14 @@ body {
     font-weight: 700;
     font-style: normal;
     font-size: 2.4rem;
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
 }
 
 .footer-section-1 #logo-text-jap {
     color: #963f2e;
     font-weight: bold;
     font-size: 1.5rem;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
 }
 
 .footer-cols {
@@ -424,7 +426,7 @@ body {
 .cols ul li {
     list-style: none;
     font-size: 0.75rem;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     position: relative;
     margin-bottom: 0.25rem;
     color: aliceblue;

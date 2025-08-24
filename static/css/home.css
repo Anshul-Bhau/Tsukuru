@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     margin: 0;
@@ -31,7 +33,7 @@ html {
 
 body {
     background-color: aliceblue;
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
 }
 
 .navbar {
@@ -49,7 +51,7 @@ body {
 .logo {
     font-size: 2rem;
     font-weight: bold;
-    font-family: "Amatic SC", sans-serif;
+    font-family: "Alata", sans-serif;
     color: whitesmoke;
     text-decoration: none;
 }
@@ -65,8 +67,8 @@ body {
 }
 
 .nav-mid-items ul li a {
-    font-weight: bold;
-    font-family: monospace;
+    font-weight: 800;
+    font-family: "Raleway", sans-serif;
     color: #222;
     font-size: 1rem;
     text-decoration: none;
@@ -163,7 +165,7 @@ body {
 .footer-section-1 #logo-text-jap {
     color: #963f2e;
     font-weight: bold;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     font-size: 1.5rem;
 }
 
@@ -181,7 +183,7 @@ body {
 .cols ul li {
     list-style: none;
     font-size: 0.75rem;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     position: relative;
     margin-bottom: 0.25rem;
     color: aliceblue;
@@ -300,9 +302,12 @@ body {
     align-items: flex-start;
     position: relative;
     gap: 1rem;
+    min-height: 100px;
 }
 
 .sug_ing_btn {
+    font-family: "Raleway", sans-serif;
+    font-size: 1rem;
     background-color: #b53145;
     color: rgba(255, 255, 255, .8);
     cursor: pointer;
@@ -432,20 +437,20 @@ body {
 }
 
 .card p {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 400;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    line-height: 1rem;
+    font-family: "Raleway", sans-serif;
+    line-height: 1.5rem;
     margin-bottom: 1rem;
     color: #ede490;
     padding: .5rem 0;
 }
 
 #card-1 p {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 400;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    line-height: 1rem;
+    font-family: "Raleway", sans-serif;
+    line-height: 1.5rem;
     margin-bottom: 1rem;
     padding: .5rem 0;
     color: #cd9b59;
@@ -568,7 +573,7 @@ body {
     width: max-content;
     padding: 1rem 0;
     flex-wrap: wrap;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Raleway", sans-serif;
 }
 
 .pagination a {

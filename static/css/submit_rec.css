@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Unkempt:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     margin: 0;
@@ -28,7 +28,7 @@
 
 body {
     background-color: aliceblue;
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
 }
 
 main {
@@ -43,7 +43,7 @@ main {
 
 .heading {
     font-size: clamp(1.5rem, 3vw, 3.5rem);
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
     color: #b53145;
@@ -52,7 +52,7 @@ main {
 
 .sub_heading {
     font-size: clamp(1rem, 2vw, 2.1rem);
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
     color: #627d59;
@@ -96,6 +96,7 @@ textarea {
     border-radius: 2px;
     border: 1.4px solid #ccc;
     height: auto;
+    font-family: 'Raleway', sans-serif;
     box-sizing: border-box;
     resize: vertical;
     color: #918d8d;
@@ -117,7 +118,7 @@ textarea:focus {
 .img_inp {
     color: #444;
     font-size: 0.8rem;
-    font-family: helvetica, Sans-Serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .submit_btn {
@@ -126,6 +127,8 @@ textarea:focus {
     border-radius: 12px;
     padding: 5px 8px;
     color: #b53145;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
     font-size: clamp(0.8rem, 13px, 1rem);
     margin-top: 2rem;
     cursor: pointer;
@@ -139,7 +142,7 @@ textarea:focus {
 
 .ing_heading {
     font-size: clamp(0.8rem, 1.6vw, 1.8rem);
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
     color: #627d59;

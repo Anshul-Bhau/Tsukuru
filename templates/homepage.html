@@ -73,7 +73,7 @@
 
                 <i class="fa-regular fa-bookmark save_icon" data-recipe-id="{{ recipe.id }}"></i>
 
-                <h3>{{ recipe.title }}</h3>
+                <h3>{{ recipe.title|truncatechars:18 }}</h3>
 
                 {% if recipe.image %}
                 <img src="{{ recipe.image.url }}" alt="{{ recipe.title }} image">

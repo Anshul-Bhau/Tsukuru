@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Unkempt:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     margin: 0;
@@ -32,7 +32,7 @@ html {
 
 body {
     background-color: aliceblue;
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
 }
 
 .navbar {
@@ -66,7 +66,7 @@ body {
 
 .nav-mid-items ul li a {
     font-weight: bold;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     color: #222;
     font-size: 1rem;
     text-decoration: none;
@@ -163,7 +163,7 @@ body {
 .footer-section-1 #logo-text-jap {
     color: #963f2e;
     font-weight: bold;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     font-size: 1.5rem;
 }
 
@@ -181,7 +181,7 @@ body {
 .cols ul li {
     list-style: none;
     font-size: 0.75rem;
-    font-family: monospace;
+    font-family: "Raleway", sans-serif;
     position: relative;
     margin-bottom: 0.25rem;
     color: aliceblue;
@@ -240,8 +240,8 @@ body {
 }
 
 #recipe_name {
-    font-size: 3rem;
-    font-family: 'Amatic SC', sans-serif;
+    font-size: 2.8rem;
+    font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
     color: #b53145;
@@ -261,8 +261,8 @@ body {
 
 .ingredients .ingredients_list li {
     list-style: none;
-    font-size: 1.2rem;
-    font-family: 'Amatic SC', sans-serif;
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
     font-weight: 700;
     color: #627d59;
     padding-left: 0;
@@ -298,7 +298,7 @@ body {
 
 .instructions h3 {
     font-size: 2.5rem;
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
     color: #b53145;
@@ -307,7 +307,8 @@ body {
 
 .instructions p {
     font-size: 1rem;
-    font-family: cursive;
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
     color: #627d59;
     line-height: 30px;
 }
@@ -320,7 +321,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 1rem;
-    font-family: 'Amatic SC', sans-serif;
+    font-family: 'Alata', sans-serif;
     font-weight: 400;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in;
