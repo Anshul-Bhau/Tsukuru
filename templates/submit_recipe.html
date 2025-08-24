@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Recipe</title>
+</head>
+<body>
+    <h2>Submit Your Recipe</h2>
+
+    <form action="{% url 'submit_recipe' %}" method="POST" enctype="multipart/form-data">
+        {% crsf_token %}
+        
+        <label for="title">Recipe Title :</label><br />
+        <input type="text" id="title" name="title" required /><br /><br />
+
+        <label for="directions">Directions :</label><br />
+        <textarea id="directions" name="directions" rows="5" cols="40" required></textarea><br /><br />
+
+        <label for="image">Upload Image :</label><br />
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <label for="ingredient_count">Number of Ingredients :</label><br />
+        <input 
+            type="number"
+            id="ingredient_count"
+            name="ingredient_count"
+            min="1"
+            required
+        /><br /><br />
+        
+        <div id="ingredients_container"></div>
+
+        <button type="submit">Submit Recipe</button>
+    </form>
+    <script>
+        document.getElementById('ingredient_count').addEventListener('change', function() {
+            const count = parseInt(this.value);
+            const container = document.getElementById('ingredients_container');
+            container.innerHTML = '';
+
+            for (let i = 1; i <= count; i++){
+                container.innerHTML +=
+                `
+                <label for="ingredient_${i}">Ingredient ${i}:</label><br />
+                <input 
+                    type="text"
+                    id="ingredient_${i}"
+                    name="ingredients"
+                    required
+                /><br /><br />
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
