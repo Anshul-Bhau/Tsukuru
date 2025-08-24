@@ -11,6 +11,29 @@
 </head>
 
 <body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">つくる</a>
+
+            <div class="nav-mid-items">
+                <ul>
+                    <li><a href="/landing/">Home</a></li>
+                    <li class="{% if active_page == 'cook' %}active{% endif %}"><a href="/home/">Cook</a></li>
+                    <li><a href="{% url 'contact_page' %}">Contact</a></li>
+                    <li><a href="https://github.com/Anshul-Bhau/Tsukuru/blob/master/README.md" target="_blank">Help</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sub-user-menu">
+                <a href="/user_account/">
+                    <img src="{% static 'images/pfp/default-pfp.jpg' %}" alt="{{user.username}}" id="nav_pfp">
+                </a>
+            </div>
+
+        </nav>
+    </header>
+
     <main>
         <h2 class="heading">Submit Your Recipe</h2>
 
@@ -44,6 +67,54 @@
             <button type="submit" class="submit_btn">Submit Recipe</button>
         </form>
     </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section-1">
+                <div class="footer-logo-txt">
+                    <h2><span id="logo-text-eng">Tsukuru</span></h2>
+                    <h2><span id="logo-text-jap">つくる</span></h2>
+                </div>
+
+                <div class="footer-cols">
+                    <div class="cols" id="services-cont">
+                        <h3>Services</h3>
+                        <ul class="services">
+                            <li>Recipe</li>
+                            <li>Ingredient</li>
+                            <li>Macros</li>
+                        </ul>
+                    </div>
+
+                    <div class="cols" id="socials-cont">
+                        <h3>Follow us</h3>
+                        <ul class="socials">
+                            <li>Github</li>
+                            <li>Linkedin</li>
+                            <li>Instagram</li>
+                            <li>Facebook</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer-section-2">
+                <div class="fs2-l">
+                    <h3>@Copyright2025</h3>
+                </div>
+
+                <div class="fs2-r">
+                    <ul>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Settings</a>
+                        <li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script>
         document.getElementById('ingredient_count').addEventListener('change', function () {
             const count = parseInt(this.value);
@@ -64,6 +135,29 @@
                 `;
             }
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const nav_img = document.getElementById("nav_pfp");
+            const default_pfp = "/static/images/pfp/default-pfp.jpg";
+            const saved_pfp = localStorage.getItem("selectedPfp");
+
+            function imageExists(url, callback) {
+                const img = new Image();
+                img.onload = () => callback(true);
+                img.onerror = () => callback(false);
+                img.src = url;
+            }
+
+            if (saved_pfp) {
+                imageExists(saved_pfp, exists => {
+                    const pfpToUse = exists ? saved_pfp : default_pfp;
+                    if (nav_img) nav_img.setAttribute("src", pfpToUse);
+                    if (!exists) localStorage.removeItem("selectedPfp");
+                });
+            } else {
+                if (nav_img) nav_img.setAttribute("src", default_pfp);
+            }
+        })
     </script>
 </body>
 
