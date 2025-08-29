@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     const save_icons = document.querySelectorAll('.save_icon');
     const modal = document.getElementById('saveModal');
     const recipeIdInput = document.getElementById('recipeIdinput');
     const close_btn = document.querySelector('.close-button');
     const sugg_btn = document.querySelectorAll(".sug_ing_btn");
 
+    // Save recipe modal
     save_icons.forEach(icon => {
         icon.addEventListener('click', () => {
             icon.classList.remove('fa-regular');
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Search input save
     const search_input = document.getElementById("search_input");
     if (search_input) {
         search_input.addEventListener("keydown", (event) => {
@@ -33,18 +34,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Suggestion buttons
     sugg_btn.forEach(btn => {
         btn.addEventListener("click", function (event) {
             const search_input = document.getElementById("search_input");
             const search_form = document.getElementById("search_form");
-
             const ingredient = event.currentTarget.textContent?.trim()
+
+            const scroll_pos = window.scrollY;
+            sessionStorage.setItem("scrollPos", scroll_pos);
 
             if (search_input && ingredient) {
                 search_input.value = ingredient;
 
+                // skeleton
                 document.getElementById("skeleton").style.display = "flex";
                 document.querySelector(".recipe-container").style.display = "none";
+
 
                 setTimeout(() => {
                     search_form.submit();
@@ -52,15 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (event.button == 0) {
                     localStorage.setItem("last_search", search_input.value.trim() || search_input.placeholder);
-                    console.log()
                 }
-
             } else {
                 console.warn("Ingredient or input box not found.");
             }
-        })
-    })
+        });
+    });
 
+    // Last search text
     const last_search = localStorage.getItem("last_search");
     if (last_search) {
         const result_text = document.getElementById("result_text");
@@ -68,13 +73,15 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("last_search");
     }
 
+    // View full recipe
     const view_full_rec = document.querySelectorAll(".view_more");
     view_full_rec.forEach(btn => {
         btn.addEventListener("click", () => {
-            window.location.href = "/recipe"
+            window.location.href = "/recipe";
         });
     });
 
+    // Nav profile image
     const nav_img = document.getElementById("nav_pfp");
     const default_pfp = "/static/images/pfp/default-pfp.jpg";
     const saved_pfp = localStorage.getItem("selectedPfp");
@@ -96,8 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nav_img) nav_img.setAttribute("src", default_pfp);
     }
 
+    // Save form submission: store query + scroll position
     document.querySelectorAll(".saveRecipeForm").forEach(form => {
-        form.addEventListener("submit", function (e) {
+        form.addEventListener("submit", function () {
             const search_input = document.getElementById("search_input");
             const scroll_pos = window.scrollY;
 
@@ -108,9 +116,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Search form submit -> skeleton
+    const search_form = document.getElementById("search_form");
+    if (search_form) {
+        search_form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const scroll_pos = window.scrollY;
+            sessionStorage.setItem("scrollPos", scroll_pos);
+
+            document.getElementById("skeleton").style.display = "flex";
+            document.querySelector(".recipe-container").style.display = "none";
+
+            setTimeout(() => {
+                this.submit();
+            }, 500);
+        });
+    }
 });
 
-window.addEventListener("DOMContentLoaded", () => {
+// Restore search + scroll AFTER load
+window.addEventListener("load", () => {
     const savedQuery = sessionStorage.getItem("searchQuery");
     const savedScroll = sessionStorage.getItem("scrollPos");
 
@@ -122,20 +148,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (savedScroll) {
         window.scrollTo(0, parseInt(savedScroll));
+        console.log(savedScroll);
         sessionStorage.removeItem("scrollPos");
     }
-});
-
-// loading animation
-document.getElementById("search_form").addEventListener("submit", function (e) {
-    e.preventDefault(); // stop default submission for a moment
-
-    // Show skeleton
-    document.getElementById("skeleton").style.display = "flex";
-    document.querySelector(".recipe-container").style.display = "none";
-
-    // Delay actual form submission
-    setTimeout(() => {
-        this.submit();  // submit after delay
-    }, 500); // 0.5s delay
 });

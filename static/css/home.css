@@ -614,7 +614,7 @@ body {
     border-radius: 15px;
     background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
     background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2.5s infinite;
 }
 
 @keyframes shimmer {
