@@ -2,6 +2,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Alata&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    /* Backgrounds */
+    --color-bg-main: aliceblue;
+    --color-bg-dark: #56694f;
+    --color-bg-accent: #b53145;
+    --color-fs1-bg: #98AA8D;
+
+    /* Text */
+    --color-text-main: #222;
+    --color-text-light: whitesmoke;
+    --color-text-muted: rgb(205, 198, 198);
+    --color-text-accent: #963f2e;
+    --color-text-footer: #caedb8;
+
+    /* Recipe Cards */
+    --color-card-icon: #ede490;
+    --color-card1-icon: #cd9b59;
+
+    /* Buttons */
+    --color-btn-save: #4CAF50;
+    --color-btn-primary: #a12638;
+    --color-btn-hover: #8d2131;
+    --color-btn-text: whitesmoke;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +34,7 @@
 }
 
 body {
-    background-color: #fff;
+    background-color: var(--color-bg-main);
     font-family: 'Alata', sans-serif;
 }
 
@@ -36,7 +61,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #b53145;
+    background-color: var(--color-bg-accent);
     position: fixed;
     top: 0;
     left: 0;
@@ -51,7 +76,7 @@ body {
 
 .nav-left .menu_toggle {
     text-decoration: none;
-    color: aliceblue;
+    color: var(--color-bg-main);
     font-size: 1.4rem;
 }
 
@@ -108,7 +133,7 @@ body {
     font-family: inherit;
     font-weight: 700;
     font-size: 2rem;
-    color: #56694f;
+    color: var(--color-bg-dark);
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -148,7 +173,7 @@ body {
 
 .menu_items li a.active {
     background-color: #b7de9e;
-    color: #56694f;
+    color: var(--color-bg-dark);
     font-weight: bold;
 }
 
@@ -211,7 +236,7 @@ main {
 }
 
 #pfp_choice_btn {
-    background-color: #56694f;
+    background-color: var(--color-bg-dark);
     color: #fff;
     font-size: 1.2rem;
     border: none;
@@ -287,13 +312,13 @@ button {
 }
 
 #save_btn {
-    background-color: #4CAF50;
+    background-color: var(--color-btn-save);
     color: white;
     display: none;
 }
 
 #edit_btn {
-    background-color: #b53145;
+    background-color: var(--color-bg-accent);
     color: white;
 }
 
@@ -342,7 +367,7 @@ button:hover {
 .pfp_option:hover {
     transform: scale(1.04);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    border-color: #56694f;
+    border-color: var(--color-bg-dark);
 }
 
 #favorites {
@@ -365,7 +390,7 @@ button:hover {
 }
 
 .sec_title h3 {
-    color: #56694f;
+    color: var(--color-bg-dark);
     font-size: 2.3rem;
     font-family: inherit;
     font-weight: 700;
@@ -416,7 +441,7 @@ button:hover {
 }
 
 .board h4 {
-    color: #b53145;
+    color: var(--color-bg-accent);
     font-size: 1rem;
     font-family: "Raleway", sans-serif;
     font-weight: 700;
@@ -470,7 +495,7 @@ button:hover {
 
 #card-1 {
     padding: 1.2rem;
-    background-color: #56694f;
+    background-color: var(--color-bg-dark);
     min-height: 250px;
     font-family: inherit;
     border-radius: 15px;
@@ -480,7 +505,7 @@ button:hover {
 }
 
 #card-1 i {
-    color: #cd9b59;
+    color: var(--color-card1-icon);
     font-size: 1.6rem;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -492,7 +517,7 @@ button:hover {
 
 
 .card i {
-    color: #ede490;
+    color: var(--color-card-icon);
     font-size: 1.6rem;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -509,7 +534,7 @@ button:hover {
     max-width: fit-content;
     padding: .5rem 0;
     border-radius: 10px;
-    color: #56694f;
+    color: var(--color-bg-dark);
 }
 
 #card-1 h3 {
@@ -518,7 +543,7 @@ button:hover {
     max-width: fit-content;
     padding: .5rem 0rem;
     border-radius: 10px;
-    color: #caedb8;
+    color: var(--color-text-footer);
 }
 
 .card img {
@@ -543,7 +568,7 @@ button:hover {
     font-family: "Raleway", sans-serif;
     line-height: 1.5rem;
     margin-bottom: 1rem;
-    color: #ede490;
+    color: var(--color-card-icon);
     padding: .5rem 0;
 }
 
@@ -554,11 +579,11 @@ button:hover {
     line-height: 1.5rem;
     margin-bottom: 1rem;
     padding: .5rem 0;
-    color: #cd9b59;
+    color: var(--color-card1-icon);
 }
 
 #card-1 a {
-    color: #cd9b59;
+    color: var(--color-card1-icon);
     font-size: 1rem;
     font-weight: 700;
 }
@@ -567,7 +592,7 @@ button:hover {
     text-decoration: none;
     font-size: 1rem;
     font-weight: 700;
-    color: #ede490;
+    color: var(--color-card-icon);
 }
 
 .recipe_boards {
@@ -584,7 +609,7 @@ button:hover {
 .recipe_boards h3 {
     font-family: inherit;
     font-size: 1.5rem;
-    color: #b53145;
+    color: var(--color-bg-accent);
 }
 
 .recipe_boards #empty_board_text {

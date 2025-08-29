@@ -1,6 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Alata&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    /* Backgrounds */
+    --color-bg-main: aliceblue;
+    --color-bg-dark: #56694f;
+    --color-bg-accent: #b53145;
+    --color-fs1-bg: #98AA8D;
+
+    /* Text */
+    --color-text-main: #222;
+    --color-text-light: whitesmoke;
+    --color-text-muted: rgb(205, 198, 198);
+    --color-text-accent: #963f2e;
+    --color-text-footer: #caedb8;
+    --color-text-ingred: #627d59;
+
+    /* Buttons */
+    --color-btn-primary: #a12638;
+    --color-btn-hover: #8d2131;
+    --color-btn-text: whitesmoke;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -31,7 +52,7 @@ html {
 }
 
 body {
-    background-color: aliceblue;
+    background-color: var(--color-bg-main);
     font-family: 'Alata', sans-serif;
 }
 
@@ -44,7 +65,7 @@ body {
     justify-content: space-around;
     border-bottom-left-radius: 50% 19px;
     border-bottom-right-radius: 50% 27px;
-    background-color: #b53145;
+    background-color: var(--color-bg-accent);
 }
 
 .logo {
@@ -93,28 +114,28 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 6px;
     cursor: pointer;
-    border: 2px solid #a12638;
-    background-color: #a12638;
+    border: 2px solid var(--color-btn-primary);
+    background-color: var(--color-btn-primary);
     transition: all 0.2s ease;
 }
 
 .sub-user-menu button a {
     text-decoration: none;
-    color: whitesmoke;
+    color: var(--color-btn-text);
     font-weight: bold;
 }
 
 .sub-user-menu button:hover {
-    border: 2px solid whitesmoke;
+    border: 2px solid var(--color-btn-text);
     background-color: transparent;
 }
 
 .sub-user-menu button:hover a {
-    color: whitesmoke;
+    color: var(--color-btn-text);
 }
 
 .footer {
-    background-color: #56694f;
+    background-color: var(--color-bg-dark);
     color: white;
     bottom: 0%;
     position: relative;
@@ -135,7 +156,7 @@ body {
 
 .footer-section-1 {
     padding: 1.4rem 3rem;
-    background-color: #98AA8D;
+    background-color: var(--color-fs1-bg);
     border-radius: 24px;
     display: flex;
     margin: 1rem;
@@ -161,7 +182,7 @@ body {
 }
 
 .footer-section-1 #logo-text-jap {
-    color: #963f2e;
+    color: var(--color-text-accent);
     font-weight: bold;
     font-family: "Raleway", sans-serif;
     font-size: 1.5rem;
@@ -173,7 +194,7 @@ body {
 }
 
 .footer-section-1 .cols h3 {
-    color: #caedb8;
+    color: var(--color-text-footer);
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
@@ -195,7 +216,7 @@ body {
     width: 100%;
     font-size: 0.8rem;
     justify-content: space-between;
-    border-top: 1.5px solid #caedb8;
+    border-top: 1.5px solid var(--color-text-footer);
 }
 
 .footer-section-2 .fs2-l h3 {
@@ -211,7 +232,7 @@ body {
 
 .fs2-r ul li a {
     text-decoration: none;
-    color: #caedb8;
+    color: var(--color-text-footer);
     position: relative;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s ease-in-out;
@@ -244,7 +265,7 @@ body {
     font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
-    color: #b53145;
+    color: var(--color-bg-accent);
     padding-bottom: 10px;
 }
 
@@ -264,7 +285,7 @@ body {
     font-size: 1rem;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
-    color: #627d59;
+    color: var(--color-text-ingred);
     max-width: 700px;
     padding-left: 0;
     gap: 1rem;
@@ -273,7 +294,7 @@ body {
 
 .ingredients_list li::before {
     content: "➜ ";
-    color: #627d59;
+    color: var(--color-text-ingred);
     font-weight: bold;
     margin-right: 8px;
 }
@@ -302,7 +323,7 @@ body {
     font-family: 'Alata', sans-serif;
     font-weight: 700;
     font-style: normal;
-    color: #b53145;
+    color: var(--color-bg-accent);
     margin-bottom: 10px;
 }
 
@@ -310,12 +331,12 @@ body {
     font-size: 1rem;
     font-family: "Raleway", sans-serif;
     font-weight: 500;
-    color: #627d59;
+    color: var(--color-text-ingred);
     line-height: 30px;
 }
 
 #back_btn {
-    background-color: #b53145;
+    background-color: var(--color-bg-accent);
     color: aliceblue;
     border: 1px solid aliceblue;
     border-radius: 15px;
