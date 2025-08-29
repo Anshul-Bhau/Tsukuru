@@ -2,6 +2,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Alata&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    /* Backgrounds */
+    --color-bg-main: aliceblue;
+    --color-bg-dark: #56694f;
+    --color-bg-accent: #b53145;
+    --color-bg-light: #f0f0f0;
+    --color-overlay: rgba(0, 0, 0, 0.5);
+    --color-card-bg: rgba(91, 89, 89, 0.45);
+    --color-fs1-bg: #98AA8D;
+
+    /* Text */
+    --color-text-main: #222;
+    --color-text-light: whitesmoke;
+    --color-text-muted: rgb(205, 198, 198);
+    --color-text-accent: #963f2e;
+    --color-text-footer: #caedb8;
+
+    /* Buttons */
+    --color-btn-primary: #a12638;
+    --color-btn-hover: #8d2131;
+    --color-btn-text: whitesmoke;
+
+    /* Recipe Cards */
+    --color-card-icon: #ede490;
+    --color-card1-icon: #cd9b59;
+
+    /* Pagination */
+    --color-pagination: #007bff;
+    --color-pagination-hover-bg: #007bff;
+    --color-pagination-hover-text: #fff;
+
+    /* Skeleton */
+    --color-skeleton-light: #eee;
+    --color-skeleton-dark: #ddd;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +53,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(43, 42, 42, 0.4);
+    background: var(--color-bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -32,7 +68,7 @@ html {
 }
 
 body {
-    background-color: aliceblue;
+    background-color: var(--color-bg-main);
     font-family: 'Alata', sans-serif;
 }
 
@@ -45,14 +81,14 @@ body {
     justify-content: space-around;
     border-bottom-left-radius: 50% 19px;
     border-bottom-right-radius: 50% 27px;
-    background-color: #b53145;
+    background-color: var(--color-bg-accent);
 }
 
 .logo {
     font-size: 2rem;
     font-weight: bold;
     font-family: "Alata", sans-serif;
-    color: whitesmoke;
+    color: var(--color-btn-text);
     text-decoration: none;
 }
 
@@ -69,19 +105,19 @@ body {
 .nav-mid-items ul li a {
     font-weight: 800;
     font-family: "Raleway", sans-serif;
-    color: #222;
+    color: var(--color-text-main);
     font-size: 1rem;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .nav-mid-items ul li a:hover {
-    color: rgb(205, 198, 198);
+    color: var(--color-text-muted);
 }
 
 .nav-mid-items ul li.active a {
     border-bottom: 3px solid rgb(180, 169, 169);
-    color: rgb(205, 198, 198);
+    color: var(--color-text-muted);
     padding-bottom: 4px;
 }
 
@@ -95,28 +131,28 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 6px;
     cursor: pointer;
-    border: 2px solid #a12638;
-    background-color: #a12638;
+    border: 2px solid var(--color-btn-primary);
+    background-color: var(--color-btn-primary);
     transition: all 0.2s ease;
 }
 
 .sub-user-menu button a {
     text-decoration: none;
-    color: whitesmoke;
+    color: var(--color-btn-text);
     font-weight: bold;
 }
 
 .sub-user-menu button:hover {
-    border: 2px solid whitesmoke;
+    border: 2px solid var(--color-btn-text);
     background-color: transparent;
 }
 
 .sub-user-menu button:hover a {
-    color: whitesmoke;
+    color: var(--color-btn-text);
 }
 
 .footer {
-    background-color: #56694f;
+    background-color: var(--color-bg-dark);
     color: white;
     bottom: 0%;
     position: relative;
@@ -137,7 +173,7 @@ body {
 
 .footer-section-1 {
     padding: 1.4rem 3rem;
-    background-color: #98AA8D;
+    background-color: var(--color-fs1-bg);
     border-radius: 24px;
     display: flex;
     margin: 1rem;
@@ -155,7 +191,7 @@ body {
 }
 
 .footer-section-1 #logo-text-eng {
-    color: aliceblue;
+    color: var(--color-bg-main);
     font-family: inherit;
     font-weight: 700;
     font-style: normal;
@@ -163,7 +199,7 @@ body {
 }
 
 .footer-section-1 #logo-text-jap {
-    color: #963f2e;
+    color: var(--color-text-accent);
     font-weight: bold;
     font-family: "Raleway", sans-serif;
     font-size: 1.5rem;
@@ -175,7 +211,7 @@ body {
 }
 
 .footer-section-1 .cols h3 {
-    color: #caedb8;
+    color: var(--color-text-footer);
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
@@ -186,7 +222,7 @@ body {
     font-family: "Raleway", sans-serif;
     position: relative;
     margin-bottom: 0.25rem;
-    color: aliceblue;
+    color: var(--color-bg-main);
     cursor: pointer;
 }
 
@@ -197,11 +233,11 @@ body {
     width: 100%;
     font-size: 0.8rem;
     justify-content: space-between;
-    border-top: 1.5px solid #caedb8;
+    border-top: 1.5px solid var(--color-text-footer);
 }
 
 .footer-section-2 .fs2-l h3 {
-    color: aliceblue;
+    color: var(--color-bg-main);
 }
 
 .footer-section-2 .fs2-r ul {
@@ -213,7 +249,7 @@ body {
 
 .fs2-r ul li a {
     text-decoration: none;
-    color: #caedb8;
+    color: var(--color-text-footer);
     position: relative;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s ease-in-out;
@@ -268,7 +304,7 @@ body {
 .form {
     display: flex;
     align-items: center;
-    border: 2px solid #b53145;
+    border: 2px solid var(--color-bg-accent);
     border-radius: 24px;
 }
 
@@ -308,7 +344,7 @@ body {
 .sug_ing_btn {
     font-family: "Raleway", sans-serif;
     font-size: 1rem;
-    background-color: #b53145;
+    background-color: var(--color-bg-accent);
     color: rgba(255, 255, 255, .8);
     cursor: pointer;
     padding: 8px 10px;
@@ -317,7 +353,7 @@ body {
 }
 
 .sug_ing_btn:hover {
-    background-color: #b53145;
+    background-color: var(--color-bg-accent);
     color: aliceblue;
     padding: 10px 12px;
     border: 14px;
@@ -328,8 +364,8 @@ body {
 .sug_ing_btn:active {
     transform: scale(0.98);
     background-color: #e9e9e9;
-    color: #8d2131;
-    border: 2px solid #8d2131;
+    color: var(--color-btn-hover);
+    border: 2px solid var(--color-btn-hover);
     border-radius: 14px;
 }
 
@@ -379,7 +415,7 @@ body {
 
 #card-1 {
     padding: 1.2rem;
-    background-color: #56694f;
+    background-color: var(--color-bg-dark);
     min-height: 250px;
     font-family: inherit;
     border-radius: 15px;
@@ -389,13 +425,13 @@ body {
 }
 
 #card-1 i {
-    color: #cd9b59;
+    color: var(--color-card1-icon);
     font-size: 1.6rem;
     cursor: pointer;
 }
 
 .card i {
-    color: #ede490;
+    color: var(--color-card-icon);
     font-size: 1.6rem;
     cursor: pointer;
 }
@@ -407,7 +443,7 @@ body {
     max-width: fit-content;
     padding: .5rem 0;
     border-radius: 10px;
-    color: #56694f;
+    color: var(--color-bg-dark);
 }
 
 #card-1 h3 {
@@ -417,7 +453,7 @@ body {
     max-width: fit-content;
     padding: .5rem 0rem;
     border-radius: 10px;
-    color: #caedb8;
+    color: var(--color-text-footer);
 }
 
 .card img {
@@ -442,7 +478,7 @@ body {
     font-family: "Raleway", sans-serif;
     line-height: 1.5rem;
     margin-bottom: 1rem;
-    color: #ede490;
+    color: var(--color-card-icon);
     padding: .5rem 0;
 }
 
@@ -453,11 +489,11 @@ body {
     line-height: 1.5rem;
     margin-bottom: 1rem;
     padding: .5rem 0;
-    color: #cd9b59;
+    color: var(--color-card1-icon);
 }
 
 #card-1 a {
-    color: #cd9b59;
+    color: var(--color-card1-icon);
     font-size: 1rem;
     font-weight: 700;
 }
@@ -466,7 +502,7 @@ body {
     text-decoration: none;
     font-size: 1rem;
     font-weight: 700;
-    color: #ede490;
+    color: var(--color-card-icon);
 }
 
 .modal {
@@ -508,7 +544,7 @@ body {
 .save-btn {
     margin-top: 1.5em;
     padding: 0.5em 1em;
-    background-color: #a12638;
+    background-color: var(--color-btn-primary);
     border: none;
     color: white;
     border-radius: 5px;
@@ -516,13 +552,13 @@ body {
 }
 
 .save-btn:hover {
-    background-color: #8d2131;
+    background-color: var(--color-btn-hover);
 }
 
 #save_heading {
     font-size: 1.4rem;
     font-family: inherit;
-    color: #56694f;
+    color: var(--color-bg-dark);
 }
 
 #saveRecipeForm {
@@ -535,7 +571,7 @@ body {
 #saveRecipeForm label {
     font-family: inherit;
     font-size: 1.2rem;
-    color: #cd9b59;
+    color: var(--color-card1-icon);
 }
 
 #saveRecipeForm select,
@@ -545,7 +581,7 @@ body {
 }
 
 #saveRecipeForm p {
-    color: #56694f;
+    color: var(--color-bg-dark);
     margin: .7rem 0;
 }
 
@@ -577,8 +613,8 @@ body {
 }
 
 .pagination a {
-    background-color: #f0f0f0;
-    color: #007bff;
+    background-color: var(--color-bg-light);
+    color: var(--color-pagination);
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 6px;
@@ -588,7 +624,7 @@ body {
 }
 
 .pagination a:hover {
-    background-color: #007bff;
+    background-color: var(--color-pagination-hover-bg);
     color: #fff;
     box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
 }
@@ -618,6 +654,11 @@ body {
 }
 
 @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
