@@ -21,7 +21,8 @@
                     <li><a href="/landing/">Home</a></li>
                     <li class="{% if active_page == 'cook' %}active{% endif %}"><a href="/home/">Cook</a></li>
                     <li><a href="{% url 'contact_page' %}">Contact</a></li>
-                    <li><a href="https://github.com/Anshul-Bhau/Tsukuru/blob/master/README.md" target="_blank">Help</a></li>
+                    <li><a href="https://github.com/Anshul-Bhau/Tsukuru/blob/master/README.md" target="_blank">Help</a>
+                    </li>
                 </ul>
             </div>
 
@@ -65,9 +66,20 @@
 
 
     <section class="searched_recipes_container" id="searched_recipes_container">
+
+
         <div class="sec-heading" id="result_text">
 
         </div>
+
+        <!-- skeleton templates -->
+        <div id="skeleton" class="skeleton_container">
+            <div class="skeleton_card"></div>
+            <div class="skeleton_card"></div>
+            <div class="skeleton_card"></div>
+            <div class="skeleton_card"></div>
+        </div>
+        
         <div class="recipe-container">
             {% for recipe in page_obj %}
             <div class="card" id="card-{{ forloop.counter }}">
@@ -95,12 +107,11 @@
             {% endfor %}
         </div>
     </section>
-    
+
     <div class="pag_wrapper">
         <div class="pagination">
             {% if page_obj.has_previous %}
-            <a
-                href="?page={{ page_obj.previous_page_number }}{% if input_query %}&input={{ input_query }}{% endif %}">«
+            <a href="?page={{ page_obj.previous_page_number }}{% if input_query %}&input={{ input_query }}{% endif %}">«
                 Previous</a>
             {% endif %}
 

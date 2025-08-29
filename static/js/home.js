@@ -43,9 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (search_input && ingredient) {
                 search_input.value = ingredient;
 
+                document.getElementById("skeleton").style.display = "flex";
+                document.querySelector(".recipe-container").style.display = "none";
+
                 setTimeout(() => {
                     search_form.submit();
-                }, 100);
+                }, 400);
 
                 if (event.button == 0) {
                     localStorage.setItem("last_search", search_input.value.trim() || search_input.placeholder);
@@ -121,4 +124,18 @@ window.addEventListener("DOMContentLoaded", () => {
         window.scrollTo(0, parseInt(savedScroll));
         sessionStorage.removeItem("scrollPos");
     }
+});
+
+// loading animation
+document.getElementById("search_form").addEventListener("submit", function (e) {
+    e.preventDefault(); // stop default submission for a moment
+
+    // Show skeleton
+    document.getElementById("skeleton").style.display = "flex";
+    document.querySelector(".recipe-container").style.display = "none";
+
+    // Delay actual form submission
+    setTimeout(() => {
+        this.submit();  // submit after delay
+    }, 500); // 0.5s delay
 });

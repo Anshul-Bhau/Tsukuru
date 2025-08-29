@@ -602,3 +602,22 @@ body {
     border: 1px solid #ddd;
     font-size: 0.8rem;
 }
+
+.skeleton_container {
+    display: none;
+    gap: 1.5rem;
+}
+
+.skeleton_card {
+    width: 282px;
+    height: 400px;
+    border-radius: 15px;
+    background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
