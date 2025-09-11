@@ -87,7 +87,7 @@ body {
     gap: 1.4rem;
 }
 
-#theme_toggle {
+#theme_btn {
     background-color: transparent;
     color: rgb(205, 198, 198);
     border: none;

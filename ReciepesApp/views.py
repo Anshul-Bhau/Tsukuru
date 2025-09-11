@@ -11,6 +11,11 @@ from django.core.paginator import Paginator
 import json
 from .models import *
 from django.db.models import Q
+from .serializers import *
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -256,3 +261,87 @@ def contact_page(request):
 
 def submit_recipe(request):
     return render(request, "submit_recipe.html")
+
+
+#  serializers
+@api_view(['GET'])
+def getUsers(request):
+    users = Users.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getPasswords(request):
+    passws = Passwords.objects.all()
+    serializer = PasswordsSerializer(passws, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getBoards(request):
+    boards = Boards.objects.all()
+    serializer = BoardsSerializer(boards, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getRecipies(request):
+    recipes = Recipes.objects.all()
+    serializer = ReciepeSerializer(recipes, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getSavedRecipes(request):
+    sav_recs = saved_recipes.objects.all()
+    serializer = SavedrecipeSerializer(sav_recs, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getuser(request, pk):
+    user = Users.objects.get(id = pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getpassword(request, pk):
+    passw = Passwords.objects.get(user__id = pk)
+    serializer = PasswordsSerializer(passw, many=False)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getrecipe(request, name):
+    recipe = Recipes.objects.filter(title__icontains=name)
+    if not recipe.exists():
+        return Response({"detail" : "No recipes found"},
+        status = status.HTTP_404_NOT_FOUND
+        )
+    serializer = ReciepeSerializer(recipe, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def getboard(request, name):
+    board = Boards.objects.get(title = name, user = request.user)
+    if not board.exists():
+        return Response({"detail" : "No board found"},
+        status = status.HTTP_404_NOT_FOUND
+        )
+    serializer = BoardsSerializer(board, many=False)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def getUserSavedRecipe(request, pk):
+    saved_recipe = saved_recipes.objects.filter(user__id = pk)
+    if saved_recipe.exists():
+        return Response({"detail" : "No recipes found"},
+        status = status.HTTP_404_NOT_FOUND
+        )
+    serializer = SavedrecipeSerializer(saved_recipes, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def createBoard(request):
+    serializer = BoardsSerializer(data=request.data, context={"request":request})
+    if serializer.is_valid():
+        board = serializer.save()
+        return Response(BoardsSerializer(board).data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

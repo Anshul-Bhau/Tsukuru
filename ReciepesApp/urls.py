@@ -19,6 +19,21 @@ urlpatterns = [
     path('recipe/<int:recipe_id>', recipe_detail, name='recipe_detail'),
     path('contact/', contact_page, name='contact_page'),
     path("submit/", submit_recipe, name="submit_recipe"),
+
+
+    path("get/users/", getUsers), 
+    path("get/boards/", getBoards),
+    path("get/passwords/", getPasswords),
+    path("get/recipes/", getRecipies),
+    path("get/saved_recipes/", getSavedRecipes),
+
+    path("get/user/<str:pk>", getuser),
+    path("get/password/<str:pk>", getpassword),
+    path("get/recipe/<str:name>", getrecipe),
+    path("get/board/<str:name>", getboard),
+    path("get/user_saved_recipe/<str:pk>", getUserSavedRecipe),
+
+    path("create/board/", createBoard),
 ]
 
 if settings.DEBUG:

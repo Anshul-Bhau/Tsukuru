@@ -18,3 +18,8 @@ if (saved_pfp) {
 } else {
     if (nav_img) nav_img.setAttribute("src", default_pfp);
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    const theme = localStorage.getItem("theme");
+    document.body.dataset.theme = theme;
+});

@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fav_boards = document.querySelector(".fav_boards");
     const recipe_boards = document.querySelectorAll(".recipe_boards");
     const close_board_btn = document.querySelectorAll(".close_board_view");
+    const theme_toggle = document.getElementById("theme_toggle");
 
 
     function imageExists(url, callback) {
@@ -22,6 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
         img.src = url;
     }
 
+    theme_toggle.addEventListener("click", () => {
+
+        if (document.body.dataset.theme === "dark") {
+            document.body.dataset.theme = "";
+            localStorage.setItem("theme", "light");
+
+            theme_toggle.classList.remove("fa-moon");
+            theme_toggle.classList.add("fa-sun");
+        } else {
+            document.body.dataset.theme = "dark";
+            localStorage.setItem("theme", "dark");
+            theme_toggle.classList.remove("fa-sun");
+            theme_toggle.classList.add("fa-moon");
+        }
+    })
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const saved = localStorage.getItem("theme");
+        if (saved === "dark") {
+            document.body.dataset.theme = "dark";
+            theme_toggle.classList.remove("fa-moon");
+            theme_toggle.classList.add("fa-sun");
+        }
+    });
 
     if (savedPfp) {
         imageExists(savedPfp, exists => {
