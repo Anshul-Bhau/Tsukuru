@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.http import require_POST
-from allauth.account.forms import LoginForm, SignupForm
+from django.middleware.csrf import get_token
+from django.views.decorators.http import require_POST, require_GET
+from allauth.account.models import EmailAddress
+from allauth.account.internal.flows import email_verification_by_code
+# from allauth.account.utils import send_email_confirmation
+# from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.shortcuts import redirect
 from .models import Recipes, Boards, saved_recipes
 from django.core.paginator import Paginator
 import json
@@ -16,6 +19,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from allauth.account.utils import send_email_confirmation
 
 # Create your views here.
 
@@ -345,3 +350,91 @@ def createBoard(request):
         board = serializer.save()
         return Response(BoardsSerializer(board).data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @csrf_exempt  # you can keep CSRF if using token in headers
+# def ajax_resend_email_verification(request):
+#     if request.method == "POST":
+#         email = request.POST.get("email")
+#         if email:
+#             try:
+#                 email_obj = EmailAddress.objects.get(email=email)
+#                 send_email_confirmation(request, email_obj.user)
+#                 return JsonResponse({"status": "success", "message": "Verification code resent!"})
+#             except EmailAddress.DoesNotExist:
+#                 return JsonResponse({"status": "error", "message": "Email not found."})
+#         return JsonResponse({"status": "error", "message": "Email is required."})
+#     return JsonResponse({"status": "error", "message": "Invalid request."})
+
+@require_GET
+def get_csrf_token(request):
+    token = get_token(request)
+    return JsonResponse({'csrfToken': token})
+
+
+class VerifyEmailByCodeView(APIView):
+    """
+    Verify email with the code user received in their email.
+    """
+
+    def post(self, request, *args, **kwargs):
+        email = request.data.get("email")
+        code = request.data.get("code")
+
+        if not email or not code:
+            return Response(
+                {"detail": "Email and code are required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            email_address = EmailAddress.objects.get(email__iexact=email)
+        except EmailAddress.DoesNotExist:
+            return Response(
+                {"detail": "Email not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        
+        try:
+            # ✅ use allauth’s internal flow instead of raw query
+            email_verification_by_code.verify_email(email_address, code, request)
+        except email_verification_by_code.CodeExpired:
+            return Response({"detail": "Code expired."}, status=status.HTTP_400_BAD_REQUEST)
+        except email_verification_by_code.CodeInvalid:
+            return Response({"detail": "Invalid code."}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"detail": "Email successfully verified."}, status=status.HTTP_200_OK)
+    
+class ResendEmailCodeView(APIView):
+    """
+    Resend verification code to the user's email.
+    """
+
+    def post(self, request, *args, **kwargs):
+        email = request.data.get("email")
+
+        if not email:
+            return Response(
+                {"detail": "Email is required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            email_address = EmailAddress.objects.get(email__iexact=email)
+        except EmailAddress.DoesNotExist:
+            return Response(
+                {"detail": "Email not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if email_address.verified:
+            return Response(
+                {"detail": "Email is already verified."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Trigger sending a new confirmation code
+        send_email_confirmation(request, email_address.user)
+
+        return Response(
+            {"detail": "Verification code resent."},
+            status=status.HTTP_200_OK,
+        )

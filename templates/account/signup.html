@@ -54,7 +54,7 @@
 
     <button type="submit" class="btn">Sign Up</button>
 
-    {% get_providers as socialaccount_providers %}
+    {% comment %} {% get_providers as socialaccount_providers %}
     {% if socialaccount_providers %}
     <div class="social-login">
         <div class="social-label">Or sign up with</div>
@@ -64,7 +64,7 @@
             </a>
         </div>
     </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
     <div class="login-signup-switch" style="margin-top: 10px; text-align: center; color: #a12638;">Already have an account ? <a href="/accounts/login">Login</a></div>
 
 </form>

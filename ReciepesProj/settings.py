@@ -30,8 +30,13 @@ SECRET_KEY = 'django-insecure-f2vke)2yy(u&t%@g5%h$gysa%9r*q%+33q^x#n(8%9mp22d%zz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','10.0.2.2','192.168.29.64']
 
+# 127.0.0.1 is for web(browser)
+# 10.0.2.2 is for android emulator
+# 192.168.29.64 laptop's IPv4 address for mobile device
+
+# python manage.py runserver 0.0.0.0:8000
 
 # Application definition
 
@@ -51,6 +56,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'ReciepesApp',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    "corsheaders",
     'import_export',
 ]
 
@@ -90,27 +98,52 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
+REST_AUTH = {
+    'LOGIN_SERIALIZER': 'ReciepesApp.serializers.NewLoginSerializer',
+
+    'REGISTER_SERIALIZER': 'ReciepesApp.serializers.NewRegisterSerializer',
+
+    'DEFAULT AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",   # Django dev server
+    "http://localhost:8000",   # Django dev server
+    "http://10.0.2.2:8000",    # Android emulator -> maps to host machine
+    "http://localhost:3000",   # If you also test a web client
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://10.0.2.2:8000",  # Android emulator
+    "http://localhost:8000",
+]
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
-ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_UNIQUE_EMAIL = True #
+ACCOUNT_UNIQUE_USERNAME = False
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True 
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True 
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-ACCOUNT_LOGIN_METHODS = ['email']
+ACCOUNT_LOGIN_METHODS = {'email'}
 
 # Enable email verification by code
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"                 # Ensures email must be verified
+ACCOUNT_EMAIL_VERIFICATION = "mandatory" #               # Ensures email must be verified
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS = 3      # Optional: default is 3
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_TIMEOUT = 300         # Optional: default is 900 seconds (15 min)
 ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True        # Optional: allow resending code
 ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE = False       # Optional: allow changing email during verification
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True 
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True #False
 
 # Enable password reset by code
 ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED = True
@@ -231,3 +264,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'ReciepesApp.Users'
 
+# AnshulBhau1
