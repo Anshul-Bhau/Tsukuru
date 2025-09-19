@@ -56,9 +56,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'ReciepesApp',
     'rest_framework',
-    'rest_framework.authtoken',
-    'dj_rest_auth',
-    "corsheaders",
     'import_export',
 ]
 
@@ -98,29 +95,6 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-REST_AUTH = {
-    'LOGIN_SERIALIZER': 'ReciepesApp.serializers.NewLoginSerializer',
-
-    'REGISTER_SERIALIZER': 'ReciepesApp.serializers.NewRegisterSerializer',
-
-    'DEFAULT AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-}
-
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",   # Django dev server
-    "http://localhost:8000",   # Django dev server
-    "http://10.0.2.2:8000",    # Android emulator -> maps to host machine
-    "http://localhost:3000",   # If you also test a web client
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:8000",
-    "http://10.0.2.2:8000",  # Android emulator
-    "http://localhost:8000",
-]
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
