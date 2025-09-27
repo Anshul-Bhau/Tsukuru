@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from dj_rest_auth.registration.views import VerifyEmailView
 from .views import *
 
 urlpatterns = [
