@@ -47,23 +47,5 @@
 
 {% block extra_js %}
 <script>
-document.getElementById('resend-btn').addEventListener('click', function() {
-    // fetch("{% url 'ajax_resend_email' %}", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/x-www-form-urlencoded",
-    //         "X-CSRFToken": "{{ csrf_token }}"
-    //     },
-    //     body: "email={{ user.email|urlencode }}"
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     alert(data.message); // simple popup
-    // })
-    // .catch(error => {
-    //     alert("Something went wrong!");
-    // });
-    alert("Code Wapis Toh Nahi Milega!");
-});
 </script>
 {% endblock %}

@@ -350,3 +350,8 @@ def createBoard(request):
         board = serializer.save()
         return Response(BoardsSerializer(board).data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@require_GET
+def get_csrf_token(request):
+    token = get_token(request)
+    return JsonResponse({'csrfToken': token})

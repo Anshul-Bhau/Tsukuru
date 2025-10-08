@@ -34,6 +34,8 @@ urlpatterns = [
 
     path("create/board/", createBoard),
 
+    path('get/csrf-token/', get_csrf_token, name='get_csrf_token'),
+
 ]
 
 if settings.DEBUG:
