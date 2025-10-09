@@ -322,6 +322,16 @@ def getrecipe(request, name):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(["GET"])
+def getlimitedrecipe(request, name, count):
+    recipe = Recipes.objects.filter(title__icontains=name,)[:count]
+    if not recipe.exists():
+        return Response({"detail" : "No recipes found"},
+        status = status.HTTP_404_NOT_FOUND
+        )
+    serializer = ReciepeSerializer(recipe, many=True,)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
 def getboard(request, name):
     board = Boards.objects.get(title = name, user = request.user)
     if not board.exists():

@@ -29,6 +29,7 @@ urlpatterns = [
     path("get/user/<str:pk>", getuser),
     path("get/password/<str:pk>", getpassword),
     path("get/recipe/<str:name>", getrecipe),
+    path("get/recipe/<str:name>/<int:count>", getlimitedrecipe),
     path("get/board/<str:name>", getboard),
     path("get/user_saved_recipe/<str:pk>", getUserSavedRecipe),
 
