@@ -25,16 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f2vke)2yy(u&t%@g5%h$gysa%9r*q%+33q^x#n(8%9mp22d%zz'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = ['127.0.0.1','10.0.2.2','192.168.29.64']
-
-# 127.0.0.1 is for web(browser)
-# 10.0.2.2 is for android emulator
-# 192.168.29.64 laptop's IPv4 address for mobile device
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['127.0.0.1'])
 
 # python manage.py runserver 0.0.0.0:8000
 
@@ -56,11 +52,14 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'ReciepesApp',
     'rest_framework',
+    'rest_framework.authtoken',
     'import_export',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,6 +69,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# --- React frontend (Vite dev server) ---
+CORS_ALLOWED_ORIGINS = env.list(
+    'CORS_ALLOWED_ORIGINS',
+    default=['http://localhost:5173', 'http://127.0.0.1:5173'],
+)
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = env.list(
+    'CSRF_TRUSTED_ORIGINS',
+    default=['http://localhost:5173', 'http://127.0.0.1:5173'],
+)
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -135,8 +144,8 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')  # Replace with your Gmail
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # Use App Password (NOT your Gmail password)
 
-LOGIN_REDIRECT_URL = 'dashboard'  
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/api/auth/me/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/api/auth/login/'
 
 ROOT_URLCONF = 'ReciepesProj.urls'
 
@@ -160,8 +169,15 @@ TEMPLATES = [
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',  # <-- needed
-    ]
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
 }
 
 WSGI_APPLICATION = 'ReciepesProj.wsgi.application'
