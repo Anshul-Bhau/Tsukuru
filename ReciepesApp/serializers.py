@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import *
 
 
@@ -13,10 +14,22 @@ class PasswordsSerializer(ModelSerializer):
         model = Passwords
         fields = "__all__"
 
-class ReciepeSerializer(ModelSerializer):
+class ReciepeSerializer(serializers.ModelSerializer):
+    image_name = serializers.ReadOnlyField()
+    ingredients = serializers.JSONField()
+    cleaned_ingredients = serializers.JSONField()
+
     class Meta:
         model = Recipes
         fields = "__all__"
+    
+    def create(self, validated_data):
+        image = validated_data.get("image")
+
+        if image:
+            validated_data["image_name"] = image.name
+
+        return super().create(validated_data)
     
 class BoardsSerializer(ModelSerializer):
     class Meta:

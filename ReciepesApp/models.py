@@ -56,12 +56,17 @@ class Recipes(models.Model):
     ingredients = models.JSONField()
     directions = models.TextField()
     cleaned_ingredients = models.JSONField()
-    image_name = models.CharField(max_length=250, null=False, unique=False, blank=False)
+    image_name = models.CharField(max_length=250, null=False, unique=False, blank=True, default="")
     image = models.ImageField(upload_to='recipes/', )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.image and not self.image_name:
+            self.image_name = self.image.name
+        super().save(*args, **kwargs)
 
 class Boards(models.Model):
     title = models.CharField(max_length=250, null=False, unique=False, blank=False)

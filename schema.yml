@@ -24,6 +24,12 @@ paths:
                 items:
                   $ref: '#/components/schemas/Boards'
           description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /api/auth/login/:
     post:
       operationId: auth_login_create
@@ -109,6 +115,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /api/auth/signup/:
     post:
@@ -845,13 +857,13 @@ components:
         id:
           type: integer
           readOnly: true
+        ingredients: {}
+        cleaned_ingredients: {}
         title:
           type: string
           maxLength: 300
-        ingredients: {}
         directions:
           type: string
-        cleaned_ingredients: {}
         image_name:
           type: string
           maxLength: 250

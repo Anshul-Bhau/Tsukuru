@@ -14,11 +14,12 @@ from .docs_serializers import *
 
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, parser_classes
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
-from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiParameter, OpenApiResponse
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiParameter, OpenApiRequest, OpenApiResponse
 
 # ---------------------------------------------------------------------------
 # Auth
@@ -412,13 +413,19 @@ def createBoard(request):
 
     multipart/form-data
     """,
-    request=RecipeUploadSerializer,
+    request=OpenApiRequest(
+        request=RecipeUploadSerializer,
+        encoding={
+            "image": {"contentType": "image/*"}
+        }
+    ),
     responses={
         201: ReciepeSerializer,
         400: ErrorSerializer,
     },
 )
 @api_view(["POST"])
+@parser_classes([MultiPartParser, FormParser])
 @permission_classes([IsAuthenticated])
 def submit_recipe(request):
     """
@@ -463,6 +470,11 @@ def getUsers(request):
 def getBoards(request):
     return Response(BoardsSerializer(Boards.objects.all(), many=True).data)
 
+from rest_framework.pagination import PageNumberPagination
+
+class RecipePagination(PageNumberPagination):
+    page_size = 7
+
 @extend_schema(
     tags=["Recipes"],
     responses=ReciepeSerializer(many=True)
@@ -470,7 +482,12 @@ def getBoards(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def getRecipies(request):
-    return Response(ReciepeSerializer(Recipes.objects.all(), many=True).data)
+    paginator = RecipePagination()
+    recipes = Recipes.objects.all().order_by("id")
+    page = paginator.paginate_queryset(recipes, request)
+
+    serializer = ReciepeSerializer(page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @extend_schema(

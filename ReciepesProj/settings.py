@@ -179,13 +179,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',   # NEW
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',  
 }
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Tsukuru API',
     'DESCRIPTION': 'Recipe discovery and board-saving API for the Tsukuru React frontend.',
     'VERSION' : '1.0.0',
+    "COMPONENT_SPLIT_REQUEST": True,
     'SEVERE_INCLUDE_SCHEMA': False,
     'SECURITY':[{'tokenAuth': []}],
     'SWAGGER_UI_SETTINGS' : {
