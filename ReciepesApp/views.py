@@ -10,6 +10,7 @@ from django.db.models import Q
 
 from .models import *
 from .serializers import *
+from .docs_serializers import *
 
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -17,12 +18,53 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiParameter, OpenApiResponse
+
 # ---------------------------------------------------------------------------
 # Auth
 # All auth endpoints are JSON-only and return a DRF auth token that the
 # React app stores and sends back as `Authorization: Token <key>`.
 # ---------------------------------------------------------------------------
 
+@extend_schema(
+    tags=["Authentication"],
+    summary="Login User",
+    description="""
+    Authenticate using email and password.
+
+    Returns a DRF token which must be included in future requests:
+
+    Authorization: Token <token>
+    """,
+    request=LoginSerializer,
+    responses={
+        200: LoginResponseSerializer,
+        400: ErrorSerializer,
+    },
+    examples=[
+        OpenApiExample(
+            "Login Request",
+            value={
+                "email": "john@example.com",
+                "password": "password123"
+            },
+            request_only=True,
+        ),
+        OpenApiExample(
+            "Login Success",
+            value={
+                "token": "7b61fca3...",
+                "user_id": "8f29...",
+                "username": "John",
+                "role": "user",
+                "message": "Login successful"
+            },
+            response_only=True,
+            status_codes=["200"],
+        ),
+    ],
+    auth=[],
+)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def user_login(request):
@@ -47,7 +89,17 @@ def user_login(request):
         "message": "Login successful",
     }, status=200)
 
-
+@extend_schema(
+    tags=["Authentication"],
+    summary="Register User",
+    description="Create a new account and return an authentication token.",
+    request=SignupSerializer,
+    responses={
+        200: LoginResponseSerializer,
+        400: ErrorSerializer,
+    },
+    auth=[],
+)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def user_signup(request):
@@ -76,7 +128,18 @@ def user_signup(request):
         "message": "Signup successful",
     }, status=200)
 
+@extend_schema(
+    tags=["Authentication"],
+    summary="Logout User",
+    description="""
+    Deletes the current authentication token.
 
+    Requires authentication.
+    """,
+    responses={
+        200: MessageSerializer
+    }
+)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def user_logout(request):
@@ -84,6 +147,13 @@ def user_logout(request):
     logout(request)
     return Response({"message": "Logged out"}, status=200)
 
+
+@extend_schema(
+    tags=["Users"],
+    summary="Get Current User",
+    description="Returns details for the authenticated user.",
+    responses=UserSerializer,
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def current_user(request):
@@ -93,13 +163,46 @@ def current_user(request):
 # ------------------------------------------------------------------------------------------
 # Recipes
 # ------------------------------------------------------------------------------------------
-
+@extend_schema(
+    tags=["Recipes"],
+    summary="Trending Recipes",
+    description="Returns a curated list of trending recipes.",
+    responses=ReciepeSerializer(many=True),
+)
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def trending_recipes(request):
     recipes = Recipes.objects.all()[4:15:3]
     return Response(ReciepeSerializer(recipes, many=True).data)
 
+@extend_schema(
+    tags=["Recipes"],
+    summary="Search Recipes",
+    description="""
+    Search recipes by title and ingredients.
+
+    Examples:
+
+    ?q=pasta
+
+    ?q=chicken soup&page=2
+    """,
+    parameters=[
+        OpenApiParameter(
+            name="q",
+            type=str,
+            location=OpenApiParameter.QUERY,
+            description="Search query"
+        ),
+        OpenApiParameter(
+            name="page",
+            type=int,
+            location=OpenApiParameter.QUERY,
+            description="Page number"
+        ),
+    ],
+    responses=RecipeListResponseSerializer,
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def recipe_list(request):
@@ -129,6 +232,21 @@ def recipe_list(request):
         "query": query,
     })
 
+
+@extend_schema(
+    tags=["Recipes"],
+    summary="Recipe Details",
+    description="Retrieve a recipe and available user boards.",
+    parameters=[
+        OpenApiParameter(
+            name="recipe_id",
+            type=int,
+            location=OpenApiParameter.PATH,
+            description="Recipe ID"
+        )
+    ],
+    responses=RecipeDetailResponseSerializer,
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def recipe_detail(request, recipe_id):
@@ -144,13 +262,56 @@ def recipe_detail(request, recipe_id):
 # Boards / saved recipes
 # ---------------------------------------------------------------------------
 
+@extend_schema(
+    tags=["Boards"],
+    summary="User Boards",
+    description="Returns all boards belonging to the authenticated user.",
+    responses=BoardsSerializer(many=True),
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def user_account(request):
     boards = Boards.objects.filter(user=request.user).prefetch_related("recipes")
     return Response(BoardsSerializer(boards, many=True).data)
 
+@extend_schema(
+    tags=["Boards"],
+    summary="Save Recipe",
+    description="""
+    Save a recipe to an existing board or create a new board.
 
+    Either provide:
+
+    - board_id
+
+    OR
+
+    - new_board_title
+    """,
+    request=SaveRecipeSerializer,
+    responses={
+        201: SaveRecipeResponseSerializer,
+        400: ErrorSerializer,
+    },
+    examples=[
+        OpenApiExample(
+            "Save To Existing Board",
+            value={
+                "recipe_id": 5,
+                "board_id": 2
+            },
+            request_only=True,
+        ),
+        OpenApiExample(
+            "Create New Board",
+            value={
+                "recipe_id": 5,
+                "new_board_title": "Dinner Ideas"
+            },
+            request_only=True,
+        ),
+    ],
+)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def save_recipe(request):
@@ -176,6 +337,30 @@ def save_recipe(request):
     saved_recipes.objects.create(recipe=recipe, user=request.user, board=board)
     return Response({"message": "Recipe saved successfully!", "board": BoardsSerializer(board).data}, status=201)
 
+
+@extend_schema(
+    tags=["Boards"],
+    summary="Unsave Recipe",
+    description="Remove a recipe from a board.",
+    parameters=[
+        OpenApiParameter(
+            "recipe_id",
+            int,
+            OpenApiParameter.PATH,
+            description="Recipe ID"
+        ),
+        OpenApiParameter(
+            "board_id",
+            int,
+            OpenApiParameter.PATH,
+            description="Board ID"
+        ),
+    ],
+    responses={
+        200: MessageSerializer,
+        404: ErrorSerializer,
+    },
+)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def unsave_recipe(request, recipe_id, board_id):
@@ -190,6 +375,17 @@ def unsave_recipe(request, recipe_id, board_id):
     board.recipes.remove(recipe)
     return Response({"message": "Recipe unsaved successfully."}, status=200)
 
+
+@extend_schema(
+    tags=["Boards"],
+    summary="Create Board",
+    description="Create a new board for the authenticated user.",
+    request=CreateBoardSerializer,
+    responses={
+        201: BoardsSerializer,
+        400: ErrorSerializer,
+    },
+)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createBoard(request):
@@ -199,7 +395,24 @@ def createBoard(request):
         return Response(BoardsSerializer(board).data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-api_view(["POST"])
+
+@extend_schema(
+    tags=["Recipes"],
+    summary="Submit Recipe",
+    description="""
+    Create a recipe with image upload.
+
+    Content-Type:
+
+    multipart/form-data
+    """,
+    request=RecipeUploadSerializer,
+    responses={
+        201: ReciepeSerializer,
+        400: ErrorSerializer,
+    },
+)
+@api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def submit_recipe(request):
     """
@@ -291,7 +504,22 @@ def getUserSavedRecipe(request, pk):
         return Response({"detail": "No recipes found"}, status=status.HTTP_404_NOT_FOUND)
     return Response(SavedrecipeSerializer(saved, many=True).data, status=status.HTTP_200_OK)
 
-
+@extend_schema(
+    tags=["Utility"],
+    summary="Get CSRF Token",
+    description="Returns a CSRF token for session-based authentication flows.",
+    responses={
+        200: {
+            "type": "object",
+            "properties": {
+                "csrfToken": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    auth=[],
+)
 @require_GET
 def get_csrf_token(request):
     """

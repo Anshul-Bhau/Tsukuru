@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'ReciepesApp',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
     'import_export',
     'corsheaders',
 ]
@@ -178,6 +179,18 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',   # NEW
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Tsukuru API',
+    'DESCRIPTION': 'Recipe discovery and board-saving API for the Tsukuru React frontend.',
+    'VERSION' : '1.0.0',
+    'SEVERE_INCLUDE_SCHEMA': False,
+    'SECURITY':[{'tokenAuth': []}],
+    'SWAGGER_UI_SETTINGS' : {
+        'persistAuthorization' : True,
+    },
 }
 
 WSGI_APPLICATION = 'ReciepesProj.wsgi.application'
