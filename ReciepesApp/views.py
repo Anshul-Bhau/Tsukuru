@@ -133,12 +133,12 @@ def user_signup(request):
     summary="Logout User",
     description="""
     Deletes the current authentication token.
-
     Requires authentication.
     """,
+    request=None,
     responses={
         200: MessageSerializer
-    }
+    },
 )
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -152,7 +152,10 @@ def user_logout(request):
     tags=["Users"],
     summary="Get Current User",
     description="Returns details for the authenticated user.",
-    responses=UserSerializer,
+    responses={
+        200:UserSerializer,
+        401:ErrorSerializer,
+    },
 )
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -176,6 +179,7 @@ def trending_recipes(request):
     return Response(ReciepeSerializer(recipes, many=True).data)
 
 @extend_schema(
+    operation_id="list_recipes",
     tags=["Recipes"],
     summary="Search Recipes",
     description="""
@@ -234,6 +238,7 @@ def recipe_list(request):
 
 
 @extend_schema(
+    operation_id="retrieve_recipe_detail",
     tags=["Recipes"],
     summary="Recipe Details",
     description="Retrieve a recipe and available user boards.",
@@ -266,7 +271,9 @@ def recipe_detail(request, recipe_id):
     tags=["Boards"],
     summary="User Boards",
     description="Returns all boards belonging to the authenticated user.",
-    responses=BoardsSerializer(many=True),
+    responses={ 200:BoardsSerializer(many=True),
+            401 : ErrorSerializer,
+            }
 )
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -340,8 +347,6 @@ def save_recipe(request):
 
 @extend_schema(
     tags=["Boards"],
-    summary="Unsave Recipe",
-    description="Remove a recipe from a board.",
     parameters=[
         OpenApiParameter(
             "recipe_id",
@@ -354,14 +359,15 @@ def save_recipe(request):
             int,
             OpenApiParameter.PATH,
             description="Board ID"
-        ),
+        )
     ],
+    request=None,
     responses={
         200: MessageSerializer,
-        404: ErrorSerializer,
-    },
+        404: ErrorSerializer
+    }
 )
-@api_view(["POST"])
+@api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def unsave_recipe(request, recipe_id, board_id):
     recipe = get_object_or_404(Recipes, id=recipe_id)
@@ -439,38 +445,77 @@ def submit_recipe(request):
 # ---------------------------------------------------------------------------
 # Generic read endpoints 
 # ---------------------------------------------------------------------------
-
+@extend_schema(
+    tags=["Users"],
+    responses=UserSerializer(many=True)
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getUsers(request):
     return Response(UserSerializer(Users.objects.all(), many=True).data)
 
-
+@extend_schema(
+    tags=["Boards"],
+    responses=BoardsSerializer(many=True)
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getBoards(request):
     return Response(BoardsSerializer(Boards.objects.all(), many=True).data)
 
-
+@extend_schema(
+    tags=["Recipes"],
+    responses=ReciepeSerializer(many=True)
+)
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def getRecipies(request):
     return Response(ReciepeSerializer(Recipes.objects.all(), many=True).data)
 
 
+@extend_schema(
+    tags=["Saved Recipes"],
+    responses=SavedrecipeSerializer(many=True)
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getSavedRecipes(request):
     return Response(SavedrecipeSerializer(saved_recipes.objects.all(), many=True).data)
 
-
+@extend_schema(
+    tags=["Users"],
+    parameters=[
+        OpenApiParameter(
+            "pk",
+            int,
+            OpenApiParameter.PATH,
+            description="User ID"
+        )
+    ],
+    responses=UserSerializer
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getuser(request, pk):
     user = get_object_or_404(Users, id=pk)
     return Response(UserSerializer(user).data)
 
-
+@extend_schema(
+    operation_id="search_recipes_by_name",
+    tags=["Recipes"],
+    parameters=[
+        OpenApiParameter(
+            "name",
+            str,
+            OpenApiParameter.PATH,
+            description="Recipe search text"
+        )
+    ],
+    responses={
+        200: ReciepeSerializer(many=True),
+        404: ErrorSerializer
+    }
+)
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def getrecipe(request, name):
@@ -479,7 +524,28 @@ def getrecipe(request, name):
         return Response({"detail": "No recipes found"}, status=status.HTTP_404_NOT_FOUND)
     return Response(ReciepeSerializer(recipe, many=True).data, status=status.HTTP_200_OK)
 
-
+@extend_schema(
+    operation_id="search_recipes_by_name_limited",
+    tags=["Recipes"],
+    parameters=[
+        OpenApiParameter(
+            "name",
+            str,
+            OpenApiParameter.PATH,
+            description="Recipe search text"
+        ),
+        OpenApiParameter(
+            "count",
+            int,
+            OpenApiParameter.PATH,
+            description="Maximum recipes returned"
+        ),
+    ],
+    responses={
+        200: ReciepeSerializer(many=True),
+        404: ErrorSerializer,
+    }
+)
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def getlimitedrecipe(request, name, count):
@@ -488,14 +554,39 @@ def getlimitedrecipe(request, name, count):
         return Response({"detail": "No recipes found"}, status=status.HTTP_404_NOT_FOUND)
     return Response(ReciepeSerializer(recipe, many=True).data, status=status.HTTP_200_OK)
 
-
+@extend_schema(
+    tags=["Boards"],
+    parameters=[
+        OpenApiParameter(
+            "name",
+            str,
+            OpenApiParameter.PATH,
+            description="Board title"
+        )
+    ],
+    responses=BoardsSerializer
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getboard(request, name):
     board = get_object_or_404(Boards, title=name, user=request.user)
     return Response(BoardsSerializer(board).data, status=status.HTTP_200_OK)
 
-
+@extend_schema(
+    tags=["Saved Recipes"],
+    parameters=[
+        OpenApiParameter(
+            "pk",
+            int,
+            OpenApiParameter.PATH,
+            description="User ID"
+        )
+    ],
+    responses={
+        200: SavedrecipeSerializer(many=True),
+        404: ErrorSerializer,
+    }
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getUserSavedRecipe(request, pk):
@@ -505,7 +596,7 @@ def getUserSavedRecipe(request, pk):
     return Response(SavedrecipeSerializer(saved, many=True).data, status=status.HTTP_200_OK)
 
 @extend_schema(
-    tags=["Utility"],
+    tags=["Utility", "Authentication"],
     summary="Get CSRF Token",
     description="Returns a CSRF token for session-based authentication flows.",
     responses={

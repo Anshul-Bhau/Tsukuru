@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from serializers import *
+from .serializers import *
 
 class ErrorSerializer(serializers.Serializer):
     error = serializers.CharField(
@@ -117,3 +117,6 @@ class RecipeUploadSerializer(serializers.Serializer):
 
 class MessageSerializer(serializers.Serializer):
     message = serializers.CharField()
+
+class EmptySerializer(serializers.Serializer):
+    pass

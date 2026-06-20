@@ -1,0 +1,1082 @@
+openapi: 3.0.3
+info:
+  title: Tsukuru API
+  version: 1.0.0
+  description: Recipe discovery and board-saving API for the Tsukuru React frontend.
+paths:
+  /api/account/:
+    get:
+      operationId: account_list
+      description: Returns all boards belonging to the authenticated user.
+      summary: User Boards
+      tags:
+      - Boards
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Boards'
+          description: ''
+  /api/auth/login/:
+    post:
+      operationId: auth_login_create
+      description: "\n    Authenticate using email and password.\n\n    Returns a
+        DRF token which must be included in future requests:\n\n    Authorization:
+        Token <token>\n    "
+      summary: Login User
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+            examples:
+              LoginRequest:
+                value:
+                  email: john@example.com
+                  password: password123
+                summary: Login Request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              examples:
+                LoginSuccess:
+                  value:
+                    token: 7b61fca3...
+                    user_id: 8f29...
+                    username: John
+                    role: user
+                    message: Login successful
+                  summary: Login Success
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/auth/logout/:
+    post:
+      operationId: auth_logout_create
+      description: "\n    Deletes the current authentication token.\n    Requires
+        authentication.\n    "
+      summary: Logout User
+      tags:
+      - Authentication
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+          description: ''
+  /api/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      description: Returns details for the authenticated user.
+      summary: Get Current User
+      tags:
+      - Users
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/auth/signup/:
+    post:
+      operationId: auth_signup_create
+      description: Create a new account and return an authentication token.
+      summary: Register User
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Signup'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Signup'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Signup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/boards/:
+    post:
+      operationId: boards_create
+      description: Create a new board for the authenticated user.
+      summary: Create Board
+      tags:
+      - Boards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBoard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateBoard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateBoard'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Boards'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/get/board/{name}/:
+    get:
+      operationId: get_board_retrieve
+      parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        description: Board title
+        required: true
+      tags:
+      - Boards
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Boards'
+          description: ''
+  /api/get/boards/:
+    get:
+      operationId: get_boards_list
+      tags:
+      - Boards
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Boards'
+          description: ''
+  /api/get/recipe/{name}/:
+    get:
+      operationId: search_recipes_by_name
+      parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        description: Recipe search text
+        required: true
+      tags:
+      - Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reciepe'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/get/recipe/{name}/{count}/:
+    get:
+      operationId: search_recipes_by_name_limited
+      parameters:
+      - in: path
+        name: count
+        schema:
+          type: integer
+        description: Maximum recipes returned
+        required: true
+      - in: path
+        name: name
+        schema:
+          type: string
+        description: Recipe search text
+        required: true
+      tags:
+      - Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reciepe'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/get/recipes/:
+    get:
+      operationId: get_recipes_list
+      tags:
+      - Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reciepe'
+          description: ''
+  /api/get/saved_recipes/:
+    get:
+      operationId: get_saved_recipes_list
+      tags:
+      - Saved Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Savedrecipe'
+          description: ''
+  /api/get/user/{id}/:
+    get:
+      operationId: get_user_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: pk
+        schema:
+          type: integer
+        description: User ID
+        required: true
+      tags:
+      - Users
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/get/user_saved_recipe/{id}/:
+    get:
+      operationId: get_user_saved_recipe_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: pk
+        schema:
+          type: integer
+        description: User ID
+        required: true
+      tags:
+      - Saved Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Savedrecipe'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/get/users/:
+    get:
+      operationId: get_users_list
+      tags:
+      - Users
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+  /api/recipes/:
+    get:
+      operationId: list_recipes
+      description: "\n    Search recipes by title and ingredients.\n\n    Examples:\n\n
+        \   ?q=pasta\n\n    ?q=chicken soup&page=2\n    "
+      summary: Search Recipes
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query
+      tags:
+      - Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeListResponse'
+          description: ''
+  /api/recipes/{recipe_id}/:
+    get:
+      operationId: retrieve_recipe_detail
+      description: Retrieve a recipe and available user boards.
+      summary: Recipe Details
+      parameters:
+      - in: path
+        name: recipe_id
+        schema:
+          type: integer
+        description: Recipe ID
+        required: true
+      tags:
+      - Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeDetailResponse'
+          description: ''
+  /api/recipes/save/:
+    post:
+      operationId: recipes_save_create
+      description: "\n    Save a recipe to an existing board or create a new board.\n\n
+        \   Either provide:\n\n    - board_id\n\n    OR\n\n    - new_board_title\n
+        \   "
+      summary: Save Recipe
+      tags:
+      - Boards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveRecipe'
+            examples:
+              SaveToExistingBoard:
+                value:
+                  recipe_id: 5
+                  board_id: 2
+                summary: Save To Existing Board
+              CreateNewBoard:
+                value:
+                  recipe_id: 5
+                  new_board_title: Dinner Ideas
+                summary: Create New Board
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SaveRecipe'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SaveRecipe'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveRecipeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/recipes/submit/:
+    post:
+      operationId: recipes_submit_create
+      description: "\n    Create a recipe with image upload.\n\n    Content-Type:\n\n
+        \   multipart/form-data\n    "
+      summary: Submit Recipe
+      tags:
+      - Recipes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeUpload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RecipeUpload'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RecipeUpload'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reciepe'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/recipes/trending/:
+    get:
+      operationId: recipes_trending_list
+      description: Returns a curated list of trending recipes.
+      summary: Trending Recipes
+      tags:
+      - Recipes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reciepe'
+          description: ''
+  /api/recipes/unsave/{recipe_id}/{board_id}/:
+    delete:
+      operationId: recipes_unsave_destroy
+      parameters:
+      - in: path
+        name: board_id
+        schema:
+          type: integer
+        description: Board ID
+        required: true
+      - in: path
+        name: recipe_id
+        schema:
+          type: integer
+        description: Recipe ID
+        required: true
+      tags:
+      - Boards
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Boards:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 250
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        user:
+          type: string
+          format: uuid
+        recipes:
+          type: array
+          items:
+            type: integer
+      required:
+      - created_at
+      - id
+      - recipes
+      - title
+      - user
+    CreateBoard:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Board title
+          maxLength: 255
+      required:
+      - title
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message describing what went wrong
+      required:
+      - error
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Registered email address
+        password:
+          type: string
+          writeOnly: true
+          description: User password
+      required:
+      - email
+      - password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Authentication token
+        user_id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        role:
+          type: string
+        message:
+          type: string
+      required:
+      - message
+      - role
+      - token
+      - user_id
+      - username
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    Reciepe:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 300
+        ingredients: {}
+        directions:
+          type: string
+        cleaned_ingredients: {}
+        image_name:
+          type: string
+          maxLength: 250
+        image:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - cleaned_ingredients
+      - created_at
+      - directions
+      - id
+      - image
+      - image_name
+      - ingredients
+      - title
+    RecipeDetailResponse:
+      type: object
+      properties:
+        recipe:
+          $ref: '#/components/schemas/Reciepe'
+        boards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Boards'
+      required:
+      - boards
+      - recipe
+    RecipeListResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reciepe'
+        page:
+          type: integer
+        num_pages:
+          type: integer
+        count:
+          type: integer
+        query:
+          type: string
+      required:
+      - count
+      - num_pages
+      - page
+      - query
+      - results
+    RecipeUpload:
+      type: object
+      properties:
+        title:
+          type: string
+        directions:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+        cleaned_ingredients:
+          type: array
+          items:
+            type: string
+        image:
+          type: string
+          format: uri
+      required:
+      - cleaned_ingredients
+      - directions
+      - image
+      - ingredients
+      - title
+    RoleEnum:
+      enum:
+      - admin
+      - user
+      type: string
+      description: |-
+        * `admin` - admin
+        * `user` - user
+    SaveRecipe:
+      type: object
+      properties:
+        recipe_id:
+          type: integer
+          description: Recipe ID to save
+        board_id:
+          type: integer
+          description: Existing board ID
+        new_board_title:
+          type: string
+          description: Create a new board with this title
+      required:
+      - recipe_id
+    SaveRecipeResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        board:
+          $ref: '#/components/schemas/Boards'
+      required:
+      - board
+      - message
+    Savedrecipe:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        recipe:
+          type: integer
+        user:
+          type: string
+          format: uuid
+        board:
+          type: integer
+      required:
+      - board
+      - created_at
+      - id
+      - recipe
+      - user
+    Signup:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          description: Unique email address
+        password:
+          type: string
+          writeOnly: true
+          description: Password for the account
+      required:
+      - email
+      - name
+      - password
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        username:
+          type: string
+          maxLength: 225
+        email:
+          type: string
+          format: email
+          maxLength: 250
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        user_created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        password:
+          type: string
+          maxLength: 250
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - email
+      - id
+      - password
+      - role
+      - user_created_at
+      - username
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
