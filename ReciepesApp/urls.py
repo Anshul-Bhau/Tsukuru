@@ -1,43 +1,42 @@
-from django.contrib import admin
-from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+
 from .views import *
 
 urlpatterns = [
-    path('landing/', landingpage, name='dashboard'),
-    path('login/', loginpage, name='loginpage'),
-    path('user_login/', user_login, name='user_login'),
-    path('signup/', user_signup, name='user_signup'),
-    path('home/', home, name='home'),
-    path('', root_redirect, name='root'),
-    path('user_account/', user_account, name='user_acc'),
-    path('save_recipe/', save_recipe, name='save_recipe'),
-    path('unsave_recipe/<int:recipe_id>/<int:board_id>/', unsave_recipe, name='unsave_recipe'),
-    path('accounts/', include('allauth.urls')),
-    path('recipe/<int:recipe_id>', recipe_detail, name='recipe_detail'),
-    path('contact/', contact_page, name='contact_page'),
-    path("submit/", submit_recipe, name="submit_recipe"),
+    # --- auth ---
+    path("api/auth/login/", user_login, name="user_login"),
+    path("api/auth/signup/", user_signup, name="user_signup"),
+    path("api/auth/logout/", user_logout, name="user_logout"),
+    path("api/auth/me/", current_user, name="current_user"),
+    path("api/auth/csrf/", get_csrf_token, name="get_csrf_token"),
+    path("accounts/", include("allauth.urls")),
 
-    path("get/users/", getUsers), 
-    path("get/boards/", getBoards),
-    path("get/passwords/", getPasswords),
-    path("get/recipes/", getRecipies),
-    path("get/saved_recipes/", getSavedRecipes),
+    # --- recipes ---
+    path("api/recipes/trending/", trending_recipes, name="trending_recipes"),
+    path("api/recipes/", recipe_list, name="recipe_list"),
+    path("api/recipes/submit/", submit_recipe, name="submit_recipe"),
+    path("api/recipes/<int:recipe_id>/", recipe_detail, name="recipe_detail"),
 
-    path("get/user/<str:pk>", getuser),
-    path("get/password/<str:pk>", getpassword),
-    path("get/recipe/<str:name>", getrecipe),
-    path("get/recipe/<str:name>/<int:count>", getlimitedrecipe),
-    path("get/board/<str:name>", getboard),
-    path("get/user_saved_recipe/<str:pk>", getUserSavedRecipe),
+    # --- boards / saved recipes
+    path("api/account/", user_account, name="user_account"),
+    path("api/boards/", createBoard, name="create_board"),
+    path("api/recipes/save/", save_recipe, name="save_recipe"),
+    path("api/recipes/unsave/<int:recipe_id>/<int:board_id>/", unsave_recipe, name="unsave_recipe"),
 
-    path("create/board/", createBoard),
-
-    path('get/csrf-token/', get_csrf_token, name='get_csrf_token'),
-
+    # --- generic read endpoints ---
+    path("api/get/users/", getUsers),
+    path("api/get/boards/", getBoards),
+    path("api/get/recipes/", getRecipies),
+    path("api/get/saved_recipes/", getSavedRecipes),
+    path("api/get/user/<str:pk>/", getuser),
+    path("api/get/recipe/<str:name>/", getrecipe),
+    path("api/get/recipe/<str:name>/<int:count>/", getlimitedrecipe),
+    path("api/get/board/<str:name>/", getboard),
+    path("api/get/user_saved_recipe/<str:pk>/", getUserSavedRecipe),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
