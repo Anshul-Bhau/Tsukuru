@@ -1,28 +1,96 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
-from django.middleware.csrf import get_token
-from django.views.decorators.http import require_POST, require_GET
-from allauth.account.models import EmailAddress
-from allauth.account.internal.flows import email_verification_by_code
-# from allauth.account.utils import send_email_confirmation
-# from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import Recipes, Boards, saved_recipes
-from django.core.paginator import Paginator
 import json
-from .models import *
-from django.db.models import Q
-from .serializers import *
-from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from allauth.account.utils import send_email_confirmation
 
-# Create your views here.
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
+from django.views.decorators.http import require_GET
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
+from django.db.models import Q
+
+from .models import *
+from .serializers import *
+
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+
+# ---------------------------------------------------------------------------
+# Auth
+# All auth endpoints are JSON-only and return a DRF auth token that the
+# React app stores and sends back as `Authorization: Token <key>`.
+# ---------------------------------------------------------------------------
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def user_login(request):
+    data = request.data
+    email = data.get("email")
+    password = data.get("password")
+ 
+    if not email or not password:
+        return Response({"error": "Email and password are required"}, status=400)
+ 
+    user = authenticate(request, username=email, password=password)
+    if user is None:
+        return Response({"error": "Invalid email or password. Please try again."}, status=400)
+ 
+    login(request, user)
+    token, _ = Token.objects.get_or_create(user=user)
+    return Response({
+        "token": token.key,
+        "user_id": str(user.id),
+        "username": user.username,
+        "role": user.role,
+        "message": "Login successful",
+    }, status=200)
+ 
+ 
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def user_signup(request):
+    data = request.data
+    name = data.get("name")
+    email = data.get("email")
+    password = data.get("password")
+ 
+    if not name or not email or not password:
+        return Response({"error": "All fields are required"}, status=400)
+ 
+    if Users.objects.filter(email=email).exists():
+        return Response({"error": "Email already in use"}, status=400)
+ 
+    user = Users.objects.create(username=name, email=email, role="user")
+    user.set_password(password)
+    user.save()
+ 
+    user = authenticate(request, username=email, password=password)
+    token, _ = Token.objects.get_or_create(user=user)
+    return Response({
+        "token": token.key,
+        "user_id": str(user.id),
+        "username": user.username,
+        "role": user.role,
+        "message": "Signup successful",
+    }, status=200)
+ 
+ 
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def user_logout(request):
+    Token.objects.filter(user=request.user).delete()
+    logout(request)
+    return Response({"message": "Logged out"}, status=200)
+ 
+ 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    return Response(UserSerializer(request.user).data)
+ 
+ 
 
 def landingpage(request):
     trending_recipes = Recipes.objects.all()[4:15:3]
