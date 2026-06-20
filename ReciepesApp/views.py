@@ -139,6 +139,89 @@ def recipe_detail(request, recipe_id):
         "boards": BoardsSerializer(boards, many=True).data,
     })
 
+
+# ---------------------------------------------------------------------------
+# Boards / saved recipes
+# ---------------------------------------------------------------------------
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def user_account(request):
+    boards = Boards.objects.filter(user=request.user).prefetch_related("recipes")
+    return Response(BoardsSerializer(boards, many=True).data)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def save_recipe(request):
+    recipe_id = request.data.get("recipe_id")
+    board_id = request.data.get("board_id")
+    new_board_title = (request.data.get("new_board_title") or "").strip()
+
+    if not recipe_id:
+        return Response({"error": "recipe_id is required"}, status=400)
+
+    recipe = get_object_or_404(Recipes, id=recipe_id)
+
+    if new_board_title:
+        board, _ = Boards.objects.get_or_create(title=new_board_title, user=request.user)
+    elif board_id:
+        board = get_object_or_404(Boards, id=board_id, user=request.user)
+    else:
+        return Response({"error": "Please select or create a Board"}, status=400)
+    if board.recipes.filter(id=recipe_id).exists():
+        return Response({"message": "Recipe is already saved to the board"}, status=200)
+
+    board.recipes.add(recipe)
+    saved_recipes.objects.create(recipe=recipe, user=request.user, board=board)
+    return Response({"message": "Recipe saved successfully!", "board": BoardsSerializer(board).data}, status=201)
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def unsave_recipe(request, recipe_id, board_id):
+    recipe = get_object_or_404(Recipes, id=recipe_id)
+    board = get_object_or_404(Boards, id=board_id, user=request.user)
+
+    saved = saved_recipes.objects.filter(user=request.user, recipe=recipe, board=board).first()
+    if not saved:
+        return Response({"error": "This recipe is not saved to this board."}, status=404)
+
+    saved.delete()
+    board.recipes.remove(recipe)
+    return Response({"message": "Recipe unsaved successfully."}, status=200)
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def createBoard(request):
+    serializer = BoardsSerializer(data=request.data, context={"request": request})
+    if serializer.is_valid():
+        board = serializer.save()
+        return Response(BoardsSerializer(board).data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def submit_recipe(request):
+    """
+    Multipart endpoint for creating a new recipe.
+    Expected fields: title, directions, ingredients (JSON string or list),
+    cleaned_ingredients (JSON string or list), image (file).
+    """
+    data = request.data.copy()
+    for field in ("ingredients", "cleaned_ingredients"):
+        value = data.get(field)
+        if isinstance(value, str):
+            try:
+                data[field] = json.loads(value)
+            except (TypeError, ValueError):
+                data[field] = [v.strip() for v in value.split(",") if v.strip()]
+
+    serializer = ReciepeSerializer(data=data)
+    if serializer.is_valid():
+        recipe = serializer.save()
+        return Response(ReciepeSerializer(recipe).data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 # def landingpage(request):
 #     trending_recipes = Recipes.objects.all()[4:15:3]
 #     context = {
