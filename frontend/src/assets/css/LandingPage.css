@@ -1,0 +1,160 @@
+/* Wrapper to contain the max width and keep it centered */
+.landing-page-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* =========================================
+   1. HERO SECTION (1fr 1fr Grid)
+   ========================================= */
+.hero-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 5rem 0;
+    align-items: center;
+}
+
+.hero-title {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: var(--text-h1, 3.5rem);
+    color: var(--text-primary, #1A1F18);
+    margin-bottom: 2rem;
+    line-height: 1.1;
+}
+
+/* =========================================
+   2. TRENDING SECTION
+   ========================================= */
+.trending-section {
+    padding: 4rem 0;
+    border-top: 2px solid var(--text-primary, #1A1F18);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: var(--text-h2, 2.5rem);
+    color: var(--text-primary, #1A1F18);
+    margin: 0;
+}
+
+.all-recipes-link {
+    font-family: var(--font-body, 'Open Sans', sans-serif);
+    font-weight: 600;
+    color: var(--text-primary, #1A1F18);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.all-recipes-link:hover {
+    text-decoration: underline;
+}
+
+/* Asymmetric Grid for 3 items */
+.trending-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; 
+    gap: 2rem;
+}
+
+.trending-grid-item:first-child .card img {
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+.trending-grid-item:not(:first-child) .card img {
+    aspect-ratio: 4 / 3;
+    height: auto;
+}
+
+/* =========================================
+   3. APP PROMO SECTION
+   ========================================= */
+.app-promo-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding: 5rem 0;
+    border-top: 2px solid var(--text-primary, #1A1F18);
+}
+
+.promo-subtitle {
+    display: block;
+    font-family: var(--font-body, 'Open Sans', sans-serif);
+    font-size: var(--text-small, 0.9rem);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    color: var(--text-secondary, #8C3813);
+}
+
+.promo-content h2 {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: var(--text-h2, 2.5rem);
+    margin-bottom: 1.5rem;
+}
+
+.promo-features {
+    margin-top: 1.5rem;
+    padding-left: 1.2rem;
+}
+
+.promo-features li {
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   WIREFRAME PLACEHOLDERS (For Dev Phase)
+   ========================================= */
+.wireframe-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background-color: rgba(26, 31, 24, 0.05);
+    border: 1px solid rgba(26, 31, 24, 0.2);
+    object-fit: cover;
+    display: block;
+}
+
+.wireframe-box {
+    width: 100%;
+    height: 250px;
+    background-color: rgba(26, 31, 24, 0.05);
+    border: 1px solid rgba(26, 31, 24, 0.2);
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 900px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .trending-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trending-grid-item:first-child .card img,
+    .trending-grid-item:not(:first-child) .card img {
+        aspect-ratio: 16 / 9;
+    }
+
+    .app-promo-section {
+        grid-template-columns: 1fr;
+    }
+}

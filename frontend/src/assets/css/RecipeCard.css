@@ -1,0 +1,117 @@
+/* =========================================
+   EDITORIAL MENU CARD
+   ========================================= */
+
+/* Reset Link styles so it doesn't look like a standard blue link */
+.menu-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+/* Subtle lift effect on hover */
+.menu-card-link:hover {
+    transform: translateY(-5px);
+}
+
+.menu-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background: transparent; /* Lets the page background show through */
+    width: 100%;
+}
+
+/* Image Area */
+.menu-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Makes the image perfectly square like the photos */
+    overflow: hidden;
+    border-radius: 4px; /* Tiny rounding to soften the edges */
+}
+
+.menu-card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* The floating number badge */
+.menu-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: #5a362a; /* Deep espresso brown */
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 2;
+    font-family: var(--font-heading, sans-serif);
+}
+
+/* Text Content Area */
+.menu-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-right: 1rem; /* Keeps text from touching the absolute right edge */
+}
+
+/* Title and Price Row */
+.menu-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.menu-card-title {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #5a362a;
+    margin: 0;
+}
+
+.menu-card-price {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: 1rem;
+    font-weight: 800;
+    color: #5a362a;
+}
+
+/* Primary Native Description */
+.menu-card-primary-desc {
+    font-family: var(--font-body, 'Open Sans', sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #7d655a; /* Slightly lighter brown */
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* The tiny horizontal line */
+.menu-card-divider {
+    width: 20px;
+    height: 1px;
+    background-color: #a39189;
+    margin: 0.2rem 0;
+}
+
+/* Secondary English Translation (Typewriter style) */
+.menu-card-secondary-desc {
+    /* Using monospace gives it that specific mechanical/typewriter look from your image */
+    font-family: 'Courier New', Courier, monospace; 
+    font-size: 0.8rem;
+    color: #8c7b73;
+    margin: 0;
+    line-height: 1.4;
+}

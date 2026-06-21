@@ -1,0 +1,117 @@
+.footer-wrapper {
+    background-color: var(--bg-inverse, #1A1F18);
+    padding: 2rem 5% 1.5rem;
+    margin-top: 3rem;
+}
+
+.footer-inner-card {
+    background-color: var(--bg-main, #E0D4AC);
+    border-radius: 20px;
+    padding: 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+}
+
+.logo-eng {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: var(--text-h2, 2rem);
+    color: var(--text-primary, #1A1F18);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.logo-jap {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: var(--text-h5, 1.2rem);
+    color: var(--accent-primary, #871F16);
+    font-weight: bold;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.social-icons a {
+    color: var(--text-secondary, #8C3813);
+    font-size: 1.5rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.social-icons a:hover {
+    color: var(--accent-primary, #871F16);
+    transform: translateY(-2px);
+}
+
+/* Bottom Legal Row */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-subtle, rgba(140, 56, 19, 0.15));
+    padding-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.copyright, .legal-links a {
+    font-family: var(--font-body, 'Open Sans', sans-serif);
+    font-size: var(--text-footer, 0.85rem);
+    color: var(--text-muted, rgba(26, 31, 24, 0.6));
+    margin: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.legal-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.legal-links a:hover {
+    color: var(--text-primary, #1A1F18);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .footer-inner-card {
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .footer-top, .footer-bottom {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .footer-brand {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+    }
+}
