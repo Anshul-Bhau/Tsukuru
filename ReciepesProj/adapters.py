@@ -9,6 +9,3 @@
 
 # df = pd.read_csv(r"D:\downloads\reciepes_imges\images^Mrecipes.csv")
 
-# # Print a few samples
-# for i, val in enumerate(df['ingredients'].head(10)):
-#     print(f"Row {i}: {val} — {type(val)}")

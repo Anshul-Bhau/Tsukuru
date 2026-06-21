@@ -35,8 +35,3 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.WARNING(f"Image for '{title}' not found at {image_path}"))
 
 
-# import chardet
-
-# with open("Food Ingredients and Recipe Dataset with Image Name Mapping.csv", "rb") as f:
-#     result = chardet.detect(f.read(10000))
-#     print(result)

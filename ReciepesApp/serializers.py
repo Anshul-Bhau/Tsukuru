@@ -9,11 +9,6 @@ class UserSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class PasswordsSerializer(ModelSerializer):
-    class Meta:
-        model = Passwords
-        fields = "__all__"
-
 class ReciepeSerializer(serializers.ModelSerializer):
     image_name = serializers.ReadOnlyField()
     ingredients = serializers.JSONField()
