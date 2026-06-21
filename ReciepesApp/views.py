@@ -5,6 +5,8 @@ from django.middleware.csrf import get_token
 from django.views.decorators.http import require_GET
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.paginator import Paginator
 from django.db.models import Q
 
@@ -114,6 +116,11 @@ def user_signup(request):
 
     if Users.objects.filter(email=email).exists():
         return Response({"error": "Email already in use"}, status=400)
+
+    try:
+        validate_password(password)
+    except DjangoValidationError as e:
+        return Response({"error": e.messages}, status=400)
 
     user = Users.objects.create(username=name, email=email, role="user")
     user.set_password(password)
