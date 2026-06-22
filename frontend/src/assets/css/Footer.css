@@ -1,7 +1,7 @@
 .footer-wrapper {
     background-color: var(--bg-inverse, #1A1F18);
     padding: 2rem 5% 1.5rem;
-    margin-top: 3rem;
+    /* margin-top: 3rem; */
 }
 
 .footer-inner-card {

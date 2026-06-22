@@ -1,13 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api/', 
-    timeout: 5000,
-    headers: {
-        'Content-Type': 'application/json',
-        
-    }
-});
+  baseURL: '/api',   // Vite proxies this to Django — no cross-origin, no HTTPS issue
+  withCredentials: true,
+})
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('authToken');

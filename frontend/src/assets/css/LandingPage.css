@@ -1,105 +1,248 @@
-/* Wrapper to contain the max width and keep it centered */
+.landing-page {
+    width: 100%;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    gap: 1.5rem;
+}
+
+.hero-title {
+    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.1;
+    text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: -1px;
+}
+
+.hero-btn-pill {
+    background-color: #2b231d;
+    color: #ffffff;
+    font-family: var(--font-body, 'Open Sans', sans-serif);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.hero-btn-pill:hover {
+    background-color: #1a1511;
+    transform: scale(1.05);
+}
+
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    color: #2b231d;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
 .landing-page-wrapper {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 5%;
 }
 
-/* =========================================
-   1. HERO SECTION (1fr 1fr Grid)
-   ========================================= */
-.hero-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    padding: 5rem 0;
-    align-items: center;
-}
-
-.hero-title {
-    font-family: var(--font-heading, 'Raleway', sans-serif);
-    font-size: var(--text-h1, 3.5rem);
-    color: var(--text-primary, #1A1F18);
-    margin-bottom: 2rem;
-    line-height: 1.1;
-}
-
-/* =========================================
-   2. TRENDING SECTION
-   ========================================= */
 .trending-section {
-    padding: 4rem 0;
-    border-top: 2px solid var(--text-primary, #1A1F18);
+    width: 100%;
+    padding: 6rem 0 4rem 0;
+    background-color: var(--off-white); 
 }
 
+.trending-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    padding-bottom: 1rem;
+}
 .section-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .section-header h2 {
-    font-family: var(--font-heading, 'Raleway', sans-serif);
-    font-size: var(--text-h2, 2.5rem);
-    color: var(--text-primary, #1A1F18);
+    font-family: var(--font-heading); 
+    font-size: 2.5rem;
+    color: #1A1F18;
     margin: 0;
+    letter-spacing: -1px;
 }
 
 .all-recipes-link {
-    font-family: var(--font-body, 'Open Sans', sans-serif);
+    font-family: var(--font-body);
     font-weight: 600;
-    color: var(--text-primary, #1A1F18);
-    text-decoration: none;
-    font-size: 1rem;
+    color: #1A1F18;
+    text-decoration: underline;
+    font-size: var(--text-small);
 }
 
 .all-recipes-link:hover {
-    text-decoration: underline;
+    color: #871F16;
 }
 
-/* Asymmetric Grid for 3 items */
-.trending-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr; 
-    gap: 2rem;
+.trending-flex-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
 }
 
-.trending-grid-item:first-child .card img {
-    aspect-ratio: 16 / 9;
-    height: auto;
+.trending-flex-item {
+    flex: 1;
+    min-width: 0;
 }
 
-.trending-grid-item:not(:first-child) .card img {
-    aspect-ratio: 4 / 3;
-    height: auto;
+.landing-mini-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease;
+    width: 100%;
 }
 
-/* =========================================
-   3. APP PROMO SECTION
-   ========================================= */
+.landing-mini-card:hover {
+    transform: translateY(-4px);
+}
+
+.landing-mini-img {
+    width: 100%;
+    height: 380px; 
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.landing-mini-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.landing-mini-info h3 {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wireframe-box {
+    width: 100%;
+    height: 380px;
+    background-color: #f4f4f4;
+    border-radius: 16px;
+}
+
 .app-promo-section {
+    width: 100%;
+    background-color: #2A3B24;
+    color: #F9F8F6;
+    /* margin-top: 4rem; */
+}
+
+.app-promo-container {
+    margin: 0 auto;
+    padding-left: 5%;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 4rem;
-    padding: 5rem 0;
-    border-top: 2px solid var(--text-primary, #1A1F18);
+    grid-template-columns: 1fr 1fr; 
+    gap: 0;
+    align-items: stretch;
+}
+
+.view-btn {
+     display: inline-block;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary, #1A1F18);
+    text-decoration: none;
+    border: 2px solid var(--text-primary, #1A1F18);
+    border-radius: 8px;
+    padding: 0.21rem 1.1rem;
+    transition: all 0.2s ease;
 }
 
 .promo-subtitle {
     display: block;
-    font-family: var(--font-body, 'Open Sans', sans-serif);
+    font-family: var(--font-body);
     font-size: var(--text-small, 0.9rem);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 1rem;
-    color: var(--text-secondary, #8C3813);
+    color: #A3B18A;
 }
 
 .promo-content h2 {
-    font-family: var(--font-heading, 'Raleway', sans-serif);
+    font-family: var(--font-heading);
     font-size: var(--text-h2, 2.5rem);
     margin-bottom: 1.5rem;
+    color: #FFFFFF;
+}
+
+.promo-content p {
+    color: #E0E0E0;
+    line-height: 1.6;
+    font-family: var(--font-body);
+}
+
+.promo-content {
+    font-size: var(--text-h6);
+    padding: 4rem 5rem 6rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .promo-features {
@@ -109,52 +252,52 @@
 
 .promo-features li {
     margin-bottom: 0.5rem;
+    color: #E0E0E0;
 }
 
-/* =========================================
-   WIREFRAME PLACEHOLDERS (For Dev Phase)
-   ========================================= */
-.wireframe-placeholder {
+.promo-image-wrapper {
     width: 100%;
     height: 100%;
-    min-height: 400px;
-    background-color: rgba(26, 31, 24, 0.05);
-    border: 1px solid rgba(26, 31, 24, 0.2);
+    position: relative;
+}
+
+.promo-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.wireframe-box {
-    width: 100%;
-    height: 250px;
-    background-color: rgba(26, 31, 24, 0.05);
-    border: 1px solid rgba(26, 31, 24, 0.2);
-}
-
-/* =========================================
-   MOBILE RESPONSIVENESS
-   ========================================= */
 @media (max-width: 900px) {
-    .hero-section {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
+    .promo-image-wrapper {
+        margin-top: 0;
+        height: 400px;
     }
     
-    .hero-actions {
-        justify-content: center;
+    .promo-img {
+        max-height: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .hero-section {
+        height: 60vh;
     }
 
-    .trending-grid {
+    .trending-flex-container {
+        flex-direction: column;
+    }
+
+    .landing-mini-img, .wireframe-box {
+        height: 300px;
+    }
+
+    .app-promo-container {
         grid-template-columns: 1fr;
+        padding: 0;
     }
 
-    .trending-grid-item:first-child .card img,
-    .trending-grid-item:not(:first-child) .card img {
-        aspect-ratio: 16 / 9;
-    }
-
-    .app-promo-section {
-        grid-template-columns: 1fr;
+    .promo-content {
+        padding: 4rem 5%;
     }
 }
