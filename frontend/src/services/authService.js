@@ -29,7 +29,7 @@ export const authService = {
     },
     logout: async () => {
         try {
-            const response = await api.post('logout/');
+            const response = await api.post('auth/logout/');
             return response.data;
         } catch (error) {
             console.error("Error during logout:", error);

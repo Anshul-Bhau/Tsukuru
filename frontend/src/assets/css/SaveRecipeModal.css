@@ -1,0 +1,320 @@
+/* src/assets/css/SaveRecipeModal.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65); /* Darker, more cinematic overlay */
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+.modal-container {
+    background-color: var(--snow-white, #FFFFFF);
+    width: 100%;
+    max-width: 480px; /* Slightly wider for the Pinterest feel */
+    border-radius: 24px; /* Heavy rounding */
+    padding: 2.5rem 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mobile-drag-handle {
+    display: none; /* Hidden on desktop */
+}
+
+.modal-title {
+    font-family: var(--font-heading, sans-serif);
+    color: var(--text-primary, #1A1F18);
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.modal-loading {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    padding: 2rem 0;
+}
+
+.board-options {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Tighter gap, relies on padding */
+    max-height: 280px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding-right: 4px;
+}
+
+/* Custom Scrollbar for sleekness */
+.board-options::-webkit-scrollbar {
+    width: 6px;
+}
+.board-options::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.15);
+    border-radius: 10px;
+}
+
+.board-option input[type="radio"] {
+    display: none;
+}
+
+.board-option {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    background-color: transparent;
+}
+
+/* Pinterest style uses no borders until selected or hovered */
+.board-option:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.board-option.selected {
+    background-color: var(--off-white, #F7F3EB);
+    /* Inset selection ring instead of standard border */
+    box-shadow: 0 0 0 2px var(--carbon-black) inset; 
+}
+
+.no-boards-msg {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.board-name {
+    font-family: var(--font-body, sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Plus icon styling for Create Board */
+.create-board-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.plus-icon-wrapper {
+    background-color: rgba(0,0,0,0.06);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+}
+
+.board-option.selected .plus-icon-wrapper {
+    background-color: var(--carbon-black);
+    color: var(--snow-white);
+}
+
+.new-board-input-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.new-board-input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border-radius: 16px; /* Heavy rounded input */
+    border: 2px solid rgba(0,0,0,0.1);
+    background-color: transparent;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.new-board-input:focus {
+    border-color: var(--carbon-black);
+}
+
+.modal-error {
+    color: var(--crushed-berry, #871F16);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Action Buttons */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.btn-cancel, .btn-submit {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel {
+    background-color: rgba(0,0,0,0.06);
+    color: var(--text-primary);
+    border: none;
+}
+
+.btn-cancel:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.btn-submit {
+    background-color: var(--crushed-berry, #871F16);
+    color: var(--snow-white, #FCFAF8);
+    border: none;
+}
+
+.btn-submit:hover:not(:disabled) {
+    background-color: #691710; /* Darker berry on hover */
+}
+
+.btn-submit:disabled, .btn-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =========================================
+   MOBILE BOTTOM-SHEET STYLES
+   ========================================= */
+@media (max-width: 600px) {
+    .modal-overlay {
+        align-items: flex-end; /* Pushes the modal to the bottom of the screen */
+    }
+
+    .modal-container {
+        border-radius: 32px 32px 0 0; /* Only round the top corners */
+        padding: 1rem 1.5rem 2rem 1.5rem;
+        max-width: 100%;
+        animation: slideUpMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .mobile-drag-handle {
+        display: block;
+        width: 48px;
+        height: 5px;
+        background-color: rgba(0,0,0,0.15);
+        border-radius: 10px;
+        margin: 0 auto 1.5rem auto;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse; /* Stacks buttons vertically on mobile */
+        gap: 0.5rem;
+    }
+
+    .btn-cancel, .btn-submit {
+        width: 100%;
+        padding: 16px; /* Larger tap targets */
+    }
+}
+
+@keyframes slideUpMobile {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* Add/Update these classes in your SaveRecipeModal.css */
+
+.board-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px; /* Slightly tightened padding to account for the image */
+    border-radius: 16px; /* Heavier rounding for Pinterest look */
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    background-color: transparent;
+}
+
+/* Wrapper to align the thumbnail and text horizontally */
+.board-info-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* --- Thumbnail Styles --- */
+.board-thumbnail {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background-color: #d7b3a7; /* Soft background for the letter fallback */
+    color: var(--carbon-black, #1A1F18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.board-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.board-letter {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+/* Update the Plus icon wrapper to exactly match the new thumbnail dimensions */
+.plus-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.board-option.selected .plus-icon-wrapper {
+    background-color: var(--carbon-black);
+    color: var(--snow-white);
+}

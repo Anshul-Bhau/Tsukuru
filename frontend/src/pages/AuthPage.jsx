@@ -45,21 +45,15 @@ export default function AuthPage() {
             localStorage.setItem('token', data.token);
             localStorage.setItem('username', data.username);
 
-            // Redirect to dashboard/home
             navigate('/home');
 
         } catch (error) {
-            // Log the full error response from Django to the console
-            console.log("Full Django Error Response:", error.response?.data);
-
-            // Try to extract the specific error message from Django
             const serverError = error.response?.data?.error ||
                 error.response?.data?.detail ||
                 'Authentication failed. Please try again.';
 
-            // Format the error so it displays nicely in the red alert box
             const formattedError = typeof serverError === 'object'
-                ? Object.values(serverError).flat().join(', ') // Flattens Django form errors
+                ? Object.values(serverError).flat().join(', ')
                 : serverError;
 
             setErrorMsg(formattedError);

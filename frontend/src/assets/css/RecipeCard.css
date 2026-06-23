@@ -1,71 +1,67 @@
-/* =========================================
-   EDITORIAL MENU CARD
-   ========================================= */
-
-/* Reset Link styles so it doesn't look like a standard blue link */
 .menu-card-link {
+    position: relative;
     text-decoration: none;
     color: inherit;
     display: block;
     transition: transform 0.2s ease;
 }
 
-/* Subtle lift effect on hover */
-.menu-card-link:hover {
-    transform: translateY(-5px);
+.menu-card-wrapper {
+    border-radius: 10px;
+    border: 1.34px solid var(--text-primary);
+    padding: 10px;
 }
 
 .menu-card {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    background: transparent; /* Lets the page background show through */
+    background: transparent;
     width: 100%;
+    height: 550px;
 }
 
-/* Image Area */
 .menu-card-image-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1; /* Makes the image perfectly square like the photos */
-    overflow: hidden;
-    border-radius: 4px; /* Tiny rounding to soften the edges */
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    border: 1.34px solid var(--text-primary);
 }
 
 .menu-card-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 4px;
+    image-rendering: -webkit-optimize-contrast;
 }
 
-/* The floating number badge */
 .menu-card-badge {
     position: absolute;
     top: 12px;
     left: 12px;
-    background-color: #5a362a; /* Deep espresso brown */
+    background-color: var(--green);
     color: #ffffff;
     font-size: 0.8rem;
     font-weight: 700;
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     z-index: 2;
-    font-family: var(--font-heading, sans-serif);
+    font-family: var(--font-ui-numeric);
 }
 
-/* Text Content Area */
 .menu-card-content {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    padding-right: 1rem; /* Keeps text from touching the absolute right edge */
+    padding-right: 1rem;
 }
 
-/* Title and Price Row */
 .menu-card-header {
     display: flex;
     justify-content: space-between;
@@ -81,37 +77,58 @@
     margin: 0;
 }
 
-.menu-card-price {
-    font-family: var(--font-heading, 'Raleway', sans-serif);
-    font-size: 1rem;
-    font-weight: 800;
-    color: #5a362a;
-}
-
-/* Primary Native Description */
 .menu-card-primary-desc {
     font-family: var(--font-body, 'Open Sans', sans-serif);
     font-size: 0.9rem;
     font-weight: 600;
-    color: #7d655a; /* Slightly lighter brown */
+    color: #7d655a;
     margin: 0;
     line-height: 1.3;
 }
 
-/* The tiny horizontal line */
-.menu-card-divider {
-    width: 20px;
-    height: 1px;
-    background-color: #a39189;
-    margin: 0.2rem 0;
-}
-
-/* Secondary English Translation (Typewriter style) */
 .menu-card-secondary-desc {
-    /* Using monospace gives it that specific mechanical/typewriter look from your image */
-    font-family: 'Courier New', Courier, monospace; 
+    font-family: var(--font-body);
     font-size: 0.8rem;
     color: #8c7b73;
     margin: 0;
     line-height: 1.4;
+}
+
+.menu-card-action-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+}
+
+.menu-card-content:hover .menu-card-action-icon {
+    transform: rotate(-45deg); 
+}
+
+.menu-card-bookmark-btn {
+    position: absolute;
+    top: 24px; 
+    right: 24px;
+    background-color: #fff;
+    color: var(--crushed-berry);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 36px; 
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.menu-card-bookmark-btn:hover {
+    background-color: var(--crushed-berry);
+    color: var(--snow-white);
+    border-color: var(--crushed-berry);
+    transform: scale(1.1);
+}
+
+.menu-card-bookmark-btn:active {
+    transform: scale(0.95);
 }

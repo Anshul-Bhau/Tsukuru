@@ -1,23 +1,58 @@
 import api from './api';
 
 export const recipeService = {
-    /**
-     * GET: Fetch all recipes (supports search and filtering)
-     * Endpoint: /api/recipes/ or /api/recipes/?search=pasta
-     */
-    getAllRecipes: async (searchQuery = '', filters = {}) => {
+    getAllRecipes: async (searchQuery = '', page = 1) => {
         try {
-            // Build query string dynamically
             const params = new URLSearchParams();
-            if (searchQuery) params.append('search', searchQuery);
-            
-            // Add any extra filters (e.g., category=dessert, time=30)
-            Object.keys(filters).forEach(key => params.append(key, filters[key]));
+            if (searchQuery) params.append('q', searchQuery);
+            if (page > 1) params.append('page', page);
 
             const response = await api.get(`recipes/?${params.toString()}`);
-            return response.data; // Remember: DRF might return response.data.results if paginated
+            return response.data;
         } catch (error) {
             console.error("Error fetching recipes:", error);
+            throw error;
+        }
+    },
+
+    /**
+     * GET: Fetch user boards to select where to save
+     * Endpoint: /api/account/
+     */
+    getUserBoards: async () => {
+        try {
+            const response = await api.get('account/');
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching boards:", error);
+            throw error;
+        }
+    },
+
+    /**
+     * POST: Save recipe to board or create new board
+     * Endpoint: /api/boards/
+     */
+
+    saveRecipeToBoard: async (recipeId, boardId = null, newBoardTitle = '') => {
+        try {
+            // Force the recipeId to be a clean integer
+            const payload = { recipe_id: parseInt(recipeId, 10) };
+
+            if (boardId) {
+                payload.board_id = parseInt(boardId, 10);
+            } else if (newBoardTitle) {
+                payload.new_board_title = newBoardTitle.trim();
+            }
+
+            // Verify in your browser console that this object is full before it sends
+            console.log("Sending POST payload to Django:", payload);
+
+            // The trailing slash HERE is absolutely mandatory
+            const response = await api.post('recipes/save/', payload);
+            return response.data;
+        } catch (error) {
+            console.error(`Error saving recipe ${recipeId}:`, error);
             throw error;
         }
     },
@@ -58,8 +93,8 @@ export const recipeService = {
         try {
             // If recipeData contains an image file, we MUST use FormData, not standard JSON.
             // DRF requires multipart/form-data to parse uploaded files correctly.
-            const config = recipeData instanceof FormData 
-                ? { headers: { 'Content-Type': 'multipart/form-data' } } 
+            const config = recipeData instanceof FormData
+                ? { headers: { 'Content-Type': 'multipart/form-data' } }
                 : {};
 
             const response = await api.post('recipes/', recipeData, config);
@@ -76,8 +111,8 @@ export const recipeService = {
      */
     updateRecipe: async (id, recipeData) => {
         try {
-            const config = recipeData instanceof FormData 
-                ? { headers: { 'Content-Type': 'multipart/form-data' } } 
+            const config = recipeData instanceof FormData
+                ? { headers: { 'Content-Type': 'multipart/form-data' } }
                 : {};
 
             // Use PATCH for partial updates, PUT if you are replacing the whole object
@@ -107,13 +142,4 @@ export const recipeService = {
      * POST: Save/Bookmark a recipe to the user's profile
      * Endpoint: /api/recipes/{id}/save/
      */
-    saveRecipeToBoard: async (id) => {
-        try {
-            const response = await api.post(`recipes/${id}/save/`);
-            return response.data;
-        } catch (error) {
-            console.error(`Error saving recipe ${id}:`, error);
-            throw error;
-        }
-    }
 };

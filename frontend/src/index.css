@@ -1,25 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Raleway:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 :root {
-  
+
   /* Font Families */
   --font-heading: 'Raleway', sans-serif;
   --font-body: 'Open Sans', sans-serif;
+  --font-ui-numeric: 'Plus Jakarta Sans', sans-serif;
 
-  --text-logo: clamp(1.75rem, 2vw + 1rem, 2.5rem);   
-  --text-h1: clamp(2.25rem, 4vw + 1.25rem, 3.5rem);    
-  --text-h2: clamp(1.75rem, 3vw + 1rem, 2.5rem);         
-  --text-h3: clamp(1.375rem, 2vw + 1rem, 1.875rem);       
-  --text-h4: clamp(1.125rem, 1.5vw + 0.875rem, 1.5rem);  
-  --text-h5: clamp(1rem, 1vw + 0.875rem, 1.25rem);      
-  --text-h6: clamp(0.875rem, 0.5vw + 0.8rem, 1rem);     
-  
-  --text-body-lg: clamp(1.125rem, 1vw + 0.875rem, 1.25rem); 
-  --text-body: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);     
-  --text-nav: clamp(0.9375rem, 0.5vw + 0.8rem, 1.0625rem); 
+  --text-logo: clamp(1.75rem, 2vw + 1rem, 2.5rem);
+  --text-h1: clamp(2.25rem, 4vw + 1.25rem, 3.5rem);
+  --text-h2: clamp(1.75rem, 3vw + 1rem, 2.5rem);
+  --text-h3: clamp(1.375rem, 2vw + 1rem, 1.875rem);
+  --text-h4: clamp(1.125rem, 1.5vw + 0.875rem, 1.5rem);
+  --text-h5: clamp(1rem, 1vw + 0.875rem, 1.25rem);
+  --text-h6: clamp(0.875rem, 0.5vw + 0.8rem, 1rem);
+
+  --text-body-lg: clamp(1.125rem, 1vw + 0.875rem, 1.25rem);
+  --text-body: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+  --text-nav: clamp(0.9375rem, 0.5vw + 0.8rem, 1.0625rem);
   --text-small: clamp(0.8125rem, 0.25vw + 0.75rem, 0.9375rem);
-  --text-footer: clamp(0.75rem, 0.25vw + 0.7rem, 0.875rem); 
-  
+  --text-footer: clamp(0.75rem, 0.25vw + 0.7rem, 0.875rem);
+
   --honey-bronze: #F1B04Aff;
   --crushed-berry: #871F16ff;
   --rust-brown: #8C3813ff;
@@ -27,35 +29,37 @@
   --pearl-beige: #E0D4ACff;
   --snow-white: #FCFAF8;
   --off-white: #F7F3EB;
-  
+  --green: #4A6B36;
+  --off-green: #D8E5D6;
+
   /* Backgrounds */
-  --bg-main: var(--snow-white);      
-  --bg-surface: #F9F7F1;                 
-  --bg-inverse: var(--carbon-black);    
-  --bg-overlay: rgba(26, 31, 24, 0.6);  
+  --bg-main: var(--snow-white);
+  --bg-surface: #F9F7F1;
+  --bg-inverse: var(--carbon-black);
+  --bg-overlay: rgba(26, 31, 24, 0.6);
 
   /* Text & Foreground */
-  --text-primary: var(--carbon-black); 
-  --text-secondary: var(--rust-brown);   
+  --text-primary: var(--carbon-black);
+  --text-secondary: var(--rust-brown);
   --text-inverse: #ffffff;
-  --text-muted: rgba(26, 31, 24, 0.6); 
+  --text-muted: rgba(26, 31, 24, 0.6);
 
   /* Accents & Brand (Buttons, Links, Highlights) */
-  --accent-primary: var(--crushed-berry); 
-  --accent-primary-hover: #691710;       
-  
+  --accent-primary: var(--crushed-berry);
+  --accent-primary-hover: #691710;
+
   --accent-secondary: var(--honey-bronze);
   --accent-secondary-hover: #d6983a;
-  
+
   /* Borders & Dividers */
-  --border-subtle: rgba(140, 56, 19, 0.15); 
-  --border-strong: var(--rust-brown);      
+  --border-subtle: rgba(140, 56, 19, 0.15);
+  --border-strong: var(--rust-brown);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -64,4 +68,8 @@ body {
   color: var(--text-primary);
   font-size: var(--text-body);
   line-height: 1.6;
+}
+
+.main-content {
+  padding-top: 75px;
 }

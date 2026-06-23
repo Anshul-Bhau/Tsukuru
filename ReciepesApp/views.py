@@ -183,7 +183,7 @@ def current_user(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def trending_recipes(request):
-    recipes = Recipes.objects.all()[4:15:3]
+    recipes = Recipes.objects.all()[14:25:3]
     return Response(ReciepeSerializer(recipes, many=True).data)
 
 @extend_schema(

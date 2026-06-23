@@ -1,0 +1,400 @@
+.user-profile-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 24px 40px 24px;
+    background-color: var(--bg-main, #FCFAF8);
+    min-height: 100vh;
+}
+
+.profile-header-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+/* --- Avatar Edit Wrapper --- */
+.profile-avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.profile-large-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.avatar-edit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.profile-avatar-wrapper:hover .avatar-edit-overlay {
+    opacity: 1;
+}
+
+.profile-display-name {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1A1F18;
+    margin: 0 0 0.25rem 0;
+}
+
+.profile-handle {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.9rem;
+    color: #5F5F5F;
+    margin-bottom: 0.75rem;
+}
+
+.profile-biography {
+    font-family: var(--font-body, sans-serif);
+    font-size: 1rem;
+    max-width: 450px;
+    line-height: 1.5;
+    color: #1A1F18;
+    margin: 0;
+}
+
+.profile-tab-navbar {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    border-bottom: 1px solid #EDEDED;
+    margin-bottom: 2rem;
+}
+
+.profile-tab-item {
+    background: none;
+    border: none;
+    font-family: var(--font-body, sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 4px;
+    cursor: pointer;
+    color: #5F5F5F;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.profile-tab-item:hover,
+.profile-tab-item.active {
+    color: #1A1F18;
+}
+
+.profile-tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #1A1F18;
+    border-radius: 2px;
+}
+
+.boards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(236px, 1fr));
+    gap: 16px;
+}
+
+.board-card-wrapper {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-preview-mosaic {
+    width: 100%;
+    height: 150px;
+    background-color: #EFEFEF;
+    border-radius: 16px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 8px;
+    transition: opacity 0.2s ease;
+}
+
+.board-card-wrapper:hover .board-preview-mosaic {
+    opacity: 0.9;
+}
+
+.mosaic-slice {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mosaic-slice.img-idx-0 {
+    grid-row: span 2;
+}
+
+.mosaic-slice.img-idx-1 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.mosaic-slice.img-idx-2 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.mosaic-fallback-blank {
+    grid-column: span 2;
+    grid-row: span 2;
+    background-color: #E2E2E2;
+}
+
+.board-title-text {
+    font-family: var(--font-body, sans-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1A1F18;
+    margin: 0 0 2px 0;
+}
+
+.board-counter-label {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.8rem;
+    color: #5F5F5F;
+}
+
+.account-loading-container,
+.account-error-container,
+.empty-state-card {
+    font-family: var(--font-body, sans-serif);
+    text-align: center;
+    padding: 3rem;
+    color: #5F5F5F;
+}
+
+.abstract-block {
+    background-color: #D3CBB8;
+    width: 100%;
+    height: 100%;
+}
+
+.abstract-block.img-idx-0 {
+    background-color: #C2B8A3;
+}
+
+.abstract-block.img-idx-1 {
+    background-color: #E0D7C6;
+}
+
+.abstract-block.img-idx-2 {
+    background-color: #B0A691;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: var(--bg-main, #FCFAF8);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content.large-modal {
+    max-width: 800px;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1A1F18;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.modal-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.board-recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.board-recipe-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.board-recipe-img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.board-recipe-img:hover {
+    transform: scale(1.02);
+}
+
+.board-recipe-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.board-recipe-info h4 {
+    margin: 0;
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.unsave-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: #871F16;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.unsave-btn:hover {
+    background-color: rgba(135, 31, 22, 0.1);
+}
+
+.recipe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #1A1F18;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 8px;
+    font-family: var(--font-body, sans-serif);
+    background-color: #FFF;
+}
+
+.form-group input[type="file"] {
+    font-size: 0.9rem;
+}
+
+.submit-recipe-btn {
+    background-color: var(--green, #4A6B36);
+    color: #FFF;
+    font-weight: 700;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.submit-recipe-btn:hover:not(:disabled) {
+    background-color: #3A542A;
+}
+
+.submit-recipe-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* --- Profile Picture Selector Grid --- */
+.pfp-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+    margin-top: 1rem;
+}
+
+.pfp-option-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.pfp-option-img:hover {
+    transform: scale(1.05);
+    border-color: #E0E0E0;
+}
+
+.pfp-option-img.selected {
+    border-color: var(--green, #4A6B36);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(74, 107, 54, 0.2);
+}

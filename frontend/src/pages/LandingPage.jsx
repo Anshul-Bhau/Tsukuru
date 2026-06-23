@@ -49,7 +49,7 @@ export default function LandingPage() {
             <section className="trending-section">
                 <div className="trending-container">
                     <div className="section-header">
-                        <h2>Featured Recipes</h2>
+                        <h2>Popular Recipes</h2>
                         <Link to="/home" className="all-recipes-link">All Recipes &rarr;</Link>
                     </div>
 
@@ -60,13 +60,14 @@ export default function LandingPage() {
                                     <div className="landing-mini-img">
                                         <img src={recipe.image || defaultImg} alt={recipe.title} loading="lazy" />
                                     </div>
-                                    <div className="landing-mini-info">
+                                    <div className="landing-mini-title">
                                         <h3>{recipe.title}</h3>
                                     </div>
-                                    <div className="landing-mini-viewbtn">
-                                        <Link to="/home" className="view-btn">
-                                            view more
-                                        </Link>
+                                    <div className="landing-mini-info">
+                                        <p>{recipe?.directions.substring(0, 40) + "..."}</p>
+                                    </div>
+                                    <div className="get-recipe-btn">
+                                        <button>Get recipe</button><span className='link-arrow'>→</span>
                                     </div>
                                 </Link>
                             </div>
@@ -88,13 +89,26 @@ export default function LandingPage() {
                     <div className="promo-content">
                         <span className="promo-subtitle">ELEVATE EVERYDAY COOKING</span>
                         <h2>Ditch the doomscroll. Start cooking.</h2>
-                        <p>Stop staring blankly into your fridge. Whether you have thirty minutes or three hours, Tsukuru instantly generates beautiful, restaurant-quality meal plans based exactly on what you already have.
+                        <p>
+                            Stop staring blankly into your fridge. Whether you have thirty minutes or three hours,
+                            Tsukuru instantly generates beautiful, restaurant-quality meal plans based exactly on
+                            what you already have.
                         </p>
+
                         <ul className="promo-features">
                             <li>Smart ingredient matching</li>
                             <li>Curated seasonal collections</li>
                             <li>Step-by-step guided cooking</li>
                         </ul>
+
+                       
+                        <div className="promo-cta-wrapper">
+                           
+                            <Link to='/signup' className='btn-primary-cta'>Get Tsukuru free</Link>
+                            <span className="cta-micro-text">
+                                No credit card required. Available on Web & Mobile.
+                            </span>
+                        </div>
                     </div>
                     <div className="promo-image-wrapper">
                         <img src={promoImg} alt="Tsukuru app" className="promo-img" />
