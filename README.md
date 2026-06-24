@@ -1,81 +1,65 @@
-# Tsukuru 🍽️  
-*Find recipes, save them, cook with confidence.*
+# Tsukuru
+*Cook boldly. Save passionately. Discover infinitely.*
+
+Tsukuru is a curated recipe discovery platform designed to help you figure out what to make, organize your favorite dishes, and cook with absolute confidence. 
 
 ---
 
 ## Features
 
-### 1. Vast Search Database  
-Search hundreds of curated recipes across global cuisines by simply entering an ingredient.
-
-### 2. User-Friendly Interface  
-Designed for clarity and ease — whether you're a seasoned chef or a curious beginner.
-
-### 3. Secure Authentication  
-- Register or log in using [django-allauth](https://django-allauth.readthedocs.io/en/latest/)  
-- Integrated Google OAuth 2.0 for seamless access  
-- Built-in logout and session protection
-
-### 4. User Profiles  
-Each user has a personal profile to view saved recipes and manage preferences.
-
-### 5. Save & Unsave Recipes  
-- Organize favorites with one click  
-- Add or remove recipes from personal boards effortlessly
-
----
-
-## Team Tsukuru
-
-**Rudee** — Frontend Developer, UI/UX Designer  
-**Shashwat** — Frontend Developer (Flutter)  
-**Anshul** — Backend Developer, Database Management
-
----
-
-## License
-
-**Custom License — Tsukuru Project (2025)**
-
-All content in this repository (code, images, design, and text) is protected under a custom license.
-
-**You may:**
-- View and fork this repository for personal, educational, or non-commercial purposes.
-
-**You may not:**
-- Use any portion of the code or content for commercial purposes.
-- Distribute, reproduce, or claim ownership of the materials without explicit written permission.
-
-Violations may result in takedown requests or legal action.  
-For permissions, contact the project maintainers directly.
+* **Ingredient-Driven Discovery:** Search through a vast, curated database of global cuisines by simply entering the ingredients you already have.
+* **Minimalist & Intuitive UI:** Crafted for absolute clarity. Whether you are a seasoned chef or a curious beginner, the interface gets out of your way so you can focus on the food.
+* **Personalized Curation:** Every user gets a dedicated profile to build custom boards, manage preferences, and save (or unsave) favorite recipes with a single click.
+* **Secure & Seamless Access:** Built with robust session protection. Register traditionally or use our integrated Google OAuth 2.0 for frictionless login, powered by [django-allauth](https://django-allauth.readthedocs.io/en/latest/).
 
 ---
 
 ## Tech Stack
 
-- **Backend:** Django (Python)
-- **Frontend:** HTML, CSS, JavaScript
-- **Authentication:** Django Allauth with Google OAuth integration
-- **Database:** MySQL
+* **Backend:** Django (Python)
+* **Frontend:** React JS
+* **Database:** MySQL
+* **Authentication:** Django-Allauth with Google OAuth 2.0 integration
 
 ---
 
-## Contributions
+## The Team
 
-We welcome pull requests. For significant changes, kindly open an issue first to initiate discussion.  
-Let’s collaborate with clarity and code with care.
+Tsukuru is brought to life by a dedicated trio of developers:
+
+* **Rudee** — Frontend Developer & UI/UX Designer
+* **Shashwat** — Frontend Developer (Flutter)
+* **Anshul** — Backend Developer & Database Manager
+
+---
+
+## License & Usage
+
+**Custom License — Tsukuru Project (2025)**
+
+All content within this repository—including code, design assets, images, and text—is strictly protected under a custom license. 
+
+**You may:**
+* View and fork this repository strictly for personal, educational, or non-commercial purposes.
+
+**You may not:**
+* Use any portion of the code, design, or content for commercial purposes.
+* Distribute, reproduce, or claim ownership of these materials without explicit written permission.
+
+*Note: Violations of these terms may result in formal takedown requests or legal action. For commercial inquiries or special permissions, please contact the maintainers directly.*
+
+---
+
+## Contributing
+
+We welcome community pull requests! To ensure a smooth collaboration, please open an issue first to discuss any significant changes or features you would like to add. Let’s collaborate with clarity and code with care.
 
 ---
 
 ## Contact
 
-For queries, collaborations, or licensing:
-Frontend Dev - **rudrabhau844@gmail.com**
-Backend Dev - **anshulbhau83@gmail.com**
-App Developer - **shashwat24baheti@gmail.com**
+For project queries, collaboration opportunities, or licensing requests, feel free to reach out to the team:
 
----
-
-### Cook boldly. Save passionately. Discover infinitely.  
-**— Team Tsukuru**
-
+* **Frontend:** rudrabhau844@gmail.com
+* **Backend:** anshulbhau83@gmail.com
+* **App Dev:** shashwat24baheti@gmail.com
